@@ -14,6 +14,7 @@
 		8E0540E92BFF691900385365 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E0540E82BFF691900385365 /* Assets.xcassets */; };
 		8E0540EC2BFF691900385365 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8E0540EB2BFF691900385365 /* Base */; };
 		8E76643F2C04B32100F67B5A /* BookSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E76643E2C04B32100F67B5A /* BookSearchViewController.swift */; };
+		8E7664422C04B6C700F67B5A /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7664412C04B6C700F67B5A /* Book.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		8E0540EB2BFF691900385365 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E0540ED2BFF691900385365 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E76643E2C04B32100F67B5A /* BookSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchViewController.swift; sourceTree = "<group>"; };
+		8E7664412C04B6C700F67B5A /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 			children = (
 				8E0540DF2BFF691700385365 /* AppDelegate.swift */,
 				8E0540E12BFF691700385365 /* SceneDelegate.swift */,
+				8E7664402C04B6B400F67B5A /* Model */,
 				8E76643D2C04B21200F67B5A /* View */,
 				8E0540E52BFF691700385365 /* Main.storyboard */,
 				8E0540E82BFF691900385365 /* Assets.xcassets */,
@@ -76,6 +79,14 @@
 				8E76643E2C04B32100F67B5A /* BookSearchViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		8E7664402C04B6B400F67B5A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8E7664412C04B6C700F67B5A /* Book.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,6 +163,7 @@
 				8E0540E42BFF691700385365 /* ViewController.swift in Sources */,
 				8E76643F2C04B32100F67B5A /* BookSearchViewController.swift in Sources */,
 				8E0540E02BFF691700385365 /* AppDelegate.swift in Sources */,
+				8E7664422C04B6C700F67B5A /* Book.swift in Sources */,
 				8E0540E22BFF691700385365 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
