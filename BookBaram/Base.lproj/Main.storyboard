@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tXg-Eb-ZEp">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
@@ -42,15 +42,16 @@
                                 <rect key="frame" x="0.0" y="150" width="393" height="668"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="bookCell" rowHeight="150" id="evP-jS-4wv">
-                                        <rect key="frame" x="0.0" y="50" width="393" height="150"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="bookCell" rowHeight="130" id="evP-jS-4wv" customClass="BookSearchResultCell" customModule="BookBaram" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="evP-jS-4wv" id="13N-xd-RTm">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="150"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="130"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3FG-3A-eOu">
                                                     <rect key="frame" x="10" y="10" width="100" height="100"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="100" id="eEo-r0-bzz"/>
                                                         <constraint firstAttribute="width" constant="100" id="mzE-bq-Xxp"/>
@@ -80,6 +81,11 @@
                                                 <constraint firstItem="v1p-yE-vow" firstAttribute="top" secondItem="13N-xd-RTm" secondAttribute="topMargin" constant="20" id="zSg-C3-d5c"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="author" destination="g8k-pJ-5nA" id="u2Z-68-29J"/>
+                                            <outlet property="thumnail" destination="3FG-3A-eOu" id="Tfo-KT-C4I"/>
+                                            <outlet property="title" destination="v1p-yE-vow" id="8Zl-QL-SUR"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -96,10 +102,13 @@
                             <constraint firstItem="dKU-c6-676" firstAttribute="leading" secondItem="JR6-dT-W8a" secondAttribute="leading" id="vLv-tj-ZYb"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bookSearchResultView" destination="dKU-c6-676" id="YE7-xt-Qpb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NSY-Fk-0LL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131" y="-712"/>
+            <point key="canvasLocation" x="130.53435114503816" y="-712.67605633802816"/>
         </scene>
     </scenes>
     <resources>
