@@ -9,21 +9,37 @@ import UIKit
 
 class BookSearchViewController: UIViewController {
 
+    @IBOutlet var bookSearchResultView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        bookSearchResultView.delegate = self
+        bookSearchResultView.dataSource = self
+    }
+}
 
-        // Do any additional setup after loading the view.
+// MARK: - UITableViewDelegate
+extension BookSearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 130
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension BookSearchViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // TODO: 나중에 datasource와 연결 필요
+        return 1
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "bookCell") as? BookSearchResultCell else {
+            fatalError("This is not BookSearchResultCell")
+        }
+        
+        // TODO: cell.setItem(...)
+        
+        return cell
     }
-    */
-
 }
