@@ -10,12 +10,14 @@ import UIKit
 class BookSearchViewController: UIViewController {
 
     @IBOutlet var bookSearchResultView: UITableView!
+    @IBOutlet var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         bookSearchResultView.delegate = self
         bookSearchResultView.dataSource = self
+        searchBar.delegate = self
     }
 }
 
@@ -41,5 +43,15 @@ extension BookSearchViewController: UITableViewDataSource {
         // TODO: cell.setItem(...)
         
         return cell
+    }
+}
+
+extension BookSearchViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // TODO: 검색 api 호출
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
     }
 }

@@ -104,6 +104,7 @@
                     </view>
                     <connections>
                         <outlet property="bookSearchResultView" destination="dKU-c6-676" id="YE7-xt-Qpb"/>
+                        <outlet property="searchBar" destination="PkX-4l-3hF" id="Cjc-Ni-dR9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NSY-Fk-0LL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
