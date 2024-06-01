@@ -14,6 +14,8 @@
 		8E0540E92BFF691900385365 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E0540E82BFF691900385365 /* Assets.xcassets */; };
 		8E0540EC2BFF691900385365 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8E0540EB2BFF691900385365 /* Base */; };
 		8E59F3982C0AE4B4006B9074 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59F3972C0AE4B4006B9074 /* ApiClient.swift */; };
+		8E59F39A2C0AEE69006B9074 /* BaramError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59F3992C0AEE69006B9074 /* BaramError.swift */; };
+		8E59F39C2C0AFB0F006B9074 /* BaramUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59F39B2C0AFB0F006B9074 /* BaramUrl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		8E0540EB2BFF691900385365 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E0540ED2BFF691900385365 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E59F3972C0AE4B4006B9074 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
+		8E59F3992C0AEE69006B9074 /* BaramError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaramError.swift; sourceTree = "<group>"; };
+		8E59F39B2C0AFB0F006B9074 /* BaramUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaramUrl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,9 @@
 			isa = PBXGroup;
 			children = (
 				8E59F3972C0AE4B4006B9074 /* ApiClient.swift */,
+				8E59F3992C0AEE69006B9074 /* BaramError.swift */,
+				8E59F39B2C0AFB0F006B9074 /* BaramUrl.swift */,
+			);
 			path = Network;
 			sourceTree = "<group>";
 		};
@@ -150,6 +157,8 @@
 			files = (
 				8E0540E42BFF691700385365 /* ViewController.swift in Sources */,
 				8E0540E02BFF691700385365 /* AppDelegate.swift in Sources */,
+				8E59F39A2C0AEE69006B9074 /* BaramError.swift in Sources */,
+				8E59F39C2C0AFB0F006B9074 /* BaramUrl.swift in Sources */,
 				8E0540E22BFF691700385365 /* SceneDelegate.swift in Sources */,
 				8E59F3982C0AE4B4006B9074 /* ApiClient.swift in Sources */,
 			);
