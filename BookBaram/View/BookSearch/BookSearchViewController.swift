@@ -9,15 +9,37 @@ import UIKit
 
 class BookSearchViewController: UIViewController {
 
-    @IBOutlet var bookSearchResultView: UITableView!
-    @IBOutlet var searchBar: UISearchBar!
+    let bookSearchResultView: UITableView = UITableView(frame: .zero)
+    let searchBar: UISearchBar = UISearchBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // init viewlayout
+        initViewLayout()
+        
+        // set delegate
         bookSearchResultView.delegate = self
         bookSearchResultView.dataSource = self
         searchBar.delegate = self
+    }
+    
+    private func initViewLayout() {
+        self.view.addSubview(searchBar)
+        self.view.addSubview(bookSearchResultView)
+        
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        searchBar.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        
+        bookSearchResultView.translatesAutoresizingMaskIntoConstraints = false
+        bookSearchResultView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 20.0).isActive = true
+        bookSearchResultView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        bookSearchResultView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        bookSearchResultView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        
+        bookSearchResultView.register(BookSearchResultCell.self, forCellReuseIdentifier: "bookCell")
     }
 }
 
