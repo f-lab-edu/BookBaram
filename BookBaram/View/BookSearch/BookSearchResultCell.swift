@@ -53,12 +53,9 @@ class BookSearchResultCell: UITableViewCell {
         self.title.text = item.title
         self.author.text = item.author
         
-        DispatchQueue.global().async {
-            if let imageData = try? Data(contentsOf: item.image) {
-                DispatchQueue.main.sync {
-                    self.thumbnail.image = UIImage(data: imageData)
-                }
-            }
-        }        
+        Task {
+            let (imageData, _) = try await URLSession.shared.data(from: item.image)
+            self.thumbnail.image = UIImage(data: imageData)
+        }
     }
 }
