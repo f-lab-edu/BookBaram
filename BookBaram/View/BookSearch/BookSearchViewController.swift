@@ -9,14 +9,23 @@ import UIKit
 
 class BookSearchViewController: UIViewController {
 
-    let bookSearchResultView: UITableView = UITableView(frame: .zero)
-    let searchBar: UISearchBar = UISearchBar()
+    lazy var bookSearchResultView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        return searchBar
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // init viewlayout
-        initViewLayout()
+        setLayout()
         
         // set delegate
         bookSearchResultView.delegate = self
@@ -24,17 +33,16 @@ class BookSearchViewController: UIViewController {
         searchBar.delegate = self
     }
     
-    private func initViewLayout() {
+    private func setLayout() {
         self.view.addSubview(searchBar)
         self.view.addSubview(bookSearchResultView)
         
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        let marginConstant = 20.0
         searchBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
         searchBar.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         searchBar.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         
-        bookSearchResultView.translatesAutoresizingMaskIntoConstraints = false
-        bookSearchResultView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 20.0).isActive = true
+        bookSearchResultView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: marginConstant).isActive = true
         bookSearchResultView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         bookSearchResultView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         bookSearchResultView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true

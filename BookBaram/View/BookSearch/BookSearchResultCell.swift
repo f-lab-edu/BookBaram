@@ -7,10 +7,25 @@
 
 import UIKit
 
-class BookSearchResultCell: UITableViewCell {    
-    var thumbnail: UIImageView = UIImageView()
-    var title: UILabel = UILabel()
-    var author: UILabel = UILabel()
+class BookSearchResultCell: UITableViewCell {
+    lazy var thumbnail: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .black // placeholder
+        return imageView
+    }()
+    
+    lazy var title: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var author: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,21 +44,17 @@ class BookSearchResultCell: UITableViewCell {
         
         let marginValue = 15.0
         let imageSize = 100.0
-        
-        thumbnail.translatesAutoresizingMaskIntoConstraints = false
+                
         thumbnail.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: marginValue).isActive = true
         thumbnail.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         thumbnail.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor, constant: marginValue * -1).isActive = true
         thumbnail.widthAnchor.constraint(equalToConstant: imageSize).isActive = true
         thumbnail.heightAnchor.constraint(equalToConstant: imageSize).isActive = true
-        thumbnail.backgroundColor = .black // placeholder
         
-        title.translatesAutoresizingMaskIntoConstraints = false
         title.topAnchor.constraint(equalTo: thumbnail.topAnchor).isActive = true
         title.leadingAnchor.constraint(equalTo: self.thumbnail.trailingAnchor, constant: marginValue).isActive = true
         title.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: marginValue).isActive = true
         
-        author.translatesAutoresizingMaskIntoConstraints = false
         author.topAnchor.constraint(equalTo: title.bottomAnchor, constant: marginValue).isActive = true
         author.leadingAnchor.constraint(equalTo: title.leadingAnchor).isActive = true
         author.trailingAnchor.constraint(equalTo: title.trailingAnchor).isActive = true
