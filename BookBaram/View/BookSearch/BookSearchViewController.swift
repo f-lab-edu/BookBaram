@@ -34,6 +34,8 @@ class BookSearchViewController: UIViewController {
     }
     
     private func setLayout() {
+        self.view.backgroundColor = .systemBackground
+        
         self.view.addSubview(searchBar)
         self.view.addSubview(bookSearchResultView)
         
