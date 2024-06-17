@@ -11,10 +11,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
-    func scene(_ scene: UIScene, willConnectTo 
+    func scene(_ scene: UIScene, willConnectTo
                session: UISceneSession,
-               options connectionOptions: UIScene.ConnectionOptions) {        
+               options connectionOptions: UIScene.ConnectionOptions) {
         guard (scene as? UIWindowScene) != nil else { return }
     }
 
@@ -33,6 +32,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidEnterBackground(_ scene: UIScene) {
     }
 
-
 }
-
