@@ -8,75 +8,34 @@
 import Foundation
 import UIKit
 
-class HomeViewController: UIViewController {
-    lazy var bookCalendarView: UICalendarView = {
-        let calendarView = UICalendarView()
-        calendarView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let gregorianCalendar = Calendar(identifier: .gregorian)
-        calendarView.calendar = gregorianCalendar
-        calendarView.locale = Locale(identifier: "ko_KR")
-        
-        return calendarView
-    }()
-    
-    lazy var bookListView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
-    
-    lazy var addButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "plus"), for: .normal)
-        button.tintColor = .white
-        button.backgroundColor = .orange
-        button.layer.cornerRadius = 25.0
-        button.addTarget(self, action: #selector(moveToAddEditor), for: .touchUpInside)
-        return button
-    }()
+final class HomeViewController: UIViewController {
+    let homeView = HomeView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setLayout()
-        
-        bookCalendarView.delegate = self
-        bookCalendarView.wantsDateDecorations = true
-        
-        bookListView.delegate = self
-        bookListView.dataSource = self
+        homeView.delegate(calendarViewDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
+        homeView.addButtonAction(action: UIAction(handler: { [weak self] _ in
+            self?.moveToSearchViewController()
+        }))
     }
     
     private func setLayout() {
         self.view.backgroundColor = .systemBackground
         
-        self.view.addSubview(bookCalendarView)
-        self.view.addSubview(bookListView)
-        self.view.addSubview(addButton)
+        view.addSubview(homeView)
         
-        let margin = 20.0
-        let btnSize = 50.0
+        homeView.translatesAutoresizingMaskIntoConstraints = false
+        homeView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        homeView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        homeView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        homeView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         
-        bookCalendarView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        bookCalendarView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        bookCalendarView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5).isActive = true
-        
-        bookListView.topAnchor.constraint(equalTo: self.bookCalendarView.bottomAnchor, constant: margin).isActive = true
-        bookListView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        bookListView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        
-        addButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: margin * -1).isActive = true
-        addButton.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: margin * -1).isActive = true
-        addButton.widthAnchor.constraint(equalToConstant: btnSize).isActive = true
-        addButton.heightAnchor.constraint(equalToConstant: btnSize).isActive = true
-        
-        bookListView.register(HomeBookRecordCellTableViewCell.self, forCellReuseIdentifier: "bookRecordCell")
+        homeView.layout()
     }
-    
-    @objc
-    private func moveToAddEditor(_ sender: UIButton) {
+        
+    private func moveToSearchViewController() {
         let bookSearchViewController = BookSearchViewController()
         self.navigationController?.pushViewController(bookSearchViewController, animated: true)
     }
@@ -87,11 +46,8 @@ extension HomeViewController: UICalendarViewDelegate {
     
 }
 
-// MARK: -
+// MARK: - UITableViewDelegate
 extension HomeViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
 }
 
 // MARK: -
@@ -102,8 +58,9 @@ extension HomeViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "bookRecordCell") as? HomeBookRecordCellTableViewCell else {
-            fatalError("cell does not conform type")
-        }                
+            // 에러 대신 기본 셀??
+            return UITableViewCell()
+        }
         
         cell.titleLabel.text = "temp"
         cell.dateLabel.text = "temp"
