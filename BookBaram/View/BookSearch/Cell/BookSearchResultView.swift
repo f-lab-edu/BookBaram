@@ -1,46 +1,38 @@
 //
-//  BookSearchResultCell.swift
+//  BookSearchResultView.swift
 //  BookBaram
 //
-//  Created by 이송미 on 5/27/24.
+//  Created by 이송미 on 6/17/24.
 //
 
 import UIKit
 
-class BookSearchResultCell: UITableViewCell {
-    lazy var thumbnail: UIImageView = {
+class BookSearchResultView: UIView {
+
+    let thumbnail: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .black // placeholder
         return imageView
     }()
     
-    lazy var title: UILabel = {
+    let title: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    lazy var author: UILabel = {
+    let author: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        setLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setLayout() {
-        self.addSubview(thumbnail)
-        self.addSubview(title)
-        self.addSubview(author)
+    func layout() {
+        addSubview(thumbnail)
+        addSubview(title)
+        addSubview(author)
         
         let marginValue = 15.0
         let imageSize = 100.0
@@ -60,13 +52,11 @@ class BookSearchResultCell: UITableViewCell {
         author.trailingAnchor.constraint(equalTo: title.trailingAnchor).isActive = true
     }
     
-    func setItem(item: Item) {
+    func setItem(item: Item) async throws {
         self.title.text = item.title
         self.author.text = item.author
         
-        Task {
-            let (imageData, _) = try await URLSession.shared.data(from: item.image)
-            self.thumbnail.image = UIImage(data: imageData)
-        }
+        let (imageData, _) = try await URLSession.shared.data(from: item.image)
+        self.thumbnail.image = UIImage(data: imageData)
     }
 }

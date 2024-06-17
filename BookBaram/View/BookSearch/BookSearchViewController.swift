@@ -9,17 +9,7 @@ import UIKit
 
 class BookSearchViewController: UIViewController {
 
-    lazy var bookSearchResultView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
-    
-    lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        return searchBar
-    }()
+    let bookSearchView = BookSearchView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,26 +18,16 @@ class BookSearchViewController: UIViewController {
         setLayout()
         
         // set delegate
-        bookSearchResultView.delegate = self
-        bookSearchResultView.dataSource = self
-        searchBar.delegate = self
+        bookSearchView.delegate(searchbarDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
     }
     
     private func setLayout() {
-        self.view.addSubview(searchBar)
-        self.view.addSubview(bookSearchResultView)
+        self.view.addSubview(bookSearchView)
         
-        let marginConstant = 20.0
-        searchBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        searchBar.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        searchBar.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        
-        bookSearchResultView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: marginConstant).isActive = true
-        bookSearchResultView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        bookSearchResultView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        bookSearchResultView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        
-        bookSearchResultView.register(BookSearchResultCell.self, forCellReuseIdentifier: "bookCell")
+        bookSearchView.translatesAutoresizingMaskIntoConstraints = false
+        bookSearchView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1).isActive = true
+        bookSearchView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
+        bookSearchView.layout()
     }
 }
 
