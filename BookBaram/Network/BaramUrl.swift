@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct BaramUrl {
-    public static let naverApi = "https://openapi.naver.com/"
+enum BaramUrl {
+    static let naverApi = "https://openapi.naver.com"
 }
 
-struct Path {
-    public static let bookSearch = "/search/book.json"
+enum Path {
+    static let bookSearch = "/v1/search/book.json"
 }

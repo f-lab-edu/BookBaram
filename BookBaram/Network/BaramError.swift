@@ -13,7 +13,7 @@ struct BaramErrorInfo: Error {
 }
 
 enum BaramError {
-    case InvalidRequest
-    case InvalidResponse
-    case Unknown
+    case invalidRequest
+    case invalidResponse
+    case unknown
 }

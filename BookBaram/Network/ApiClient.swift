@@ -7,18 +7,21 @@
 
 import Foundation
 
+enum HttpMethod: String {
+    case get, post
+}
+
 struct ApiClient {
     public static let shared = ApiClient()
     private let session = URLSession.shared
     
     func request(_ urlString: String,
+                 method: HttpMethod,
                  parameters: [String: Any]? = nil,
-                 headers: [String: String]? = nil,
-                 completion: @escaping (Result<Data, Error>) -> Void) {
+                 headers: [String: String]? = nil) async throws -> Data? {
         
-        guard var urlComponent = URLComponents(string: urlString) else {
-            completion(.failure(BaramErrorInfo(error: .InvalidRequest)))
-            return
+        guard var urlComponent = URLComponents(string: urlString) else {            
+            throw BaramErrorInfo.init(error: .invalidRequest)
         }
         
         if let parameters {
@@ -31,33 +34,34 @@ struct ApiClient {
         }
         
         guard let url = urlComponent.url else {
-            completion(.failure(BaramErrorInfo(error: .InvalidRequest)))
-            return
+            throw BaramErrorInfo.init(error: .invalidRequest)
         }
         
         var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "get"
+        urlRequest.httpMethod = method.rawValue
         
         if let headers {
-            for i in headers {
-                urlRequest.setValue(i.value, forHTTPHeaderField: i.key)
+            for header in headers {
+                urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
             }
-        }        
-        
-        session.dataTask(with: urlRequest) { data, response, error in
-            if let error {
-                // error handle
-                completion(.failure(error))
-                return
-            }
+        }
                         
-            guard let data, let httpResponse = response as? HTTPURLResponse, (200..<300) ~= httpResponse.statusCode else {
-                completion(.failure(BaramErrorInfo(error: .InvalidResponse)))
-                return
+        var response: (Data, URLResponse)?
+        // retry
+        for _ in 0..<3 {
+            response = try await session.data(for: urlRequest)
+            
+            guard let httpResponse = response?.1 as? HTTPURLResponse, !((400..<500) ~= httpResponse.statusCode) else {
+                throw BaramErrorInfo(error: .invalidResponse)
             }
             
-            completion(.success(data))
+            if (200..<300) ~= httpResponse.statusCode {
+                break
+            } else if (500..<600) ~= httpResponse.statusCode {
+                continue
+            }
         }
-        .resume()
+        
+        return response?.0
     }
 }
