@@ -16,30 +16,30 @@ final class BookSearchView: UIView {
         // Drawing code
     }
     */
-    
+
     let bookSearchResultView: UITableView = UITableView()
     let searchBar: UISearchBar = UISearchBar()
-    
-    
+
     func layout() {
+        backgroundColor = .systemBackground
         self.addSubview(bookSearchResultView)
         self.addSubview(searchBar)
-        
+
         let marginConstant = 20.0
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         searchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
         searchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-        
+
         bookSearchResultView.translatesAutoresizingMaskIntoConstraints = false
         bookSearchResultView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: marginConstant).isActive = true
         bookSearchResultView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
         bookSearchResultView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
         bookSearchResultView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
-        
+
         bookSearchResultView.register(BookSearchResultCell.self, forCellReuseIdentifier: "bookCell")
     }
-    
+
     func delegate(searchbarDelegate: UISearchBarDelegate,
                   tableViewDelegate: UITableViewDelegate,
                   tableViewDataSource: UITableViewDataSource) {

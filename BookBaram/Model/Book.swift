@@ -27,7 +27,5 @@ struct Item: Codable {
     let pubdate: Date
     let isbn: Int
     let description: String
-    
-    
-}
 
+}
