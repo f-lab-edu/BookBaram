@@ -7,8 +7,8 @@
 
 import UIKit
 
-class HomeBookRecordCellTableViewCell: UITableViewCell {
-    lazy var titleLabel: UILabel = {
+final class HomeBookRecordCellTableViewCell: UITableViewCell {
+    private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .natural
@@ -16,7 +16,7 @@ class HomeBookRecordCellTableViewCell: UITableViewCell {
         return label
     }()
 
-    lazy var dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right

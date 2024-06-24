@@ -17,8 +17,8 @@ final class BookSearchView: UIView {
     }
     */
 
-    let bookSearchResultView: UITableView = UITableView()
-    let searchBar: UISearchBar = UISearchBar()
+    private let bookSearchResultView: UITableView = UITableView()
+    private let searchBar: UISearchBar = UISearchBar()
 
     func layout() {
         backgroundColor = .systemBackground

@@ -9,30 +9,27 @@ import Foundation
 import UIKit
 
 final class HomeViewController: UIViewController {
-    let homeView = HomeView()
+
+    override func loadView() {
+        self.view = HomeView()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setLayout()
-        homeView.delegate(calendarViewDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
-        homeView.addButtonAction(action: UIAction(handler: { [weak self] _ in
-            self?.moveToSearchViewController()
-        }))
+        if let homeView = view as? HomeView {
+            homeView.delegate(calendarViewDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
+            homeView.addButtonAction(action: UIAction(handler: { [weak self] _ in
+                self?.moveToSearchViewController()
+            }))
+        }
     }
 
     private func setLayout() {
         self.view.backgroundColor = .systemBackground
 
-        view.addSubview(homeView)
-
-        homeView.translatesAutoresizingMaskIntoConstraints = false
-        homeView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        homeView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        homeView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        homeView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-
-        homeView.layout()
+        (view as? HomeView)?.layout()
     }
 
     private func moveToSearchViewController() {
@@ -61,9 +58,6 @@ extension HomeViewController: UITableViewDataSource {
             // 에러 대신 기본 셀??
             return UITableViewCell()
         }
-
-        cell.titleLabel.text = "temp"
-        cell.dateLabel.text = "temp"
 
         return cell
     }

@@ -8,7 +8,10 @@
 import UIKit
 
 class EditViewController: UIViewController {
-    let editView = EditView()
+
+    override func loadView() {
+        view = EditView()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,14 +22,9 @@ class EditViewController: UIViewController {
 
     private func setLayout() {
         self.view.backgroundColor = .systemBackground
-        view.addSubview(editView)
 
-        editView.translatesAutoresizingMaskIntoConstraints = false
-        editView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        editView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        editView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        editView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-
-        editView.layout()
+        if let editView = view as? EditView {
+            editView.layout()
+        }
     }
 }
