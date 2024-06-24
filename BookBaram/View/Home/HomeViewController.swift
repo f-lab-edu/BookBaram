@@ -54,7 +54,8 @@ extension HomeViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "bookRecordCell") as? HomeBookRecordCellTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "bookRecordCell")
+                as? HomeBookRecordCellTableViewCell else {
             // 에러 대신 기본 셀??
             return UITableViewCell()
         }

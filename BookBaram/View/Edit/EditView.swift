@@ -28,6 +28,7 @@ class EditView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .black // placeholder
+        imageView.heightAnchor.constraint(equalToConstant: 100.0).isActive = true
         return imageView
     }()
 
@@ -46,30 +47,48 @@ class EditView: UIView {
     func layout() {
         addSubview(scrollView)
         addSubview(contentView)
+
         contentView.addArrangedSubview(imageView)
         contentView.addArrangedSubview(titleTextField)
         contentView.addArrangedSubview(contentTextView)
 
-        let marginConstant = 15.0
+        scrollViewLayout()
+        contentViewLayout()
 
+        textFieldStyle()
+        contentTextViewStyle()
+    }
+
+    private func scrollViewLayout() {
         scrollView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
+    }
 
-        contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: marginConstant).isActive = true
-        contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: marginConstant * -1).isActive = true
-        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: marginConstant * -2).isActive = true
+    private func contentViewLayout() {
+        contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,
+                                             constant: EditViewConstants.marginConstant).isActive = true
+        contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor,
+                                              constant: EditViewConstants.marginConstant * -1).isActive = true
+        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor,
+                                           constant: EditViewConstants.marginConstant * -2).isActive = true
         contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
+    }
 
-        imageView.heightAnchor.constraint(equalToConstant: 100.0).isActive = true
-
+    private func textFieldStyle() {
         titleTextField.borderStyle = .roundedRect
         titleTextField.placeholder = "Write the title"
+    }
 
+    private func contentTextViewStyle() {
         contentTextView.layer.borderWidth = 1.0
         contentTextView.layer.cornerRadius = 8
         contentTextView.layer.borderColor = UIColor.lightGray.cgColor
         contentTextView.text = "Content"
     }
 
+}
+
+enum EditViewConstants {
+    static let marginConstant = 15.0
 }

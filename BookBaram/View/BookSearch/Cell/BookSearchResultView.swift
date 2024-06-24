@@ -7,22 +7,25 @@
 
 import UIKit
 
-class BookSearchResultView: UIView {
+final class BookSearchResultView: UIView {
 
-    let thumbnail: UIImageView = {
+    private let thumbnail: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .black // placeholder
+        imageView.widthAnchor.constraint(equalToConstant: BookSearchResultConstants.imageSize).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: BookSearchResultConstants.imageSize).isActive = true
+
         return imageView
     }()
 
-    let title: UILabel = {
+    private let title: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    let author: UILabel = {
+    private let author: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -33,22 +36,9 @@ class BookSearchResultView: UIView {
         addSubview(title)
         addSubview(author)
 
-        let marginValue = 15.0
-        let imageSize = 100.0
-
-        thumbnail.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: marginValue).isActive = true
-        thumbnail.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        thumbnail.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor, constant: marginValue * -1).isActive = true
-        thumbnail.widthAnchor.constraint(equalToConstant: imageSize).isActive = true
-        thumbnail.heightAnchor.constraint(equalToConstant: imageSize).isActive = true
-
-        title.topAnchor.constraint(equalTo: thumbnail.topAnchor).isActive = true
-        title.leadingAnchor.constraint(equalTo: self.thumbnail.trailingAnchor, constant: marginValue).isActive = true
-        title.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: marginValue).isActive = true
-
-        author.topAnchor.constraint(equalTo: title.bottomAnchor, constant: marginValue).isActive = true
-        author.leadingAnchor.constraint(equalTo: title.leadingAnchor).isActive = true
-        author.trailingAnchor.constraint(equalTo: title.trailingAnchor).isActive = true
+        thumbnailLayout()
+        titleLayout()
+        authorLayout()
     }
 
     func setItem(item: Item) async throws {
@@ -58,4 +48,32 @@ class BookSearchResultView: UIView {
         let (imageData, _) = try await URLSession.shared.data(from: item.image)
         self.thumbnail.image = UIImage(data: imageData)
     }
+
+    private func thumbnailLayout() {
+        thumbnail.leadingAnchor.constraint(equalTo: self.leadingAnchor,
+                                           constant: BookSearchResultConstants.marginValue).isActive = true
+        thumbnail.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        thumbnail.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor,
+                                          constant: BookSearchResultConstants.marginValue * -1).isActive = true
+    }
+
+    private func titleLayout() {
+        title.topAnchor.constraint(equalTo: thumbnail.topAnchor).isActive = true
+        title.leadingAnchor.constraint(equalTo: self.thumbnail.trailingAnchor,
+                                       constant: BookSearchResultConstants.marginValue).isActive = true
+        title.trailingAnchor.constraint(equalTo: self.trailingAnchor,
+                                        constant: BookSearchResultConstants.marginValue).isActive = true
+    }
+
+    private func authorLayout() {
+        author.topAnchor.constraint(equalTo: title.bottomAnchor,
+                                    constant: BookSearchResultConstants.marginValue).isActive = true
+        author.leadingAnchor.constraint(equalTo: title.leadingAnchor).isActive = true
+        author.trailingAnchor.constraint(equalTo: title.trailingAnchor).isActive = true
+    }
+}
+
+enum BookSearchResultConstants {
+    static let imageSize = 50.0
+    static let marginValue = 15.0
 }

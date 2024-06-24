@@ -43,20 +43,33 @@ final class HomeView: UIView {
         addSubview(bookListView)
         addSubview(addButton)
 
+        bookCalendarViewLayout()
+        bookListViewLayout()
+        addButtonLayout()
+    }
+
+    private func bookCalendarViewLayout() {
         bookCalendarView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         bookCalendarView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         bookCalendarView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
+    }
 
-        bookListView.topAnchor.constraint(equalTo: bookCalendarView.bottomAnchor, constant: HomeViewConstants.margin).isActive = true
+    private func bookListViewLayout() {
+        bookListView.topAnchor.constraint(equalTo: bookCalendarView.bottomAnchor,
+                                          constant: HomeViewConstants.margin).isActive = true
         bookListView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         bookListView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
 
-        addButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: HomeViewConstants.margin * -1).isActive = true
-        addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: HomeViewConstants.margin  * -1).isActive = true
+        bookListView.register(HomeBookRecordCellTableViewCell.self, forCellReuseIdentifier: "bookRecordCell")
+    }
+
+    private func addButtonLayout() {
+        addButton.bottomAnchor.constraint(equalTo: bottomAnchor,
+                                          constant: HomeViewConstants.margin * -1).isActive = true
+        addButton.trailingAnchor.constraint(equalTo: trailingAnchor,
+                                            constant: HomeViewConstants.margin  * -1).isActive = true
         addButton.widthAnchor.constraint(equalToConstant: HomeViewConstants.btnSize).isActive = true
         addButton.heightAnchor.constraint(equalToConstant: HomeViewConstants.btnSize).isActive = true
-
-        bookListView.register(HomeBookRecordCellTableViewCell.self, forCellReuseIdentifier: "bookRecordCell")
     }
 
     func delegate(calendarViewDelegate: UICalendarViewDelegate,
