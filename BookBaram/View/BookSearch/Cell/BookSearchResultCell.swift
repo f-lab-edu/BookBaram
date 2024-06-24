@@ -24,8 +24,7 @@ class BookSearchResultCell: UITableViewCell {
         self.addSubview(bookSearchResultView)
 
         bookSearchResultView.translatesAutoresizingMaskIntoConstraints = false
-        bookSearchResultView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
-        bookSearchResultView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1).isActive = true
+        bookSearchResultView.sizeConstraint(widthDimension: widthAnchor, heightDimension: heightAnchor)
         bookSearchResultView.layout()
 
     }

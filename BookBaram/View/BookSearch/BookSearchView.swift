@@ -23,18 +23,18 @@ final class BookSearchView: UIView {
 
     private func searchBarLayout() {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-        searchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        searchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        searchBar.yAxisConstraints(top: safeAreaLayoutGuide.topAnchor)
+        searchBar.xAxisConstraints(left: safeAreaLayoutGuide.leftAnchor,
+                                   right: safeAreaLayoutGuide.rightAnchor)
     }
 
     private func bookSearchResultViewLayout() {
         bookSearchResultView.translatesAutoresizingMaskIntoConstraints = false
         bookSearchResultView.topAnchor.constraint(equalTo: searchBar.bottomAnchor,
                                                   constant: BookSearchViewConstants.marginConstant).isActive = true
-        bookSearchResultView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
-        bookSearchResultView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        bookSearchResultView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        bookSearchResultView.yAxisConstraints(bottom: safeAreaLayoutGuide.bottomAnchor)
+        bookSearchResultView.xAxisConstraints(left: safeAreaLayoutGuide.leftAnchor,
+                                              right: safeAreaLayoutGuide.rightAnchor)
 
         bookSearchResultView.register(BookSearchResultCell.self, forCellReuseIdentifier: "bookCell")
     }

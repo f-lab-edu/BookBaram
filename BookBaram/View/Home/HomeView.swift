@@ -68,8 +68,7 @@ final class HomeView: UIView {
                                           constant: HomeViewConstants.margin * -1).isActive = true
         addButton.trailingAnchor.constraint(equalTo: trailingAnchor,
                                             constant: HomeViewConstants.margin  * -1).isActive = true
-        addButton.widthAnchor.constraint(equalToConstant: HomeViewConstants.btnSize).isActive = true
-        addButton.heightAnchor.constraint(equalToConstant: HomeViewConstants.btnSize).isActive = true
+        addButton.sizeConstraint(width: HomeViewConstants.btnSize, height: HomeViewConstants.btnSize)
     }
 
     func delegate(calendarViewDelegate: UICalendarViewDelegate,

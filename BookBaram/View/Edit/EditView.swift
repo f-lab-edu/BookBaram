@@ -60,9 +60,9 @@ class EditView: UIView {
     }
 
     private func scrollViewLayout() {
-        scrollView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
+        scrollView.sizeConstraint(widthDimension: widthAnchor, heightDimension: heightAnchor)
+        scrollView.yAxisConstraints(top: safeAreaLayoutGuide.topAnchor,
+                                    bottom: safeAreaLayoutGuide.bottomAnchor)
     }
 
     private func contentViewLayout() {

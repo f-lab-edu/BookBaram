@@ -13,8 +13,8 @@ final class BookSearchResultView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .black // placeholder
-        imageView.widthAnchor.constraint(equalToConstant: BookSearchResultConstants.imageSize).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: BookSearchResultConstants.imageSize).isActive = true
+        imageView.sizeConstraint(width: BookSearchResultConstants.imageSize,
+                                 height: BookSearchResultConstants.imageSize)
 
         return imageView
     }()
@@ -68,8 +68,7 @@ final class BookSearchResultView: UIView {
     private func authorLayout() {
         author.topAnchor.constraint(equalTo: title.bottomAnchor,
                                     constant: BookSearchResultConstants.marginValue).isActive = true
-        author.leadingAnchor.constraint(equalTo: title.leadingAnchor).isActive = true
-        author.trailingAnchor.constraint(equalTo: title.trailingAnchor).isActive = true
+        author.xAxisConstraints(left: title.leftAnchor, right: title.rightAnchor)
     }
 }
 
