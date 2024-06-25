@@ -22,12 +22,14 @@ final class BookSearchResultView: UIView {
     private let title: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.dynamicFont()
         return label
     }()
 
     private let author: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.dynamicFont()
         return label
     }()
 
@@ -52,23 +54,25 @@ final class BookSearchResultView: UIView {
     private func thumbnailLayout() {
         thumbnail.leadingAnchor.constraint(equalTo: self.leadingAnchor,
                                            constant: BookSearchResultConstants.marginValue).isActive = true
-        thumbnail.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        thumbnail.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor,
-                                          constant: BookSearchResultConstants.marginValue * -1).isActive = true
+        thumbnail.topAnchor.constraint(equalTo: title.firstBaselineAnchor).isActive = true
+        thumbnail.bottomAnchor.constraint(lessThanOrEqualTo: author.lastBaselineAnchor).isActive = true
     }
 
     private func titleLayout() {
-        title.topAnchor.constraint(equalTo: thumbnail.topAnchor).isActive = true
-        title.leadingAnchor.constraint(equalTo: self.thumbnail.trailingAnchor,
+        title.topAnchor.constraint(equalTo: topAnchor,
+                                   constant: BookSearchResultConstants.marginValue).isActive = true
+        title.leftAnchor.constraint(equalTo: self.thumbnail.rightAnchor,
                                        constant: BookSearchResultConstants.marginValue).isActive = true
-        title.trailingAnchor.constraint(equalTo: self.trailingAnchor,
+        title.rightAnchor.constraint(equalTo: self.rightAnchor,
                                         constant: BookSearchResultConstants.marginValue).isActive = true
+
     }
 
     private func authorLayout() {
-        author.topAnchor.constraint(equalTo: title.bottomAnchor,
-                                    constant: BookSearchResultConstants.marginValue).isActive = true
-        author.xAxisConstraints(left: title.leftAnchor, right: title.rightAnchor)
+        author.firstBaselineAnchor.constraint(equalToSystemSpacingBelow: title.lastBaselineAnchor,
+                                              multiplier: 1.5).isActive = true
+        author.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        author.xAxisConstraints(left: thumbnail.rightAnchor, right: rightAnchor)
     }
 }
 

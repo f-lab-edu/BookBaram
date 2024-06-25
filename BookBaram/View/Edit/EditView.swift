@@ -35,12 +35,16 @@ class EditView: UIView {
     let titleTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.font = UIFont.preferredFont(forTextStyle: .body)
+        textField.adjustsFontForContentSizeCategory = true
         return textField
     }()
 
     let contentTextView: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = UIFont.preferredFont(forTextStyle: .body)
+        textView.adjustsFontForContentSizeCategory = true
         return textView
     }()
 
