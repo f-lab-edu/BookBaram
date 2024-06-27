@@ -15,6 +15,11 @@ struct ApiClient {
     public static let shared = ApiClient()
     private let session = URLSession.shared
 
+    var naverApiHeader: [String: String] = [
+        "X-Naver-Client-Id": Bundle.main.naverClientId,
+        "X-Naver-Client-Secret": Bundle.main.naverSecretKey
+    ]
+
     func request(_ urlString: String,
                  method: HttpMethod,
                  parameters: [String: Any]? = nil,
@@ -98,5 +103,33 @@ extension URLRequest {
         for header in headers {
             self.setValue(header.value, forHTTPHeaderField: header.key)
         }
+    }
+}
+
+extension Bundle {
+    // naver api key
+    var naverClientId: String {
+        guard let resource = loadNaverApiPlist() else { return "" }
+
+        guard let key = resource["X_NAVER_CLIENT_ID"] as? String else {
+            return ""
+        }
+
+        return key
+    }
+
+    var naverSecretKey: String {
+        guard let resource = loadNaverApiPlist() else { return "" }
+
+        guard let key = resource["X_NAVER_CLIENT_SECRET"] as? String else {
+            return ""
+        }
+
+        return key
+    }
+
+    private func loadNaverApiPlist() -> NSDictionary? {
+        guard let file = path(forResource: "naver-api-key", ofType: "plist") else { return nil }
+        return NSDictionary(contentsOfFile: file)
     }
 }

@@ -15,6 +15,8 @@
 		8E59F3982C0AE4B4006B9074 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59F3972C0AE4B4006B9074 /* ApiClient.swift */; };
 		8E59F39A2C0AEE69006B9074 /* BaramError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59F3992C0AEE69006B9074 /* BaramError.swift */; };
 		8E59F39C2C0AFB0F006B9074 /* BaramUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59F39B2C0AFB0F006B9074 /* BaramUrl.swift */; };
+		8E6C64AC2C2D94FB00EF1A67 /* BookSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6C64AB2C2D94FB00EF1A67 /* BookSearchViewModel.swift */; };
+		8E6C64AE2C2D965000EF1A67 /* naver-api-key.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E6C64AD2C2D965000EF1A67 /* naver-api-key.plist */; };
 		8E6EF67F2C17239C00079043 /* HomeBookRecordCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6EF67D2C17239C00079043 /* HomeBookRecordCellTableViewCell.swift */; };
 		8E6EF6802C17239C00079043 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6EF67E2C17239C00079043 /* HomeViewController.swift */; };
 		8E6EF6832C1723A600079043 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6EF6812C1723A600079043 /* EditViewController.swift */; };
@@ -39,6 +41,8 @@
 		8E59F3972C0AE4B4006B9074 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		8E59F3992C0AEE69006B9074 /* BaramError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaramError.swift; sourceTree = "<group>"; };
 		8E59F39B2C0AFB0F006B9074 /* BaramUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaramUrl.swift; sourceTree = "<group>"; };
+		8E6C64AB2C2D94FB00EF1A67 /* BookSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchViewModel.swift; sourceTree = "<group>"; };
+		8E6C64AD2C2D965000EF1A67 /* naver-api-key.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "naver-api-key.plist"; sourceTree = "<group>"; };
 		8E6EF67D2C17239C00079043 /* HomeBookRecordCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBookRecordCellTableViewCell.swift; sourceTree = "<group>"; };
 		8E6EF67E2C17239C00079043 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		8E6EF6812C1723A600079043 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +94,7 @@
 				8E0540E82BFF691900385365 /* Assets.xcassets */,
 				8E0540EA2BFF691900385365 /* LaunchScreen.storyboard */,
 				8E0540ED2BFF691900385365 /* Info.plist */,
+				8E6C64AD2C2D965000EF1A67 /* naver-api-key.plist */,
 			);
 			path = BookBaram;
 			sourceTree = "<group>";
@@ -99,6 +104,7 @@
 			children = (
 				8E76643E2C04B32100F67B5A /* BookSearchViewController.swift */,
 				8EADB97F2C201FBF00809BAF /* BookSearchView.swift */,
+				8E6C64AB2C2D94FB00EF1A67 /* BookSearchViewModel.swift */,
 				8EADB9812C2024BD00809BAF /* Cell */,
 			);
 			path = BookSearch;
@@ -229,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E0540E92BFF691900385365 /* Assets.xcassets in Resources */,
+				8E6C64AE2C2D965000EF1A67 /* naver-api-key.plist in Resources */,
 				8E0540EC2BFF691900385365 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,6 +274,7 @@
 				8EADB9802C201FBF00809BAF /* BookSearchView.swift in Sources */,
 				8E76643F2C04B32100F67B5A /* BookSearchViewController.swift in Sources */,
 				8EADB9872C204A8200809BAF /* HomeView.swift in Sources */,
+				8E6C64AC2C2D94FB00EF1A67 /* BookSearchViewModel.swift in Sources */,
 				8E0540E02BFF691700385365 /* AppDelegate.swift in Sources */,
 				8E7664442C04B85200F67B5A /* BookSearchResultCell.swift in Sources */,
 				8EADB9852C204A7700809BAF /* EditView.swift in Sources */,
