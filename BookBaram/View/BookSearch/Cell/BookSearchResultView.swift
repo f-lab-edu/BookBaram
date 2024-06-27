@@ -41,12 +41,18 @@ final class BookSearchResultView: UIView {
         authorLayout()
     }
 
-    func setItem(item: Item) async throws {
+    func setItem(item: Item) {
         self.title.text = item.title
         self.author.text = item.author
 
-        let (imageData, _) = try await URLSession.shared.data(from: item.image)
-        self.thumbnail.image = UIImage(data: imageData)
+        Task {
+            do {
+                let (imageData, _) = try await URLSession.shared.data(from: item.image)
+                self.thumbnail.image = UIImage(data: imageData)
+            } catch {
+                self.thumbnail.image = UIImage(systemName: "exclamationmark.triangle")
+            }
+        }
     }
 
     private func thumbnailLayout() {
