@@ -8,6 +8,7 @@
 import UIKit
 
 final class BookSearchViewController: UIViewController {
+    let bookSearchViewModel = BookSearchViewModel.shared
 
     override func loadView() {
         self.view = BookSearchView()
@@ -42,8 +43,7 @@ extension BookSearchViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 extension BookSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // TODO: 나중에 datasource와 연결 필요
-        return 1
+        return bookSearchViewModel.bookResult.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -51,7 +51,7 @@ extension BookSearchViewController: UITableViewDataSource {
             fatalError("This is not BookSearchResultCell")
         }
 
-        // TODO: cell.setItem(...)
+        cell.setItem(item: bookSearchViewModel.bookResult[indexPath.row])
 
         return cell
     }
@@ -60,7 +60,7 @@ extension BookSearchViewController: UITableViewDataSource {
 // MARK: - UISearchBarDelegate
 extension BookSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // TODO: 검색 api 호출
+        bookSearchViewModel.searchBook(query: searchBar.text)
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

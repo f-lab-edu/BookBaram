@@ -24,8 +24,8 @@ struct Item: Codable {
     let author: String
     let discount: String
     let publisher: String
-    let pubdate: Date
-    let isbn: Int
+    let pubdate: String
+    let isbn: String
     let description: String
 
 }
