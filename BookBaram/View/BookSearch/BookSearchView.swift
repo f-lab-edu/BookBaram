@@ -47,6 +47,10 @@ final class BookSearchView: UIView {
         bookSearchResultView.dataSource = tableViewDataSource
     }
 
+    func reloadData() {
+        bookSearchResultView.reloadData()
+    }
+
 }
 
 enum BookSearchViewConstants {

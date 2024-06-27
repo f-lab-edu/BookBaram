@@ -7,11 +7,16 @@
 
 import UIKit
 
+protocol ReloadDelegate {
+    func reloadTable()
+}
+
 final class BookSearchViewController: UIViewController {
-    let bookSearchViewModel = BookSearchViewModel.shared
+    private let bookSearchView = BookSearchView()
+    private let bookSearchViewModel = BookSearchViewModel.shared
 
     override func loadView() {
-        self.view = BookSearchView()
+        self.view = bookSearchView
     }
 
     override func viewDidLoad() {
@@ -21,15 +26,12 @@ final class BookSearchViewController: UIViewController {
         setLayout()
 
         // set delegate
-        if let bookSearchView = view as? BookSearchView {
-            bookSearchView.delegate(searchbarDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
-        }
+        bookSearchView.delegate(searchbarDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
+        bookSearchViewModel.reloadDelegate = self
     }
 
     private func setLayout() {
-        if let bookSearchView = view as? BookSearchView {
-            bookSearchView.layout()
-        }
+        bookSearchView.layout()
     }
 }
 
@@ -48,7 +50,7 @@ extension BookSearchViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "bookCell") as? BookSearchResultCell else {
-            fatalError("This is not BookSearchResultCell")
+            return UITableViewCell()
         }
 
         cell.setItem(item: bookSearchViewModel.bookResult[indexPath.row])
@@ -65,5 +67,12 @@ extension BookSearchViewController: UISearchBarDelegate {
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
+    }
+}
+
+// MARK: - ReloadDelegate {
+extension BookSearchViewController: ReloadDelegate {
+    func reloadTable() {
+        self.bookSearchView.reloadData()
     }
 }

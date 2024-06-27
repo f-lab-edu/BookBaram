@@ -10,6 +10,7 @@ import Foundation
 class BookSearchViewModel {
     static let shared = BookSearchViewModel()
     var bookResult: [Item] = []
+    var reloadDelegate: ReloadDelegate?
 
     func searchBook(query: String?, start: Int = 1, display: Int = 10) {
         guard let query else { return }
@@ -37,8 +38,9 @@ class BookSearchViewModel {
     }
 
     @MainActor
-    func updateBookResult(items: [Item]) {
+    private func updateBookResult(items: [Item]) {
         bookResult.removeAll()
         bookResult.append(contentsOf: items)
+        reloadDelegate?.reloadTable()
     }
 }
