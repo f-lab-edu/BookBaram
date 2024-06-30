@@ -8,9 +8,9 @@
 import UIKit
 
 class EditViewController: UIViewController {
-
+    let editView = EditView()
     override func loadView() {
-        view = EditView()
+        view = editView
     }
 
     override func viewDidLoad() {
@@ -23,8 +23,6 @@ class EditViewController: UIViewController {
     private func setLayout() {
         self.view.backgroundColor = .systemBackground
 
-        if let editView = view as? EditView {
-            editView.layout()
-        }
+        editView.layout()
     }
 }

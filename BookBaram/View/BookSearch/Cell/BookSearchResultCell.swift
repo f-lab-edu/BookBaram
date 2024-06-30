@@ -30,8 +30,6 @@ class BookSearchResultCell: UITableViewCell {
     }
 
     func setItem(item: Item) {
-        Task {
-            try? await bookSearchResultView.setItem(item: item)
-        }
+        bookSearchResultView.setItem(item: item)
     }
 }
