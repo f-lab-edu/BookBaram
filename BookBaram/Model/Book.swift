@@ -8,6 +8,22 @@
 import Foundation
 import UIKit
 
+struct SearchBookResults {
+    let queryKeyword: String
+    let total: Int
+    let currentPage: Int
+    let display: Int
+    let items: [Item]
+
+    init(queryKeyword: String, searchBookResponse: SearchBookResponse) {
+        self.queryKeyword = queryKeyword
+        self.total = searchBookResponse.total
+        self.currentPage = searchBookResponse.start
+        self.display = searchBookResponse.display
+        self.items = searchBookResponse.items
+    }
+}
+
 // MARK: - SearchBookResponse
 struct SearchBookResponse: Codable {
     let total: Int

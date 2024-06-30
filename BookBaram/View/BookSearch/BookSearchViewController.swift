@@ -37,15 +37,12 @@ final class BookSearchViewController: UIViewController {
 
 // MARK: - UITableViewDelegate
 extension BookSearchViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
 }
 
 // MARK: - UITableViewDataSource
 extension BookSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookSearchViewModel.bookResult.count
+        return bookSearchViewModel.searchBookResult?.items.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,7 +50,9 @@ extension BookSearchViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
-        cell.setItem(item: bookSearchViewModel.bookResult[indexPath.row])
+        if let searchBookResult = bookSearchViewModel.searchBookResult {
+            cell.setItem(item: searchBookResult.items[indexPath.row])
+        }
 
         return cell
     }

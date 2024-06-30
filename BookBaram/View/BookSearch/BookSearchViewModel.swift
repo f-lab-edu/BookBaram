@@ -10,6 +10,7 @@ import Foundation
 class BookSearchViewModel {
     static let shared = BookSearchViewModel()
     var bookResult: [Item] = []
+    var searchBookResult: SearchBookResults?
     var reloadDelegate: ReloadDelegate?
     var error: Error?
 
@@ -18,7 +19,7 @@ class BookSearchViewModel {
         Task {
             do {
                 let data = try await requestSearchBook(query, start: start, display: display)
-                try await parseSearchBookResponse(data: data)
+                try await parseSearchBookResponse(query: query, data: data)
             } catch {
                 self.error = error
             }
@@ -34,18 +35,17 @@ class BookSearchViewModel {
                                                   headers: ApiClient.shared.naverApiHeader)
     }
 
-    private func parseSearchBookResponse(data: Data?) async throws {
+    private func parseSearchBookResponse(query: String, data: Data?) async throws {
         guard let data = data else {
             throw BaramErrorInfo(error: .invalidDataType)
         }
         let bookResponse = try JSONDecoder().decode(SearchBookResponse.self, from: data)
-        await updateBookResult(items: bookResponse.items)
+        await updateBookResult(query: query, response: bookResponse)
     }
 
     @MainActor
-    private func updateBookResult(items: [Item]) {
-        bookResult.removeAll()
-        bookResult.append(contentsOf: items)
+    private func updateBookResult(query: String, response: SearchBookResponse) {
+        searchBookResult = SearchBookResults(queryKeyword: query, searchBookResponse: response)
         reloadDelegate?.reloadTable()
     }
 }
