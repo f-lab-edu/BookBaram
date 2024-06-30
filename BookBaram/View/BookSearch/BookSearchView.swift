@@ -9,6 +9,10 @@ import UIKit
 
 final class BookSearchView: UIView {
 
+    enum BookSearchViewConstants {
+        static let marginConstant = 20.0
+    }
+
     private let bookSearchResultView: UITableView = UITableView()
     private let searchBar: UISearchBar = UISearchBar()
 
@@ -47,8 +51,4 @@ final class BookSearchView: UIView {
         bookSearchResultView.dataSource = tableViewDataSource
     }
 
-}
-
-enum BookSearchViewConstants {
-    static let marginConstant = 20.0
 }
