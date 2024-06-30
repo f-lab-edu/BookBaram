@@ -21,17 +21,15 @@ class BookSearchResultCell: UITableViewCell {
     }
 
     private func setLayout() {
-        self.addSubview(bookSearchResultView)
+        self.contentView.addSubview(bookSearchResultView)
 
         bookSearchResultView.translatesAutoresizingMaskIntoConstraints = false
-        bookSearchResultView.sizeConstraint(widthDimension: widthAnchor, heightDimension: heightAnchor)
+        bookSearchResultView.yAxisConstraints(top: topAnchor, bottom: bottomAnchor)
+        bookSearchResultView.xAxisConstraints(left: leftAnchor, right: rightAnchor)
         bookSearchResultView.layout()
-
     }
 
     func setItem(item: Item) {
-        Task {
-            try? await bookSearchResultView.setItem(item: item)
-        }
+        bookSearchResultView.setItem(item: item)
     }
 }

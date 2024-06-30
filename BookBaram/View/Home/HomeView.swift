@@ -51,7 +51,7 @@ final class HomeView: UIView {
     private func bookCalendarViewLayout() {
         bookCalendarView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         bookCalendarView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        bookCalendarView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
+        bookCalendarView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.55).isActive = true
     }
 
     private func bookListViewLayout() {
