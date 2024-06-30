@@ -71,13 +71,15 @@ class EditView: UIView {
     }
 
     private func textFieldStyle() {
-        titleTextField.dynamicFont()
+        titleTextField.font = UIFont.preferredFont(forTextStyle: .body)
+        titleTextField.adjustsFontForContentSizeCategory = true
         titleTextField.borderStyle = .roundedRect
         titleTextField.placeholder = "Write the title"
     }
 
     private func contentTextViewStyle() {
-        contentTextView.dynamicFont()
+        contentTextView.font = UIFont.preferredFont(forTextStyle: .body)
+        contentTextView.adjustsFontForContentSizeCategory = true
         contentTextView.layer.borderWidth = 1.0
         contentTextView.layer.cornerRadius = 8
         contentTextView.layer.borderColor = UIColor.lightGray.cgColor
