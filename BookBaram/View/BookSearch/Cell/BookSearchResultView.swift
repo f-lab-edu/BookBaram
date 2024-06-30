@@ -11,7 +11,6 @@ final class BookSearchResultView: UIView {
 
     private let thumbnail: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .black // placeholder
         imageView.sizeConstraint(width: BookSearchResultConstants.imageSize,
                                  height: BookSearchResultConstants.imageSize)
@@ -19,17 +18,9 @@ final class BookSearchResultView: UIView {
         return imageView
     }()
 
-    private let title: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let title: UILabel = UILabel()
 
-    private let author: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let author: UILabel = UILabel()
 
     func layout() {
         addSubview(thumbnail)
@@ -41,34 +32,43 @@ final class BookSearchResultView: UIView {
         authorLayout()
     }
 
-    func setItem(item: Item) async throws {
+    func setItem(item: Item) {
         self.title.text = item.title
         self.author.text = item.author
 
-        let (imageData, _) = try await URLSession.shared.data(from: item.image)
-        self.thumbnail.image = UIImage(data: imageData)
+        Task {
+            let (imageData, _) = try await URLSession.shared.data(from: item.image)
+            self.thumbnail.image = UIImage(data: imageData)
+        }
     }
 
     private func thumbnailLayout() {
-        thumbnail.leadingAnchor.constraint(equalTo: self.leadingAnchor,
-                                           constant: BookSearchResultConstants.marginValue).isActive = true
-        thumbnail.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        thumbnail.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor,
-                                          constant: BookSearchResultConstants.marginValue * -1).isActive = true
+        thumbnail.makeConstraints { view in
+            view.xAxisConstraints(left: leftAnchor, leftOffset: BookSearchResultConstants.marginValue)
+            view.yAxisConstraints(top: topAnchor,
+                                  topOffset: BookSearchResultConstants.marginValue,
+                                  bottom: author.lastBaselineAnchor,
+                                  bottomOffset: BookSearchResultConstants.marginValue * -1)
+        }
     }
 
     private func titleLayout() {
-        title.topAnchor.constraint(equalTo: thumbnail.topAnchor).isActive = true
-        title.leadingAnchor.constraint(equalTo: self.thumbnail.trailingAnchor,
-                                       constant: BookSearchResultConstants.marginValue).isActive = true
-        title.trailingAnchor.constraint(equalTo: self.trailingAnchor,
-                                        constant: BookSearchResultConstants.marginValue).isActive = true
+        title.makeConstraints { view in
+            view.yAxisConstraints(top: thumbnail.topAnchor)
+            view.xAxisConstraints(left: thumbnail.rightAnchor,
+                                  leftOffset: BookSearchResultConstants.marginValue,
+                                  right: rightAnchor, rightOffset: BookSearchResultConstants.marginValue * -1)
+        }
     }
 
     private func authorLayout() {
-        author.topAnchor.constraint(equalTo: title.bottomAnchor,
-                                    constant: BookSearchResultConstants.marginValue).isActive = true
-        author.xAxisConstraints(left: title.leftAnchor, right: title.rightAnchor)
+        author.makeConstraints { view in
+            view.yAxisConstraints(top: title.lastBaselineAnchor,
+                                  topOffset: BookSearchResultConstants.marginValue,
+                                  bottom: bottomAnchor,
+                                  bottomOffset: BookSearchResultConstants.marginValue * -1)
+            view.xAxisConstraints(left: title.leftAnchor, right: title.rightAnchor)
+        }
     }
 }
 
