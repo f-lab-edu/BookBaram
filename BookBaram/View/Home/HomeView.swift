@@ -57,7 +57,7 @@ final class HomeView: UIView {
                                           bottom: bottomAnchor)
         }
 
-        bookListView.register(HomeBookRecordCellTableViewCell.self, forCellReuseIdentifier: "bookRecordCell")
+        bookListView.register(HomeBookRecordCell.self, forCellReuseIdentifier: "bookRecordCell")
     }
 
     private func addButtonLayout() {
