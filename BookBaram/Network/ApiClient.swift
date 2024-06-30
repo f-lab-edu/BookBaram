@@ -20,48 +20,83 @@ struct ApiClient {
                  parameters: [String: Any]? = nil,
                  headers: [String: String]? = nil) async throws -> Data? {
 
+        var urlRequest: URLRequest
+        if method == .get {
+            urlRequest = try createGetUrlRequest(urlString: urlString, parameters: parameters)
+        } else {
+            // TODO: Post
+            urlRequest = URLRequest(url: URL(string: urlString)!)
+        }
+
+        urlRequest.setHeaders(headers: headers)
+
+        return try await retry(urlRequest: urlRequest)
+    }
+
+    private func createGetUrlRequest(urlString: String, parameters: [String: Any]? = nil) throws -> URLRequest {
         guard var urlComponent = URLComponents(string: urlString) else {
             throw BaramErrorInfo.init(error: .invalidRequest)
         }
 
-        if let parameters {
-            var queryItems = urlComponent.queryItems ?? []
-            for param in parameters {
-                queryItems.append(URLQueryItem(name: param.key, value: "\(param.value)"))
-            }
-
-            urlComponent.queryItems = queryItems
-        }
+        urlComponent.queryItems = parameters?.makeQueryItem(urlComponent.queryItems)
 
         guard let url = urlComponent.url else {
             throw BaramErrorInfo.init(error: .invalidRequest)
         }
 
         var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = method.rawValue
+        urlRequest.httpMethod = HttpMethod.get.rawValue
 
-        if let headers {
-            for header in headers {
-                urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
-            }
-        }
+        return urlRequest
+    }
 
-        var response: (Data, URLResponse)?
-        // retry
-        for _ in 0..<3 {
-            response = try await session.data(for: urlRequest)
+    private func retry(urlRequest: URLRequest, retryCount: Int = 3) async throws -> Data? {
+        for _ in 0..<retryCount {
+            let (data, response) = try await session.data(for: urlRequest)
 
-            guard let httpResponse = response?.1 as? HTTPURLResponse, !((400..<500) ~= httpResponse.statusCode) else {
-                throw BaramErrorInfo(error: .invalidResponse)
-            }
-
-            if (200..<300) ~= httpResponse.statusCode {
-                break
-            } else if (500..<600) ~= httpResponse.statusCode {
+            if try isNeedRetry(response: response) {
                 continue
             }
+
+            return data
         }
 
-        return response?.0
+        return nil
+    }
+
+    private func isNeedRetry(response: URLResponse) throws -> Bool {
+        guard let httpResponse = response as? HTTPURLResponse else { throw BaramErrorInfo(error: .invalidResponse) }
+
+        if 400..<500 ~= httpResponse.statusCode {
+            throw BaramErrorInfo(error: .invalidResponse)
+        }
+
+        if (200..<300) ~= httpResponse.statusCode {
+            return false
+        }
+
+        return true
+    }
+}
+
+extension Dictionary where Key == String {
+    func makeQueryItem(_ queryItems: [URLQueryItem]?) -> [URLQueryItem] {
+        var queryItems: [URLQueryItem] = queryItems ?? []
+
+        for (key, value) in self {
+            queryItems.append(URLQueryItem(name: key, value: "\(value)"))
+        }
+
+        return queryItems
+    }
+}
+
+extension URLRequest {
+    mutating func setHeaders(headers: [String: String]?) {
+        guard let headers else { return }
+
+        for header in headers {
+            self.setValue(header.value, forHTTPHeaderField: header.key)
+        }
     }
 }
