@@ -8,6 +8,10 @@
 import UIKit
 
 final class BookSearchResultView: UIView {
+    enum BookSearchResultConstants {
+        static let imageSize = 50.0
+        static let marginValue = 15.0
+    }
 
     private let thumbnail: UIImageView = {
         let imageView = UIImageView()
@@ -72,9 +76,4 @@ final class BookSearchResultView: UIView {
             view.xAxisConstraints(left: title.leftAnchor, right: title.rightAnchor)
         }
     }
-}
-
-enum BookSearchResultConstants {
-    static let imageSize = 50.0
-    static let marginValue = 15.0
 }

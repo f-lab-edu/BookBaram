@@ -8,7 +8,7 @@
 import UIKit
 
 class BookSearchResultCell: UITableViewCell {
-    let bookSearchResultView = BookSearchResultView()
+    private let bookSearchResultView = BookSearchResultView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -23,8 +23,9 @@ class BookSearchResultCell: UITableViewCell {
     private func setLayout() {
         self.addSubview(bookSearchResultView)
 
-        bookSearchResultView.translatesAutoresizingMaskIntoConstraints = false
-        bookSearchResultView.sizeConstraint(widthDimension: widthAnchor, heightDimension: heightAnchor)
+        bookSearchResultView.makeConstraints { view in
+            view.sizeConstraint(widthDimension: widthAnchor, heightDimension: heightAnchor)
+        }
         bookSearchResultView.layout()
 
     }
