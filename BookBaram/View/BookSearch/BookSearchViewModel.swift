@@ -11,7 +11,7 @@ class BookSearchViewModel {
     static let shared = BookSearchViewModel()
     var bookResult: [Item] = []
     var searchBookResult: SearchBookResults?
-    var reloadDelegate: ReloadDelegate?
+    var bookSearchResultsUpdateDelegate: BookSearchResultsUpdateDelegate?
     var error: Error?
 
     func searchBook(query: String?, start: Int = 1, display: Int = 10) {
@@ -24,6 +24,16 @@ class BookSearchViewModel {
                 self.error = error
             }
         }
+    }
+
+    func searchNextPage() {
+        guard let searchBookResult, searchBookResult.currentPage + 1 <= searchBookResult.total else { return }
+        searchBook(query: searchBookResult.queryKeyword, start: searchBookResult.currentPage + 1)
+    }
+
+    func searchPrevPage() {
+        guard let searchBookResult, searchBookResult.currentPage - 1 >= 1 else { return }
+        searchBook(query: searchBookResult.queryKeyword, start: searchBookResult.currentPage - 1)
     }
 
     private func requestSearchBook(_ query: String, start: Int, display: Int = 10) async throws -> Data? {
@@ -46,6 +56,8 @@ class BookSearchViewModel {
     @MainActor
     private func updateBookResult(query: String, response: SearchBookResponse) {
         searchBookResult = SearchBookResults(queryKeyword: query, searchBookResponse: response)
-        reloadDelegate?.reloadTable()
+        bookSearchResultsUpdateDelegate?.reloadTable()
+        bookSearchResultsUpdateDelegate?.updatePagingInfo(currentPage: searchBookResult!.currentPage,
+                                                          totalPage: searchBookResult!.total)
     }
 }

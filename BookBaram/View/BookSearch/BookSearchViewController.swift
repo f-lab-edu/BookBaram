@@ -7,8 +7,9 @@
 
 import UIKit
 
-protocol ReloadDelegate: AnyObject {
+protocol BookSearchResultsUpdateDelegate: AnyObject {
     func reloadTable()
+    func updatePagingInfo(currentPage: Int, totalPage: Int)
 }
 
 final class BookSearchViewController: UIViewController {
@@ -27,11 +28,17 @@ final class BookSearchViewController: UIViewController {
 
         // set delegate
         bookSearchView.delegate(searchbarDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
-        bookSearchViewModel.reloadDelegate = self
+        bookSearchViewModel.bookSearchResultsUpdateDelegate = self
     }
 
     private func setLayout() {
         bookSearchView.layout()
+        bookSearchView.addActionForNextButton(action: UIAction(handler: { [weak self] _ in
+            self?.bookSearchViewModel.searchNextPage()
+        }))
+        bookSearchView.addActionForPrevButton(action: UIAction(handler: { [weak self] _ in
+            self?.bookSearchViewModel.searchPrevPage()
+        }))
     }
 }
 
@@ -70,8 +77,12 @@ extension BookSearchViewController: UISearchBarDelegate {
 }
 
 // MARK: - ReloadDelegate {
-extension BookSearchViewController: ReloadDelegate {
+extension BookSearchViewController: BookSearchResultsUpdateDelegate {
     func reloadTable() {
         self.bookSearchView.reloadData()
+    }
+
+    func updatePagingInfo(currentPage: Int, totalPage: Int) {
+        self.bookSearchView.pageLabelInfo(currentPage: currentPage, totlaPage: totalPage)
     }
 }
