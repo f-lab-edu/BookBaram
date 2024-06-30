@@ -8,13 +8,17 @@
 import UIKit
 
 final class BookSearchResultView: UIView {
+    enum BookSearchResultConstants {
+        static let imageSize = 50.0
+        static let marginValue = 15.0
+        static let labelMultiplier = 1.5
+    }
 
     private let thumbnail: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .black // placeholder
-        imageView.sizeConstraint(width: BookSearchResultConstants.imageSize,
-                                 height: BookSearchResultConstants.imageSize)
+        imageView.sizeConstraint(width: BookSearchResultConstants.imageSize)
 
         return imageView
     }()
@@ -22,6 +26,7 @@ final class BookSearchResultView: UIView {
     private let title: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
         return label
     }()
 
@@ -56,29 +61,26 @@ final class BookSearchResultView: UIView {
     }
 
     private func thumbnailLayout() {
-        thumbnail.leadingAnchor.constraint(equalTo: self.leadingAnchor,
+        thumbnail.leadingAnchor.constraint(equalTo: leadingAnchor,
                                            constant: BookSearchResultConstants.marginValue).isActive = true
-        thumbnail.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        thumbnail.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor,
-                                          constant: BookSearchResultConstants.marginValue * -1).isActive = true
+        thumbnail.topAnchor.constraint(equalTo: topAnchor,
+                                       constant: BookSearchResultConstants.marginValue).isActive = true
+        thumbnail.lastBaselineAnchor.constraint(lessThanOrEqualTo: author.lastBaselineAnchor).isActive = true
     }
 
     private func titleLayout() {
-        title.topAnchor.constraint(equalTo: thumbnail.topAnchor).isActive = true
-        title.leadingAnchor.constraint(equalTo: self.thumbnail.trailingAnchor,
+        title.topAnchor.constraint(equalTo: topAnchor,
+                                   constant: BookSearchResultConstants.marginValue).isActive = true
+        title.leftAnchor.constraint(equalTo: thumbnail.rightAnchor,
                                        constant: BookSearchResultConstants.marginValue).isActive = true
-        title.trailingAnchor.constraint(equalTo: self.trailingAnchor,
-                                        constant: BookSearchResultConstants.marginValue).isActive = true
+        title.rightAnchor.constraint(equalTo: rightAnchor,
+                                        constant: BookSearchResultConstants.marginValue * -1).isActive = true
     }
 
     private func authorLayout() {
-        author.topAnchor.constraint(equalTo: title.bottomAnchor,
-                                    constant: BookSearchResultConstants.marginValue).isActive = true
+        author.firstBaselineAnchor.constraint(equalToSystemSpacingBelow: title.lastBaselineAnchor,
+                                              multiplier: 1.0).isActive = true
         author.xAxisConstraints(left: title.leftAnchor, right: title.rightAnchor)
+        author.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
-}
-
-enum BookSearchResultConstants {
-    static let imageSize = 50.0
-    static let marginValue = 15.0
 }

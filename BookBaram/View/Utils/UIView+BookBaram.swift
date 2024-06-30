@@ -8,9 +8,13 @@
 import UIKit
 
 extension UIView {
-    func sizeConstraint(width: Double, height: Double) {
-        self.widthAnchor.constraint(equalToConstant: width).isActive = true
-        self.heightAnchor.constraint(equalToConstant: height).isActive = true
+    func sizeConstraint(width: Double? = nil, height: Double? = nil) {
+        if let width {
+            self.widthAnchor.constraint(equalToConstant: width).isActive = true
+        }
+        if let height {
+            self.heightAnchor.constraint(equalToConstant: height).isActive = true
+        }
     }
 
     func sizeConstraint(widthDimension: NSLayoutDimension, heightDimension: NSLayoutDimension) {

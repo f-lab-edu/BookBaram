@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ReloadDelegate {
+protocol ReloadDelegate: AnyObject {
     func reloadTable()
 }
 
