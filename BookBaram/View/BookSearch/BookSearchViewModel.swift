@@ -11,30 +11,35 @@ class BookSearchViewModel {
     static let shared = BookSearchViewModel()
     var bookResult: [Item] = []
     var reloadDelegate: ReloadDelegate?
+    var error: Error?
 
     func searchBook(query: String?, start: Int = 1, display: Int = 10) {
         guard let query else { return }
-
-        print("api request")
         Task {
             do {
-                if let data = try await ApiClient.shared.request(BaramUrl.naverApi + Path.bookSearch,
-                                                              method: .get,
-                                                              parameters: [
-                                                                "query": query,
-                                                                "start": start,
-                                                                "display": display
-                                                              ],
-                                                                 headers: ApiClient.shared.naverApiHeader) {
-                    let bookResponse = try JSONDecoder().decode(SearchBookResponse.self, from: data)
-                    print("response: \(bookResponse)")
-                    await updateBookResult(items: bookResponse.items)
-                }
-
+                let data = try await requestSearchBook(query, start: start, display: display)
+                try await parseSearchBookResponse(data: data)
             } catch {
-                print("error: \(error)")
+                self.error = error
             }
         }
+    }
+
+    private func requestSearchBook(_ query: String, start: Int, display: Int = 10) async throws -> Data? {
+        return try await ApiClient.shared.request(BaramUrl.naverApi + Path.bookSearch,
+                                                  method: .get,
+                                                  parameters: ["query": query,
+                                                               "start": start,
+                                                               "display": display],
+                                                  headers: ApiClient.shared.naverApiHeader)
+    }
+
+    private func parseSearchBookResponse(data: Data?) async throws {
+        guard let data = data else {
+            throw BaramErrorInfo(error: .invalidDataType)
+        }
+        let bookResponse = try JSONDecoder().decode(SearchBookResponse.self, from: data)
+        await updateBookResult(items: bookResponse.items)
     }
 
     @MainActor
