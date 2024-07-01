@@ -21,10 +21,10 @@ class BookSearchResultCell: UITableViewCell {
     }
 
     private func setLayout() {
-        self.addSubview(bookSearchResultView)
+        self.contentView.addSubview(bookSearchResultView)
 
         bookSearchResultView.makeConstraints { view in
-            view.sizeConstraint(widthDimension: widthAnchor, heightDimension: heightAnchor)
+            view.sizeConstraint(widthDimension: contentView.widthAnchor, heightDimension: contentView.heightAnchor)
         }
         bookSearchResultView.layout()
 
