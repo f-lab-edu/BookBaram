@@ -13,10 +13,10 @@ final class HomeBookRecordCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        self.addSubview(homeBookRecordView)
+        self.contentView.addSubview(homeBookRecordView)
         homeBookRecordView.makeConstraints { view in
-            view.yAxisConstraints(top: topAnchor, bottom: bottomAnchor)
-            view.xAxisConstraints(left: leftAnchor, right: rightAnchor)
+            view.yAxisConstraints(top: contentView.topAnchor, bottom: contentView.bottomAnchor)
+            view.xAxisConstraints(left: contentView.leftAnchor, right: contentView.rightAnchor)
         }
         homeBookRecordView.layout()
     }
