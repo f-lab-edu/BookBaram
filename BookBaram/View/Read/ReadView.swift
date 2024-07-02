@@ -8,34 +8,53 @@
 import SwiftUI
 
 struct ReadView: View {
+    @State var userBookReview: UserBookReview
+
     enum ReadViewConstants {
         static let imageHeight = 300.0
         static let paddingValue = 15.0
     }
 
     var body: some View {
-        VStack(alignment: .leading) {
-            AsyncImage(url: URL(string: "https://shorturl.at/4R3io"))
-                .backgroundStyle(.black)
-                .frame(maxWidth: .infinity, maxHeight: ReadViewConstants.imageHeight, alignment: .center)
+        ScrollView {
+            VStack(alignment: .leading) {
+                AsyncImage(url: userBookReview.imgUrl)
+                    .frame(maxWidth: .infinity, minHeight: ReadViewConstants.imageHeight, alignment: .center)
 
-            HStack {
-                Text("title")
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                Text("2024/07/01")
-                    .frame(maxWidth: .infinity, alignment: .trailing)
+                HStack {
+                    Text(userBookReview.title)
+                        .readViewStyle()
+                    Text(userBookReview.date.toString())
+                        .readViewStyle(alignment: .trailing)
+                }
+
+                Spacer()
+                    .frame(height: ReadViewConstants.paddingValue)
+                Text(userBookReview.content)
+                    .readViewStyle()
             }
-
-            Spacer()
-                .frame(height: ReadViewConstants.paddingValue)
-            Text("multiple lines\nmultiline")
-                .frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding()
     }
 }
 
-#Preview {
-    ReadView()
+extension Text {
+    func readViewStyle(font: Font = .body,
+                       alignment: Alignment = .leading) -> some View {
+        return self.font(font)
+            .lineLimit(nil)
+            .frame(maxWidth: .infinity, alignment: alignment)
+    }
 }
+
+#if DEBUG
+#Preview {
+    ReadView(userBookReview: UserBookReview(title: "This is Title",
+                                            date: Date.now,
+                                            content: """
+                                                       You should always try to avoid long sentences. Below are two examples, as well as some facts about long sentences in general.
+                                                     """)
+    )
+}
+#endif
