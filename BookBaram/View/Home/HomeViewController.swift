@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 final class HomeViewController: UIViewController {
     let homeView = HomeView()
@@ -39,6 +40,11 @@ final class HomeViewController: UIViewController {
         let bookSearchViewController = BookSearchViewController()
         self.navigationController?.pushViewController(bookSearchViewController, animated: true)
     }
+
+    private func moveToReadView(userBookReview: UserBookReview) {
+        let uiHostingController = UIHostingController(rootView: ReadView(userBookReview: userBookReview))
+        self.navigationController?.pushViewController(uiHostingController, animated: true)
+    }
 }
 
 // MARK: - UICalendarViewDelegate
@@ -48,6 +54,9 @@ extension HomeViewController: UICalendarViewDelegate {
 
 // MARK: - UITableViewDelegate
 extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // TODO: self.moveToReadView(...)
+    }
 }
 
 // MARK: -
