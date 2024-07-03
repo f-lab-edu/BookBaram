@@ -7,12 +7,10 @@
 
 import UIKit
 
-class HomeView: UIView {
+final class HomeView: UIView {
 
-    let bookCalendarView: UICalendarView = {
+    private let bookCalendarView: UICalendarView = {
         let calendarView = UICalendarView()
-        calendarView.translatesAutoresizingMaskIntoConstraints = false
-
         let gregorianCalendar = Calendar(identifier: .gregorian)
         calendarView.calendar = gregorianCalendar
         calendarView.locale = Locale(identifier: "ko_KR")
@@ -22,15 +20,10 @@ class HomeView: UIView {
         return calendarView
     }()
 
-    let bookListView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
+    private let bookListView: UITableView = UITableView()
 
-    let addButton: UIButton = {
+    private let addButton: UIButton = {
         let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "plus"), for: .normal)
         button.tintColor = .white
         button.backgroundColor = .orange
@@ -43,26 +36,42 @@ class HomeView: UIView {
         addSubview(bookListView)
         addSubview(addButton)
 
-        let margin = 20.0
-        let btnSize = 50.0
-
-        bookCalendarView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        bookCalendarView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        bookCalendarView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5).isActive = true
-
-        bookListView.topAnchor.constraint(equalTo: bookCalendarView.bottomAnchor, constant: margin).isActive = true
-        bookListView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        bookListView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-
-        addButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: margin * -1).isActive = true
-        addButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: margin * -1).isActive = true
-        addButton.widthAnchor.constraint(equalToConstant: btnSize).isActive = true
-        addButton.heightAnchor.constraint(equalToConstant: btnSize).isActive = true
-
-        bookListView.register(HomeBookRecordCellTableViewCell.self, forCellReuseIdentifier: "bookRecordCell")
+        bookCalendarViewLayout()
+        bookListViewLayout()
+        addButtonLayout()
     }
 
-    func delegate(calendarViewDelegate: UICalendarViewDelegate, tableViewDelegate: UITableViewDelegate, tableViewDataSource: UITableViewDataSource) {
+    private func bookCalendarViewLayout() {
+        bookCalendarView.makeConstraints { view in
+            view.yAxisConstraints(top: topAnchor)
+            view.xAxisConstraints(left: leftAnchor, right: rightAnchor)
+            view.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.55).isActive = true
+        }
+    }
+
+    private func bookListViewLayout() {
+        bookListView.makeConstraints { _ in
+            bookListView.xAxisConstraints(left: leftAnchor, right: rightAnchor)
+            bookListView.yAxisConstraints(top: bookCalendarView.bottomAnchor,
+                                          topOffset: HomeViewConstants.margin,
+                                          bottom: bottomAnchor)
+        }
+
+        bookListView.register(HomeBookRecordCell.self, forCellReuseIdentifier: "bookRecordCell")
+    }
+
+    private func addButtonLayout() {
+        addButton.makeConstraints { view in
+            view.yAxisConstraints(bottom: bottomAnchor,
+                                  bottomOffset: HomeViewConstants.margin * -1)
+            view.xAxisConstraints(right: rightAnchor, rightOffset: HomeViewConstants.margin * -1)
+            view.sizeConstraint(width: HomeViewConstants.btnSize, height: HomeViewConstants.btnSize)
+        }
+    }
+
+    func delegate(calendarViewDelegate: UICalendarViewDelegate,
+                  tableViewDelegate: UITableViewDelegate,
+                  tableViewDataSource: UITableViewDataSource) {
         bookCalendarView.delegate = calendarViewDelegate
 
         bookListView.delegate = tableViewDelegate
@@ -72,4 +81,9 @@ class HomeView: UIView {
     func addButtonAction(action: UIAction) {
         addButton.addAction(action, for: .touchUpInside)
     }
+}
+
+enum HomeViewConstants {
+    static let margin = 20.0
+    static let btnSize = 50.0
 }

@@ -9,33 +9,36 @@ import UIKit
 
 final class BookSearchView: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    enum BookSearchViewConstants {
+        static let marginConstant = 20.0
     }
-    */
 
-    let bookSearchResultView: UITableView = UITableView()
-    let searchBar: UISearchBar = UISearchBar()
+    private let bookSearchResultView: UITableView = UITableView()
+    private let searchBar: UISearchBar = UISearchBar()
 
     func layout() {
         backgroundColor = .systemBackground
         self.addSubview(bookSearchResultView)
         self.addSubview(searchBar)
 
-        let marginConstant = 20.0
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-        searchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        searchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        searchBarLayout()
+        bookSearchResultViewLayout()
+    }
 
+    private func searchBarLayout() {
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.yAxisConstraints(top: safeAreaLayoutGuide.topAnchor)
+        searchBar.xAxisConstraints(left: safeAreaLayoutGuide.leftAnchor,
+                                   right: safeAreaLayoutGuide.rightAnchor)
+    }
+
+    private func bookSearchResultViewLayout() {
         bookSearchResultView.translatesAutoresizingMaskIntoConstraints = false
-        bookSearchResultView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: marginConstant).isActive = true
-        bookSearchResultView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
-        bookSearchResultView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        bookSearchResultView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        bookSearchResultView.topAnchor.constraint(equalTo: searchBar.bottomAnchor,
+                                                  constant: BookSearchViewConstants.marginConstant).isActive = true
+        bookSearchResultView.yAxisConstraints(bottom: safeAreaLayoutGuide.bottomAnchor)
+        bookSearchResultView.xAxisConstraints(left: safeAreaLayoutGuide.leftAnchor,
+                                              right: safeAreaLayoutGuide.rightAnchor)
 
         bookSearchResultView.register(BookSearchResultCell.self, forCellReuseIdentifier: "bookCell")
     }

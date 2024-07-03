@@ -7,55 +7,71 @@
 
 import UIKit
 
-class BookSearchResultView: UIView {
+final class BookSearchResultView: UIView {
+    enum BookSearchResultConstants {
+        static let imageSize = 50.0
+        static let marginValue = 15.0
+    }
 
-    let thumbnail: UIImageView = {
+    private let thumbnail: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .black // placeholder
+        imageView.sizeConstraint(width: BookSearchResultConstants.imageSize,
+                                 height: BookSearchResultConstants.imageSize)
+
         return imageView
     }()
 
-    let title: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let title: UILabel = UILabel()
 
-    let author: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let author: UILabel = UILabel()
 
     func layout() {
         addSubview(thumbnail)
         addSubview(title)
         addSubview(author)
 
-        let marginValue = 15.0
-        let imageSize = 100.0
-
-        thumbnail.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: marginValue).isActive = true
-        thumbnail.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        thumbnail.bottomAnchor.constraint(lessThanOrEqualTo: self.bottomAnchor, constant: marginValue * -1).isActive = true
-        thumbnail.widthAnchor.constraint(equalToConstant: imageSize).isActive = true
-        thumbnail.heightAnchor.constraint(equalToConstant: imageSize).isActive = true
-
-        title.topAnchor.constraint(equalTo: thumbnail.topAnchor).isActive = true
-        title.leadingAnchor.constraint(equalTo: self.thumbnail.trailingAnchor, constant: marginValue).isActive = true
-        title.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: marginValue).isActive = true
-
-        author.topAnchor.constraint(equalTo: title.bottomAnchor, constant: marginValue).isActive = true
-        author.leadingAnchor.constraint(equalTo: title.leadingAnchor).isActive = true
-        author.trailingAnchor.constraint(equalTo: title.trailingAnchor).isActive = true
+        thumbnailLayout()
+        titleLayout()
+        authorLayout()
     }
 
-    func setItem(item: Item) async throws {
+    func setItem(item: Item) {
         self.title.text = item.title
         self.author.text = item.author
 
-        let (imageData, _) = try await URLSession.shared.data(from: item.image)
-        self.thumbnail.image = UIImage(data: imageData)
+        Task {
+            let (imageData, _) = try await URLSession.shared.data(from: item.image)
+            self.thumbnail.image = UIImage(data: imageData)
+        }
+    }
+
+    private func thumbnailLayout() {
+        thumbnail.makeConstraints { view in
+            view.xAxisConstraints(left: leftAnchor, leftOffset: BookSearchResultConstants.marginValue)
+            view.yAxisConstraints(top: topAnchor,
+                                  topOffset: BookSearchResultConstants.marginValue,
+                                  bottom: author.lastBaselineAnchor,
+                                  bottomOffset: BookSearchResultConstants.marginValue * -1)
+        }
+    }
+
+    private func titleLayout() {
+        title.makeConstraints { view in
+            view.yAxisConstraints(top: thumbnail.topAnchor)
+            view.xAxisConstraints(left: thumbnail.rightAnchor,
+                                  leftOffset: BookSearchResultConstants.marginValue,
+                                  right: rightAnchor, rightOffset: BookSearchResultConstants.marginValue * -1)
+        }
+    }
+
+    private func authorLayout() {
+        author.makeConstraints { view in
+            view.yAxisConstraints(top: title.lastBaselineAnchor,
+                                  topOffset: BookSearchResultConstants.marginValue,
+                                  bottom: bottomAnchor,
+                                  bottomOffset: BookSearchResultConstants.marginValue * -1)
+            view.xAxisConstraints(left: title.leftAnchor, right: title.rightAnchor)
+        }
     }
 }

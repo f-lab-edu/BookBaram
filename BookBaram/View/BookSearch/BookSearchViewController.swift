@@ -7,9 +7,11 @@
 
 import UIKit
 
-class BookSearchViewController: UIViewController {
+final class BookSearchViewController: UIViewController {
 
-    let bookSearchView = BookSearchView()
+    override func loadView() {
+        self.view = BookSearchView()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,16 +20,15 @@ class BookSearchViewController: UIViewController {
         setLayout()
 
         // set delegate
-        bookSearchView.delegate(searchbarDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
+        if let bookSearchView = view as? BookSearchView {
+            bookSearchView.delegate(searchbarDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
+        }
     }
 
     private func setLayout() {
-        self.view.addSubview(bookSearchView)
-
-        bookSearchView.translatesAutoresizingMaskIntoConstraints = false
-        bookSearchView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1).isActive = true
-        bookSearchView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
-        bookSearchView.layout()
+        if let bookSearchView = view as? BookSearchView {
+            bookSearchView.layout()
+        }
     }
 }
 
