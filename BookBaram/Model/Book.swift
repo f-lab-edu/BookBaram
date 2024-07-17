@@ -25,7 +25,7 @@ struct SearchBookResults {
 }
 
 // MARK: - SearchBookResponse
-struct SearchBookResponse: Codable {
+struct SearchBookResponse: Decodable {
     let total: Int
     let start: Int
     let display: Int
@@ -33,7 +33,7 @@ struct SearchBookResponse: Codable {
 }
 
 // MARK: - Item
-struct Item: Codable {
+struct Item: Decodable {
     let title: String
     let link: URL
     let image: URL

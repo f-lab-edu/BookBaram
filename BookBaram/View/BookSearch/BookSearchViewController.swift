@@ -79,10 +79,10 @@ extension BookSearchViewController: UISearchBarDelegate {
 // MARK: - ReloadDelegate {
 extension BookSearchViewController: BookSearchResultsUpdateDelegate {
     func reloadTable() {
-        self.bookSearchView.reloadData()
+        bookSearchView.reloadData()
     }
 
     func updatePagingInfo(currentPage: Int, totalPage: Int) {
-        self.bookSearchView.pageLabelInfo(currentPage: currentPage, totlaPage: totalPage)
+        bookSearchView.pageLabelInfo(currentPage: currentPage, totlaPage: totalPage)
     }
 }
