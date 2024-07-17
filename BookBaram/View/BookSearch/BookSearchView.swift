@@ -30,19 +30,20 @@ final class BookSearchView: UIView {
     }
 
     private func searchBarLayout() {
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.yAxisConstraints(top: safeAreaLayoutGuide.topAnchor)
-        searchBar.xAxisConstraints(left: safeAreaLayoutGuide.leftAnchor,
-                                   right: safeAreaLayoutGuide.rightAnchor)
+        searchBar.makeConstraints { view in
+            view.yAxisConstraints(top: safeAreaLayoutGuide.topAnchor)
+            view.xAxisConstraints(left: safeAreaLayoutGuide.leftAnchor,
+                                  right: safeAreaLayoutGuide.rightAnchor)
+        }
     }
 
     private func bookSearchResultViewLayout() {
-        bookSearchResultView.translatesAutoresizingMaskIntoConstraints = false
-        bookSearchResultView.topAnchor.constraint(equalTo: searchBar.bottomAnchor,
-                                                  constant: BookSearchViewConstants.marginConstant).isActive = true
-        bookSearchResultView.xAxisConstraints(left: safeAreaLayoutGuide.leftAnchor,
-                                              right: safeAreaLayoutGuide.rightAnchor)
-
+        bookSearchResultView.makeConstraints {  view in
+            view.topAnchor.constraint(equalTo: searchBar.bottomAnchor,
+                                      constant: BookSearchViewConstants.marginConstant).isActive = true
+            view.xAxisConstraints(left: safeAreaLayoutGuide.leftAnchor,
+                                  right: safeAreaLayoutGuide.rightAnchor)
+        }
         bookSearchResultView.register(BookSearchResultCell.self, forCellReuseIdentifier: "bookCell")
     }
 
@@ -57,19 +58,21 @@ final class BookSearchView: UIView {
     }
 
     private func nextButtonLayout() {
-        nextButton.translatesAutoresizingMaskIntoConstraints = false
+        nextButton.makeConstraints { view in
+            view.yAxisConstraints(top: bookSearchResultView.bottomAnchor, bottom: safeAreaLayoutGuide.bottomAnchor)
+            view.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor,
+                                        constant: BookSearchViewConstants.marginConstant * -1).isActive = true
+        }
         nextButton.setImage(UIImage(systemName: "arrow.right"), for: .normal)
-        nextButton.yAxisConstraints(top: bookSearchResultView.bottomAnchor, bottom: safeAreaLayoutGuide.bottomAnchor)
-        nextButton.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor,
-                                          constant: BookSearchViewConstants.marginConstant * -1).isActive = true
     }
 
     private func prevButtonLayout() {
-        prevButton.translatesAutoresizingMaskIntoConstraints = false
+        prevButton.makeConstraints { view in
+            view.yAxisConstraints(top: bookSearchResultView.bottomAnchor, bottom: safeAreaLayoutGuide.bottomAnchor)
+            view.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor,
+                                       constant: BookSearchViewConstants.marginConstant).isActive = true
+        }
         prevButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
-        prevButton.yAxisConstraints(top: bookSearchResultView.bottomAnchor, bottom: safeAreaLayoutGuide.bottomAnchor)
-        prevButton.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor,
-                                         constant: BookSearchViewConstants.marginConstant).isActive = true
     }
 
     private func pageLabelLayout() {

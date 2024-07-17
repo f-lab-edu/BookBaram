@@ -9,27 +9,27 @@ import Foundation
 import UIKit
 
 final class HomeViewController: UIViewController {
+    let homeView = HomeView()
 
     override func loadView() {
-        self.view = HomeView()
+        self.view = homeView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setLayout()
-        if let homeView = view as? HomeView {
-            homeView.delegate(calendarViewDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
-            homeView.addButtonAction(action: UIAction(handler: { [weak self] _ in
-                self?.moveToSearchViewController()
-            }))
-        }
+
+        homeView.delegate(calendarViewDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
+        homeView.addButtonAction(action: UIAction(handler: { [weak self] _ in
+            self?.moveToSearchViewController()
+        }))
     }
 
     private func setLayout() {
         self.view.backgroundColor = .systemBackground
 
-        (view as? HomeView)?.layout()
+        homeView.layout()
     }
 
     private func moveToSearchViewController() {
@@ -55,7 +55,7 @@ extension HomeViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "bookRecordCell")
-                as? HomeBookRecordCellTableViewCell else {
+                as? HomeBookRecordCell else {
             // 에러 대신 기본 셀??
             return UITableViewCell()
         }

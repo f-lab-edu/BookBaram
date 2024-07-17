@@ -8,6 +8,11 @@
 import UIKit
 
 extension UIView {
+    func makeConstraints(constraintHandler: (UIView) -> Void) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        constraintHandler(self)
+    }
+
     func sizeConstraint(width: Double? = nil, height: Double? = nil) {
         if let width {
             self.widthAnchor.constraint(equalToConstant: width).isActive = true
@@ -22,24 +27,38 @@ extension UIView {
         self.heightAnchor.constraint(equalTo: heightDimension).isActive = true
     }
 
-    func yAxisConstraints(top: NSLayoutYAxisAnchor? = nil, bottom: NSLayoutYAxisAnchor? = nil) {
+    func yAxisConstraints(top: NSLayoutYAxisAnchor? = nil,
+                          topOffset: CGFloat? = nil,
+                          bottom: NSLayoutYAxisAnchor? = nil,
+                          bottomOffset: CGFloat? = nil) {
         if let top {
-            self.topAnchor.constraint(equalTo: top).isActive = true
+            self.topAnchor.constraint(equalTo: top).offset(topOffset)
         }
 
         if let bottom {
-            self.bottomAnchor.constraint(equalTo: bottom).isActive = true
+            self.bottomAnchor.constraint(equalTo: bottom).offset(bottomOffset)
         }
     }
 
-    func xAxisConstraints(left: NSLayoutXAxisAnchor? = nil, right: NSLayoutXAxisAnchor? = nil) {
+    func xAxisConstraints(left: NSLayoutXAxisAnchor? = nil,
+                          leftOffset: CGFloat? = nil,
+                          right: NSLayoutXAxisAnchor? = nil,
+                          rightOffset: CGFloat? = nil) {
         if let left {
-            self.leftAnchor.constraint(equalTo: left).isActive = true
+            self.leftAnchor.constraint(equalTo: left).offset(leftOffset)
         }
 
         if let right {
-            self.rightAnchor.constraint(equalTo: right).isActive = true
+            self.rightAnchor.constraint(equalTo: right).offset(rightOffset)
         }
+    }
+}
 
+extension NSLayoutConstraint {
+    func offset(_ offset: CGFloat?) {
+        if let offset {
+            self.constant = offset
+        }
+        self.isActive = true
     }
 }

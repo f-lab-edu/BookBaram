@@ -16,25 +16,15 @@ final class BookSearchResultView: UIView {
 
     private let thumbnail: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .black // placeholder
         imageView.sizeConstraint(width: BookSearchResultConstants.imageSize)
 
         return imageView
     }()
 
-    private let title: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.numberOfLines = 0
-        return label
-    }()
+    private let title: UILabel = UILabel()
 
-    private let author: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    private let author: UILabel = UILabel()
 
     func layout() {
         addSubview(thumbnail)
@@ -51,36 +41,37 @@ final class BookSearchResultView: UIView {
         self.author.text = item.author
 
         Task {
-            do {
-                let (imageData, _) = try await URLSession.shared.data(from: item.image)
-                self.thumbnail.image = UIImage(data: imageData)
-            } catch {
-                self.thumbnail.image = UIImage(systemName: "exclamationmark.triangle")
-            }
+            let (imageData, _) = try await URLSession.shared.data(from: item.image)
+            self.thumbnail.image = UIImage(data: imageData)
         }
     }
 
     private func thumbnailLayout() {
-        thumbnail.leadingAnchor.constraint(equalTo: leadingAnchor,
-                                           constant: BookSearchResultConstants.marginValue).isActive = true
-        thumbnail.topAnchor.constraint(equalTo: topAnchor,
-                                       constant: BookSearchResultConstants.marginValue).isActive = true
-        thumbnail.lastBaselineAnchor.constraint(lessThanOrEqualTo: author.lastBaselineAnchor).isActive = true
+        thumbnail.makeConstraints { view in
+            view.xAxisConstraints(left: leftAnchor, leftOffset: BookSearchResultConstants.marginValue)
+            view.yAxisConstraints(top: topAnchor,
+                                  topOffset: BookSearchResultConstants.marginValue,
+                                  bottom: author.lastBaselineAnchor,
+                                  bottomOffset: BookSearchResultConstants.marginValue * -1)
+        }
     }
 
     private func titleLayout() {
-        title.topAnchor.constraint(equalTo: topAnchor,
-                                   constant: BookSearchResultConstants.marginValue).isActive = true
-        title.leftAnchor.constraint(equalTo: thumbnail.rightAnchor,
-                                       constant: BookSearchResultConstants.marginValue).isActive = true
-        title.rightAnchor.constraint(equalTo: rightAnchor,
-                                        constant: BookSearchResultConstants.marginValue * -1).isActive = true
+        title.makeConstraints { view in
+            view.yAxisConstraints(top: thumbnail.topAnchor)
+            view.xAxisConstraints(left: thumbnail.rightAnchor,
+                                  leftOffset: BookSearchResultConstants.marginValue,
+                                  right: rightAnchor, rightOffset: BookSearchResultConstants.marginValue * -1)
+        }
     }
 
     private func authorLayout() {
-        author.firstBaselineAnchor.constraint(equalToSystemSpacingBelow: title.lastBaselineAnchor,
-                                              multiplier: 1.0).isActive = true
-        author.xAxisConstraints(left: title.leftAnchor, right: title.rightAnchor)
-        author.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        author.makeConstraints { view in
+            view.yAxisConstraints(top: title.lastBaselineAnchor,
+                                  topOffset: BookSearchResultConstants.marginValue,
+                                  bottom: bottomAnchor,
+                                  bottomOffset: BookSearchResultConstants.marginValue * -1)
+            view.xAxisConstraints(left: title.leftAnchor, right: title.rightAnchor)
+        }
     }
 }

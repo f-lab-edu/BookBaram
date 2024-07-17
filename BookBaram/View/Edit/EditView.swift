@@ -8,15 +8,14 @@
 import UIKit
 
 class EditView: UIView {
-    let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
+    enum EditViewConstants {
+        static let marginConstant = 15.0
+    }
+
+    let scrollView: UIScrollView = UIScrollView()
 
     let contentView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -26,23 +25,14 @@ class EditView: UIView {
 
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .black // placeholder
         imageView.heightAnchor.constraint(equalToConstant: 100.0).isActive = true
         return imageView
     }()
 
-    let titleTextField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
+    let titleTextField: UITextField = UITextField()
 
-    let contentTextView: UITextView = {
-        let textView = UITextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        return textView
-    }()
+    let contentTextView: UITextView = UITextView()
 
     func layout() {
         addSubview(scrollView)
@@ -60,19 +50,24 @@ class EditView: UIView {
     }
 
     private func scrollViewLayout() {
-        scrollView.sizeConstraint(widthDimension: widthAnchor, heightDimension: heightAnchor)
-        scrollView.yAxisConstraints(top: safeAreaLayoutGuide.topAnchor,
-                                    bottom: safeAreaLayoutGuide.bottomAnchor)
+        scrollView.makeConstraints { view in
+            view.sizeConstraint(widthDimension: widthAnchor, heightDimension: heightAnchor)
+            view.yAxisConstraints(top: safeAreaLayoutGuide.topAnchor,
+                                  bottom: safeAreaLayoutGuide.bottomAnchor)
+        }
     }
 
     private func contentViewLayout() {
-        contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor,
-                                             constant: EditViewConstants.marginConstant).isActive = true
-        contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor,
-                                              constant: EditViewConstants.marginConstant * -1).isActive = true
-        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor,
-                                           constant: EditViewConstants.marginConstant * -2).isActive = true
-        contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
+        contentView.makeConstraints { view in
+            view.xAxisConstraints(left: scrollView.leftAnchor,
+                                  leftOffset: EditViewConstants.marginConstant,
+                                  right: scrollView.rightAnchor,
+                                  rightOffset: EditViewConstants.marginConstant)
+            view.yAxisConstraints(top: scrollView.topAnchor,
+                                  topOffset: EditViewConstants.marginConstant,
+                                  bottom: scrollView.bottomAnchor,
+                                  bottomOffset: EditViewConstants.marginConstant)
+        }
     }
 
     private func textFieldStyle() {
@@ -87,8 +82,4 @@ class EditView: UIView {
         contentTextView.text = "Content"
     }
 
-}
-
-enum EditViewConstants {
-    static let marginConstant = 15.0
 }
