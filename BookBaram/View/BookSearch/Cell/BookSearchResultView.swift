@@ -57,6 +57,7 @@ final class BookSearchResultView: UIView {
     }
 
     private func titleLayout() {
+        title.dynamicFont()
         title.makeConstraints { view in
             view.yAxisConstraints(top: thumbnail.topAnchor)
             view.xAxisConstraints(left: thumbnail.rightAnchor,
@@ -66,6 +67,7 @@ final class BookSearchResultView: UIView {
     }
 
     private func authorLayout() {
+        author.dynamicFont()
         author.makeConstraints { view in
             view.yAxisConstraints(top: title.lastBaselineAnchor,
                                   topOffset: BookSearchResultConstants.marginValue,
