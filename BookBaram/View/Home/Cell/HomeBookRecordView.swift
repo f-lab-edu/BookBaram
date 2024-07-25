@@ -29,6 +29,7 @@ final class HomeBookRecordView: UIView {
     }
 
     private func titleLayout() {
+        titleLabel.dynamicFont()
         titleLabel.makeConstraints { view in
             view.xAxisConstraints(left: leftAnchor, leftOffset: HomBookRecordConstants.marginConstant)
             view.yAxisConstraints(top: topAnchor, bottom: bottomAnchor)
@@ -38,6 +39,7 @@ final class HomeBookRecordView: UIView {
     }
 
     private func dateLayout() {
+        dateLabel.dynamicFont()
         dateLabel.textAlignment = .right
         dateLabel.makeConstraints { view in
             view.xAxisConstraints(left: titleLabel.rightAnchor,
