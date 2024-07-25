@@ -7,51 +7,61 @@
 
 import UIKit
 
+protocol BookSearchResultsUpdateDelegate: AnyObject {
+    func reloadTable()
+    func updatePagingInfo(currentPage: Int, totalPage: Int)
+}
+
 final class BookSearchViewController: UIViewController {
+    private let bookSearchView = BookSearchView()
+    private let bookSearchViewModel = BookSearchViewModel.shared
 
     override func loadView() {
-        self.view = BookSearchView()
+        self.view = bookSearchView
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // init viewlayout
-        setLayout()
-
         // set delegate
-        if let bookSearchView = view as? BookSearchView {
-            bookSearchView.delegate(searchbarDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
-        }
+        bookSearchView.delegate(searchbarDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
+        bookSearchViewModel.bookSearchResultsUpdateDelegate = self
+    }
+
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        setLayout()
     }
 
     private func setLayout() {
-        if let bookSearchView = view as? BookSearchView {
-            bookSearchView.layout()
-        }
+        bookSearchView.layout()
+        bookSearchView.addActionForNextButton(action: UIAction(handler: { [weak self] _ in
+            self?.bookSearchViewModel.searchNextPage()
+        }))
+        bookSearchView.addActionForPrevButton(action: UIAction(handler: { [weak self] _ in
+            self?.bookSearchViewModel.searchPrevPage()
+        }))
     }
 }
 
 // MARK: - UITableViewDelegate
 extension BookSearchViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
 }
 
 // MARK: - UITableViewDataSource
 extension BookSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // TODO: 나중에 datasource와 연결 필요
-        return 1
+        return bookSearchViewModel.searchBookResult?.items.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "bookCell") as? BookSearchResultCell else {
-            fatalError("This is not BookSearchResultCell")
+            return UITableViewCell()
         }
 
-        // TODO: cell.setItem(...)
+        if let searchBookResult = bookSearchViewModel.searchBookResult {
+            cell.setItem(item: searchBookResult.items[indexPath.row])
+        }
 
         return cell
     }
@@ -60,10 +70,21 @@ extension BookSearchViewController: UITableViewDataSource {
 // MARK: - UISearchBarDelegate
 extension BookSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // TODO: 검색 api 호출
+        bookSearchViewModel.searchBook(query: searchBar.text)
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
+    }
+}
+
+// MARK: - ReloadDelegate {
+extension BookSearchViewController: BookSearchResultsUpdateDelegate {
+    func reloadTable() {
+        bookSearchView.reloadData()
+    }
+
+    func updatePagingInfo(currentPage: Int, totalPage: Int) {
+        bookSearchView.pageLabelInfo(currentPage: currentPage, totlaPage: totalPage)
     }
 }
