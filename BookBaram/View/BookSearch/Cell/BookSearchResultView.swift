@@ -17,7 +17,8 @@ final class BookSearchResultView: UIView {
     private let thumbnail: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .black // placeholder
-        imageView.sizeConstraint(width: BookSearchResultConstants.imageSize)
+        imageView.sizeConstraint(width: BookSearchResultConstants.imageSize,
+                                 height: BookSearchResultConstants.imageSize)
 
         return imageView
     }()
@@ -50,9 +51,7 @@ final class BookSearchResultView: UIView {
         thumbnail.makeConstraints { view in
             view.xAxisConstraints(left: leftAnchor, leftOffset: BookSearchResultConstants.marginValue)
             view.yAxisConstraints(top: topAnchor,
-                                  topOffset: BookSearchResultConstants.marginValue,
-                                  bottom: author.lastBaselineAnchor,
-                                  bottomOffset: BookSearchResultConstants.marginValue * -1)
+                                  topOffset: BookSearchResultConstants.marginValue)
         }
     }
 
@@ -61,7 +60,8 @@ final class BookSearchResultView: UIView {
             view.yAxisConstraints(top: thumbnail.topAnchor)
             view.xAxisConstraints(left: thumbnail.rightAnchor,
                                   leftOffset: BookSearchResultConstants.marginValue,
-                                  right: rightAnchor, rightOffset: BookSearchResultConstants.marginValue * -1)
+                                  right: rightAnchor,
+                                  rightOffset: BookSearchResultConstants.marginValue * -1)
         }
     }
 
@@ -71,7 +71,16 @@ final class BookSearchResultView: UIView {
                                   topOffset: BookSearchResultConstants.marginValue,
                                   bottom: bottomAnchor,
                                   bottomOffset: BookSearchResultConstants.marginValue * -1)
-            view.xAxisConstraints(left: title.leftAnchor, right: title.rightAnchor)
+            view.xAxisConstraints(left: thumbnail.rightAnchor,
+                                  leftOffset: BookSearchResultConstants.marginValue,
+                                  right: rightAnchor,
+                                  rightOffset: BookSearchResultConstants.marginValue * -1)
         }
+    }
+
+    func resetItem() {
+        title.text = ""
+        author.text = ""
+        thumbnail.image = nil
     }
 }

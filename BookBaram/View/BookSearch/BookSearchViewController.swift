@@ -23,12 +23,14 @@ final class BookSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // init viewlayout
-        setLayout()
-
         // set delegate
         bookSearchView.delegate(searchbarDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
         bookSearchViewModel.bookSearchResultsUpdateDelegate = self
+    }
+
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        setLayout()
     }
 
     private func setLayout() {

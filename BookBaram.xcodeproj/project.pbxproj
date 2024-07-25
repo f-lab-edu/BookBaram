@@ -8,12 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		8E018AF02C3196220084C1CC /* HomeBookRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E018AEF2C3196220084C1CC /* HomeBookRecordView.swift */; };
-		8E018B022C31984B0084C1CC /* BookSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E018AFE2C31984B0084C1CC /* BookSearchView.swift */; };
-		8E018B032C31984B0084C1CC /* BookSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E018AFF2C31984B0084C1CC /* BookSearchViewController.swift */; };
 		8E0540E02BFF691700385365 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0540DF2BFF691700385365 /* AppDelegate.swift */; };
 		8E0540E22BFF691700385365 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0540E12BFF691700385365 /* SceneDelegate.swift */; };
 		8E0540E92BFF691900385365 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E0540E82BFF691900385365 /* Assets.xcassets */; };
 		8E0540EC2BFF691900385365 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8E0540EB2BFF691900385365 /* Base */; };
+		8E2D1BED2C52891800005376 /* naver-apikey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E2D1BEC2C52885300005376 /* naver-apikey.json */; };
 		8E3DEECF2C29A70A0084EF5B /* UIView+BookBaram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3DEECE2C29A70A0084EF5B /* UIView+BookBaram.swift */; };
 		8E59F3982C0AE4B4006B9074 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59F3972C0AE4B4006B9074 /* ApiClient.swift */; };
 		8E59F39A2C0AEE69006B9074 /* BaramError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59F3992C0AEE69006B9074 /* BaramError.swift */; };
@@ -33,14 +32,13 @@
 
 /* Begin PBXFileReference section */
 		8E018AEF2C3196220084C1CC /* HomeBookRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBookRecordView.swift; sourceTree = "<group>"; };
-		8E018AFE2C31984B0084C1CC /* BookSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BookSearchView.swift; path = BookBaram/View/BookSearch/BookSearchView.swift; sourceTree = SOURCE_ROOT; };
-		8E018AFF2C31984B0084C1CC /* BookSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BookSearchViewController.swift; path = BookBaram/View/BookSearch/BookSearchViewController.swift; sourceTree = SOURCE_ROOT; };
 		8E0540DC2BFF691700385365 /* BookBaram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookBaram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E0540DF2BFF691700385365 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E0540E12BFF691700385365 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8E0540E82BFF691900385365 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8E0540EB2BFF691900385365 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E0540ED2BFF691900385365 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E2D1BEC2C52885300005376 /* naver-apikey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "naver-apikey.json"; sourceTree = "<group>"; };
 		8E3DEECE2C29A70A0084EF5B /* UIView+BookBaram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+BookBaram.swift"; sourceTree = "<group>"; };
 		8E4F6E072C15A955007F46E5 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		8E59F3972C0AE4B4006B9074 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 			children = (
 				8E0540DE2BFF691700385365 /* BookBaram */,
 				8E0540DD2BFF691700385365 /* Products */,
-				8E932ABF2C47EC0800B7409C /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,6 +105,7 @@
 				8E0540E82BFF691900385365 /* Assets.xcassets */,
 				8E0540EA2BFF691900385365 /* LaunchScreen.storyboard */,
 				8E0540ED2BFF691900385365 /* Info.plist */,
+				8E2D1BEC2C52885300005376 /* naver-apikey.json */,
 			);
 			path = BookBaram;
 			sourceTree = "<group>";
@@ -166,15 +164,6 @@
 				8E7664412C04B6C700F67B5A /* Book.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		8E932ABF2C47EC0800B7409C /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				8E018AFE2C31984B0084C1CC /* BookSearchView.swift */,
-				8E018AFF2C31984B0084C1CC /* BookSearchViewController.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		8E932AC22C47EC5600B7409C /* Cell */ = {
@@ -257,6 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E0540E92BFF691900385365 /* Assets.xcassets in Resources */,
+				8E2D1BED2C52891800005376 /* naver-apikey.json in Resources */,
 				8E0540EC2BFF691900385365 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,13 +282,11 @@
 				8E6EF67F2C17239C00079043 /* HomeBookRecordCell.swift in Sources */,
 				8E3DEECF2C29A70A0084EF5B /* UIView+BookBaram.swift in Sources */,
 				8EADB9872C204A8200809BAF /* HomeView.swift in Sources */,
-				8E018B022C31984B0084C1CC /* BookSearchView.swift in Sources */,
 				8E0540E02BFF691700385365 /* AppDelegate.swift in Sources */,
 				8EADB9852C204A7700809BAF /* EditView.swift in Sources */,
 				8E932AC92C47EC5600B7409C /* BookSearchView.swift in Sources */,
 				8E7664422C04B6C700F67B5A /* Book.swift in Sources */,
 				8E6EF6802C17239C00079043 /* HomeViewController.swift in Sources */,
-				8E018B032C31984B0084C1CC /* BookSearchViewController.swift in Sources */,
 				8E59F39A2C0AEE69006B9074 /* BaramError.swift in Sources */,
 				8E59F39C2C0AFB0F006B9074 /* BaramUrl.swift in Sources */,
 				8E932ACA2C47EC5600B7409C /* BookSearchViewController.swift in Sources */,

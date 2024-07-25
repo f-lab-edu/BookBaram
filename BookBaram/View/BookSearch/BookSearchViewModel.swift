@@ -27,13 +27,21 @@ class BookSearchViewModel {
     }
 
     func searchNextPage() {
-        guard let searchBookResult, searchBookResult.currentPage + 1 <= searchBookResult.total else { return }
-        searchBook(query: searchBookResult.queryKeyword, start: searchBookResult.currentPage + 1)
+        guard let searchBookResult else { return }
+
+        let nextPage = searchBookResult.currentPage + searchBookResult.display
+        if nextPage > searchBookResult.total { return }
+
+        searchBook(query: searchBookResult.queryKeyword, start: nextPage)
     }
 
     func searchPrevPage() {
-        guard let searchBookResult, searchBookResult.currentPage - 1 >= 1 else { return }
-        searchBook(query: searchBookResult.queryKeyword, start: searchBookResult.currentPage - 1)
+        guard let searchBookResult else { return }
+
+        let prevPage = searchBookResult.currentPage - searchBookResult.display
+        if prevPage  < 0 { return }
+
+        searchBook(query: searchBookResult.queryKeyword, start: prevPage)
     }
 
     private func requestSearchBook(_ query: String, start: Int, display: Int = 10) async throws -> Data? {

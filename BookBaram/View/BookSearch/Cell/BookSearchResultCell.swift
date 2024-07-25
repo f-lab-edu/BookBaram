@@ -24,7 +24,8 @@ class BookSearchResultCell: UITableViewCell {
         self.contentView.addSubview(bookSearchResultView)
 
         bookSearchResultView.makeConstraints { view in
-            view.sizeConstraint(widthDimension: widthAnchor, heightDimension: heightAnchor)
+            view.sizeConstraint(widthDimension: contentView.widthAnchor,
+                                heightDimension: contentView.heightAnchor)
         }
 
         bookSearchResultView.layout()
@@ -32,5 +33,9 @@ class BookSearchResultCell: UITableViewCell {
 
     func setItem(item: Item) {
         bookSearchResultView.setItem(item: item)
+    }
+
+    override func prepareForReuse() {
+        bookSearchResultView.resetItem()
     }
 }

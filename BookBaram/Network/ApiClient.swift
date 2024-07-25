@@ -109,9 +109,9 @@ extension URLRequest {
 extension Bundle {
     // naver api key
     var naverClientId: String {
-        guard let resource = loadNaverApiPlist() else { return "" }
+        guard let info = loadNaverApiInfo() else { return "" }
 
-        guard let key = resource["X_NAVER_CLIENT_ID"] as? String else {
+        guard let key = info["X-Naver-Client-Id"] as? String else {
             return ""
         }
 
@@ -119,17 +119,19 @@ extension Bundle {
     }
 
     var naverSecretKey: String {
-        guard let resource = loadNaverApiPlist() else { return "" }
+        guard let info = loadNaverApiInfo() else { return "" }
 
-        guard let key = resource["X_NAVER_CLIENT_SECRET"] as? String else {
+        guard let key = info["X-Naver-Client-Secret"] as? String else {
             return ""
         }
 
         return key
     }
 
-    private func loadNaverApiPlist() -> NSDictionary? {
-        guard let file = path(forResource: "naver-api-key", ofType: "plist") else { return nil }
-        return NSDictionary(contentsOfFile: file)
+    public func loadNaverApiInfo() -> [String: Any]? {
+        guard let file = Bundle.main.url(forResource: "naver-apikey", withExtension: "json") else { return nil }
+        guard let data = try? Data(contentsOf: file) else { return nil }
+
+        return try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
     }
 }
