@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ImageInfo: Codable {
+class ImageInfo: Codable {
     let url: URL
     let data: Data
     let expireTime: Date?

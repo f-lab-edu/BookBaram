@@ -27,11 +27,9 @@ final class ImageDiskCache {
     func saveImage(key: String, imageInfo: ImageInfo) throws {
         guard let cachePath else { return }
 
-        print("!!!!! imageInfo: \(imageInfo)")
         let filePath = URL(filePath: cachePath).appending(path: key)
 
         let data = try JSONEncoder().encode(imageInfo)
-        let saved = fileManager.createFile(atPath: filePath.path(), contents: data)
-        print("!!!!! saved: \(saved)")
+        _ = fileManager.createFile(atPath: filePath.path(), contents: data)
     }
 }
