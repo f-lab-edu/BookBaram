@@ -11,6 +11,7 @@ final class BookSearchResultView: UIView {
     enum BookSearchResultConstants {
         static let imageSize = 50.0
         static let marginValue = 15.0
+        static let labelMultiplier = 1.5
     }
 
     private let thumbnail: UIImageView = {
@@ -50,9 +51,7 @@ final class BookSearchResultView: UIView {
         thumbnail.makeConstraints { view in
             view.xAxisConstraints(left: leftAnchor, leftOffset: BookSearchResultConstants.marginValue)
             view.yAxisConstraints(top: topAnchor,
-                                  topOffset: BookSearchResultConstants.marginValue,
-                                  bottom: author.lastBaselineAnchor,
-                                  bottomOffset: BookSearchResultConstants.marginValue * -1)
+                                  topOffset: BookSearchResultConstants.marginValue)
         }
     }
 
@@ -62,18 +61,26 @@ final class BookSearchResultView: UIView {
             view.yAxisConstraints(top: thumbnail.topAnchor)
             view.xAxisConstraints(left: thumbnail.rightAnchor,
                                   leftOffset: BookSearchResultConstants.marginValue,
-                                  right: rightAnchor, rightOffset: BookSearchResultConstants.marginValue * -1)
+                                  right: rightAnchor,
+                                  rightOffset: BookSearchResultConstants.marginValue * -1)
         }
     }
 
     private func authorLayout() {
         author.dynamicFont()
         author.makeConstraints { view in
-            view.yAxisConstraints(top: title.lastBaselineAnchor,
-                                  topOffset: BookSearchResultConstants.marginValue,
+            view.yAxisConstraints(top: title.lastBaselineAnchor, topOffset: BookSearchResultConstants.marginValue,
                                   bottom: bottomAnchor,
                                   bottomOffset: BookSearchResultConstants.marginValue * -1)
-            view.xAxisConstraints(left: title.leftAnchor, right: title.rightAnchor)
+            view.xAxisConstraints(left: thumbnail.rightAnchor, leftOffset: BookSearchResultConstants.marginValue,
+                                  right: rightAnchor,
+                                  rightOffset: BookSearchResultConstants.marginValue * -1)
         }
+    }
+
+    func resetItem() {
+        title.text = ""
+        author.text = ""
+        thumbnail.image = nil
     }
 }

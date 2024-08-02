@@ -9,19 +9,14 @@ import UIKit
 
 class EditViewController: UIViewController {
     let editView = EditView()
+
     override func loadView() {
         view = editView
+        view.backgroundColor = .systemBackground
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        setLayout()
-    }
-
-    private func setLayout() {
-        self.view.backgroundColor = .systemBackground
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
 
         editView.layout()
     }

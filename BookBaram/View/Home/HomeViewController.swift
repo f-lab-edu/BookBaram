@@ -13,6 +13,7 @@ final class HomeViewController: UIViewController {
 
     override func loadView() {
         self.view = homeView
+        self.view.backgroundColor = .systemBackground
     }
 
     override func viewDidLoad() {
@@ -26,9 +27,12 @@ final class HomeViewController: UIViewController {
         }))
     }
 
-    private func setLayout() {
-        self.view.backgroundColor = .systemBackground
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        setLayout()
+    }
 
+    private func setLayout() {
         homeView.layout()
     }
 

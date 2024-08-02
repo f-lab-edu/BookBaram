@@ -26,11 +26,15 @@ class BookSearchResultCell: UITableViewCell {
         bookSearchResultView.makeConstraints { view in
             view.sizeConstraint(widthDimension: contentView.widthAnchor, heightDimension: contentView.heightAnchor)
         }
-        bookSearchResultView.layout()
 
+        bookSearchResultView.layout()
     }
 
     func setItem(item: Item) {
         bookSearchResultView.setItem(item: item)
+    }
+
+    override func prepareForReuse() {
+        bookSearchResultView.resetItem()
     }
 }
