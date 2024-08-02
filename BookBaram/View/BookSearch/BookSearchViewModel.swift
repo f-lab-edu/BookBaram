@@ -68,4 +68,9 @@ class BookSearchViewModel {
         bookSearchResultsUpdateDelegate?.updatePagingInfo(currentPage: searchBookResult!.currentPage,
                                                           totalPage: searchBookResult!.total)
     }
+
+    func clearBookResult() {
+        bookResult.removeAll()
+        searchBookResult = nil
+    }
 }

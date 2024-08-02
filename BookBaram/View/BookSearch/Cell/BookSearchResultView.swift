@@ -42,8 +42,7 @@ final class BookSearchResultView: UIView {
         self.author.text = item.author
 
         Task {
-            let (imageData, _) = try await URLSession.shared.data(from: item.image)
-            self.thumbnail.image = UIImage(data: imageData)
+            self.thumbnail.image = await ImageCache.shared.loadImage(imageUrl: item.image)
         }
     }
 
