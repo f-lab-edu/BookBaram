@@ -23,7 +23,7 @@ final class ImageDiskCache {
         return try Data(contentsOf: filePath)
     }
 
-    func saveImage(imageUrl key: String, image data: Data) {
+    func saveImage(key: String, image data: Data) {
         guard let cachePath else { return }
 
         let filePath = URL(filePath: cachePath).appending(path: key)

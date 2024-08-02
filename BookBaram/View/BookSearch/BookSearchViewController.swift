@@ -26,6 +26,7 @@ final class BookSearchViewController: UIViewController {
         // set delegate
         bookSearchView.delegate(searchbarDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
         bookSearchViewModel.bookSearchResultsUpdateDelegate = self
+        bookSearchViewModel.clearBookResult()
     }
 
     override func updateViewConstraints() {
