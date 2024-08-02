@@ -11,7 +11,7 @@ final class ImageDiskCache {
     private let cachePath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true).first
     private let fileManager = FileManager()
 
-    func loadImage(imageUrl key: String) throws -> Data? {
+    func loadImage(imageUrl key: String) throws -> ImageInfo? {
         guard let cachePath else { return nil }
 
         let filePath = URL(filePath: cachePath).appending(path: key)
@@ -20,14 +20,18 @@ final class ImageDiskCache {
             return nil
         }
 
-        return try Data(contentsOf: filePath)
+        let data = try Data(contentsOf: filePath)
+        return try JSONDecoder().decode(ImageInfo.self, from: data)
     }
 
-    func saveImage(key: String, image data: Data) {
+    func saveImage(key: String, imageInfo: ImageInfo) throws {
         guard let cachePath else { return }
 
+        print("!!!!! imageInfo: \(imageInfo)")
         let filePath = URL(filePath: cachePath).appending(path: key)
 
-        _ = fileManager.createFile(atPath: filePath.path(), contents: data)
+        let data = try JSONEncoder().encode(imageInfo)
+        let saved = fileManager.createFile(atPath: filePath.path(), contents: data)
+        print("!!!!! saved: \(saved)")
     }
 }

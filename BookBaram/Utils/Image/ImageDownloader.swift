@@ -12,10 +12,21 @@ final class ImageDownloader {
 
     private init() {}
 
-    func downloadImage(imageUrl: String) async throws -> Data? {
+    func downloadImage(imageUrl: String) async throws -> ImageInfo? {
         if let url = URL(string: imageUrl) {
-            let (imageData, _) = try await URLSession.shared.data(from: url)
-            return imageData
+            let urlRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy)
+            let (imageData, response) = try await URLSession.shared.data(for: urlRequest)
+            let expireTime = extractExpireTime(response: response)
+
+            return ImageInfo(url: url, data: imageData, expireTime: expireTime)
+        }
+
+        return nil
+    }
+
+    private func extractExpireTime(response: URLResponse) -> String? {
+        if let httpUrlResponse = response as? HTTPURLResponse {
+            return httpUrlResponse.value(forHTTPHeaderField: "Expires")
         }
 
         return nil

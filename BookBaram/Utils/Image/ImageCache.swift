@@ -25,7 +25,7 @@ final class ImageCache {
         }
 
         if let diskResult = try? diskCache.loadImage(imageUrl: key) {
-            let image = cacheImage(data: diskResult, key: key)
+            let image = cacheImage(data: diskResult.data, key: key)
             return image
         }
 
@@ -42,10 +42,10 @@ final class ImageCache {
     }
 
     private func downloadImage(imageUrl: String, key: String) async -> UIImage? {
-        if let imgData = try? await ImageDownloader.shared.downloadImage(imageUrl: imageUrl),
-           let image = UIImage(data: imgData) {
+        if let imageInfo = try? await ImageDownloader.shared.downloadImage(imageUrl: imageUrl),
+           let image = UIImage(data: imageInfo.data) {
             memoryCache.setObject(image, forKey: imageUrl as NSString)
-            diskCache.saveImage(key: key, image: imgData)
+            try? diskCache.saveImage(key: key, imageInfo: imageInfo)
             return image
         }
 
