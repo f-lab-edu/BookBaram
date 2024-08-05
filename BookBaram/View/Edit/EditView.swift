@@ -32,11 +32,15 @@ class EditView: UIView {
 
     let titleTextField: UITextField = UITextField()
 
-    let contentTextView: UITextView = UITextView()
+    let contentTextView: UITextView = {
+        let textView = UITextView()
+        textView.heightAnchor.constraint(equalToConstant: 250.0).isActive = true
+        return textView
+    }()
 
     func layout() {
         addSubview(scrollView)
-        addSubview(contentView)
+        scrollView.addSubview(contentView)
 
         contentView.addArrangedSubview(imageView)
         contentView.addArrangedSubview(titleTextField)
@@ -51,7 +55,10 @@ class EditView: UIView {
 
     private func scrollViewLayout() {
         scrollView.makeConstraints { view in
-            view.sizeConstraint(widthDimension: widthAnchor, heightDimension: heightAnchor)
+            view.xAxisConstraints(left: safeAreaLayoutGuide.leftAnchor,
+                                  leftOffset: EditViewConstants.marginConstant,
+                                  right: safeAreaLayoutGuide.rightAnchor,
+                                  rightOffset: EditViewConstants.marginConstant * -1)
             view.yAxisConstraints(top: safeAreaLayoutGuide.topAnchor,
                                   bottom: safeAreaLayoutGuide.bottomAnchor)
         }
@@ -60,13 +67,10 @@ class EditView: UIView {
     private func contentViewLayout() {
         contentView.makeConstraints { view in
             view.xAxisConstraints(left: scrollView.leftAnchor,
-                                  leftOffset: EditViewConstants.marginConstant,
-                                  right: scrollView.rightAnchor,
-                                  rightOffset: EditViewConstants.marginConstant)
+                                  right: scrollView.rightAnchor)
             view.yAxisConstraints(top: scrollView.topAnchor,
-                                  topOffset: EditViewConstants.marginConstant,
-                                  bottom: scrollView.bottomAnchor,
-                                  bottomOffset: EditViewConstants.marginConstant)
+                                  bottom: scrollView.bottomAnchor)
+            view.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
         }
     }
 
@@ -83,7 +87,14 @@ class EditView: UIView {
         contentTextView.layer.borderWidth = 1.0
         contentTextView.layer.cornerRadius = 8
         contentTextView.layer.borderColor = UIColor.lightGray.cgColor
-        contentTextView.text = "Content"
     }
 
+    @MainActor
+    func setImage(url: URL) {
+        Task {
+            if let result = try? await URLSession.shared.data(from: url) {
+                imageView.image = UIImage(data: result.0)
+            }
+        }
+    }
 }

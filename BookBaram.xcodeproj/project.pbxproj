@@ -13,6 +13,8 @@
 		8E0540E92BFF691900385365 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E0540E82BFF691900385365 /* Assets.xcassets */; };
 		8E0540EC2BFF691900385365 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8E0540EB2BFF691900385365 /* Base */; };
 		8E2D1BED2C52891800005376 /* naver-apikey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E2D1BEC2C52885300005376 /* naver-apikey.json */; };
+		8E42640D2C610307001CE80A /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E42640C2C610307001CE80A /* EditViewModel.swift */; };
+		8E42640F2C610D01001CE80A /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E42640E2C610D01001CE80A /* Review.swift */; };
 		8E59F3982C0AE4B4006B9074 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59F3972C0AE4B4006B9074 /* ApiClient.swift */; };
 		8E59F39A2C0AEE69006B9074 /* BaramError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59F3992C0AEE69006B9074 /* BaramError.swift */; };
 		8E59F39C2C0AFB0F006B9074 /* BaramUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59F39B2C0AFB0F006B9074 /* BaramUrl.swift */; };
@@ -41,6 +43,8 @@
 		8E0540EB2BFF691900385365 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E0540ED2BFF691900385365 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8E2D1BEC2C52885300005376 /* naver-apikey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "naver-apikey.json"; sourceTree = "<group>"; };
+		8E42640C2C610307001CE80A /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
+		8E42640E2C610D01001CE80A /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		8E4F6E072C15A955007F46E5 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		8E59F3972C0AE4B4006B9074 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		8E59F3992C0AEE69006B9074 /* BaramError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaramError.swift; sourceTree = "<group>"; };
@@ -146,6 +150,7 @@
 			children = (
 				8E6EF6812C1723A600079043 /* EditViewController.swift */,
 				8EADB9842C204A7700809BAF /* EditView.swift */,
+				8E42640C2C610307001CE80A /* EditViewModel.swift */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -165,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				8E7664412C04B6C700F67B5A /* Book.swift */,
+				8E42640E2C610D01001CE80A /* Review.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -281,7 +287,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E42640D2C610307001CE80A /* EditViewModel.swift in Sources */,
 				8E6EF6832C1723A600079043 /* EditViewController.swift in Sources */,
+				8E42640F2C610D01001CE80A /* Review.swift in Sources */,
 				8E6EF67F2C17239C00079043 /* HomeBookRecordCell.swift in Sources */,
 				8EADB9872C204A8200809BAF /* HomeView.swift in Sources */,
 				8E0540E02BFF691700385365 /* AppDelegate.swift in Sources */,
