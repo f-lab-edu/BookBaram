@@ -42,10 +42,23 @@ final class BookSearchViewController: UIViewController {
             self?.bookSearchViewModel.searchPrevPage()
         }))
     }
+
+    func moveToEditViewController(item: Item?) {
+        let editViewController = EditViewController()
+        editViewController.updateSelectedBookItem(item: item)
+
+        navigationController?.pushViewController(editViewController, animated: true)
+    }
 }
 
 // MARK: - UITableViewDelegate
 extension BookSearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        bookSearchView.deselectRow(indexPath: indexPath, animated: true)
+
+        let selectedItem = bookSearchViewModel.selectedBookItem(row: indexPath.row)
+        moveToEditViewController(item: selectedItem)
+    }
 }
 
 // MARK: - UITableViewDataSource
