@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import SwiftData
 
 class EditViewModel {
+    private let database = Database.shared
     var selectedBookItem: Item?
 
     func updateSelectedBookItem(item: Item?) {
@@ -18,7 +20,9 @@ class EditViewModel {
         guard let selectedBookItem, let title else { return }
         if contents.isEmpty { return }
 
-        let reviewContents = ReviewContents(imgUrl: selectedBookItem.image, title: title, contents: contents)
-        // save to database
+        Task { @MainActor in
+            let reviewContents = ReviewContents(imgUrl: selectedBookItem.image, title: title, contents: contents)
+            database.saveReviewContents(reviewContents: reviewContents)
+        }
     }
 }
