@@ -81,6 +81,10 @@ final class HomeView: UIView {
     func addButtonAction(action: UIAction) {
         addButton.addAction(action, for: .touchUpInside)
     }
+
+    func reloadData() {
+        bookListView.reloadData()
+    }
 }
 
 enum HomeViewConstants {
