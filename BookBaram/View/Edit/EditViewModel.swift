@@ -21,7 +21,7 @@ class EditViewModel {
         if contents.isEmpty { return }
 
         Task { @MainActor in
-            let reviewContents = ReviewContents(imgUrl: selectedBookItem.image, title: title, contents: contents)
+            let reviewContents = ReviewContent(imgUrl: selectedBookItem.image, title: title, contents: contents)
             database.saveReviewContents(reviewContents: reviewContents)
         }
     }

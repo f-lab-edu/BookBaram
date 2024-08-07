@@ -12,7 +12,7 @@ final class Database {
     static let shared = Database()
 
     private var container: ModelContainer = {
-        let schema = Schema([ReviewContents.self])
+        let schema = Schema([ReviewContent.self])
         let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {
@@ -22,10 +22,19 @@ final class Database {
         }
     }()
 
-    func saveReviewContents(reviewContents: ReviewContents) {
-        Task { @MainActor in
-            container.mainContext.insert(reviewContents)
-            try? container.mainContext.save()
+    func saveReviewContents(reviewContents: ReviewContent) {
+        let context = ModelContext(container)
+        context.insert(reviewContents)
+        try? context.save()
+    }
+
+    func loadReviewContents() -> [ReviewContent] {
+        do {
+            let context = ModelContext(container)
+            let resultData = try context.fetch(FetchDescriptor<ReviewContent>())
+            return resultData
+        } catch {
+            return []
         }
     }
 }
