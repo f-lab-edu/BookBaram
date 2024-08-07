@@ -23,9 +23,6 @@ final class HomeBookRecordView: UIView {
 
         titleLayout()
         dateLayout()
-
-        titleLabel.text = "hi\n bbbbbbbcccccdddrefafdafadsfasdf"
-        dateLabel.text = "hello"
     }
 
     private func titleLayout() {
@@ -47,5 +44,10 @@ final class HomeBookRecordView: UIView {
                                   rightOffset: HomBookRecordConstants.marginConstant * -1)
             view.yAxisConstraints(top: titleLabel.topAnchor, bottom: titleLabel.bottomAnchor)
         }
+    }
+
+    func setConent(content: ReviewContent) {
+        titleLabel.text = content.title
+        dateLabel.text = content.date.toString()
     }
 }
