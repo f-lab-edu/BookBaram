@@ -64,6 +64,7 @@ final class BookSearchView: UIView {
                                         constant: BookSearchViewConstants.marginConstant * -1).isActive = true
         }
         nextButton.setImage(UIImage(systemName: "arrow.right"), for: .normal)
+        nextButton.accessibilityLabel = "다음 페이지"
     }
 
     private func prevButtonLayout() {
@@ -73,6 +74,7 @@ final class BookSearchView: UIView {
                                        constant: BookSearchViewConstants.marginConstant).isActive = true
         }
         prevButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
+        prevButton.accessibilityLabel = "이전 페이지"
     }
 
     private func pageLabelLayout() {
@@ -95,6 +97,7 @@ final class BookSearchView: UIView {
 
     func pageLabelInfo(currentPage: Int, totlaPage: Int) {
         pageLabel.text = "\(currentPage)/\(totlaPage)"
+        pageLabel.accessibilityLabel = "현재 페이지는 \(currentPage)입니다."
     }
 
     func addActionForPrevButton(action: UIAction) {

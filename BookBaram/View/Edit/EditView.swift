@@ -20,6 +20,7 @@ class EditView: UIView {
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.spacing = 10.0
+        stackView.isAccessibilityElement = false
         return stackView
     }()
 
@@ -27,6 +28,7 @@ class EditView: UIView {
         let imageView = UIImageView()
         imageView.backgroundColor = .black // placeholder
         imageView.heightAnchor.constraint(equalToConstant: 100.0).isActive = true
+        imageView.isAccessibilityElement = false
         return imageView
     }()
 
@@ -75,6 +77,7 @@ class EditView: UIView {
         titleTextField.adjustsFontForContentSizeCategory = true
         titleTextField.borderStyle = .roundedRect
         titleTextField.placeholder = "Write the title"
+        titleTextField.accessibilityHint = "독후감의 제목을 입력해 주세요."
     }
 
     private func contentTextViewStyle() {
@@ -84,6 +87,7 @@ class EditView: UIView {
         contentTextView.layer.cornerRadius = 8
         contentTextView.layer.borderColor = UIColor.lightGray.cgColor
         contentTextView.text = "Content"
+        contentTextView.accessibilityHint = "독후감 내용을 작성해주세요."
     }
 
 }

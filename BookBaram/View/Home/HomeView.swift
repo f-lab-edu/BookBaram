@@ -28,6 +28,7 @@ final class HomeView: UIView {
         button.tintColor = .white
         button.backgroundColor = .orange
         button.layer.cornerRadius = 25.0
+        button.accessibilityLabel = "독후감 추가하기"
         return button
     }()
 
