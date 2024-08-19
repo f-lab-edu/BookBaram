@@ -34,12 +34,15 @@
 /* Begin PBXFileReference section */
 		8E018AEF2C3196220084C1CC /* HomeBookRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBookRecordView.swift; sourceTree = "<group>"; };
 		8E018B0C2C31A1470084C1CC /* UILabel+BookBaram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+BookBaram.swift"; sourceTree = "<group>"; };
-		8E0540DC2BFF691700385365 /* BookBaram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookBaram.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8E0540DC2BFF691700385365 /* BookBaram-Develop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BookBaram-Develop.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8E0540DF2BFF691700385365 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8E0540E12BFF691700385365 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		8E0540E82BFF691900385365 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8E0540EB2BFF691900385365 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8E0540ED2BFF691900385365 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8E1A50F02C7374DE00EF02A2 /* BookBaram-Develop.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "BookBaram-Develop.xcconfig"; sourceTree = "<group>"; };
+		8E1A50F12C73751D00EF02A2 /* BookBaram-Sandbox.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "BookBaram-Sandbox.xcconfig"; sourceTree = "<group>"; };
+		8E1A50F22C73754900EF02A2 /* BookBaram-Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "BookBaram-Release.xcconfig"; sourceTree = "<group>"; };
 		8E2D1BEC2C52885300005376 /* naver-apikey.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "naver-apikey.json"; sourceTree = "<group>"; };
 		8E4F6E072C15A955007F46E5 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		8E59F3972C0AE4B4006B9074 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
@@ -90,7 +93,7 @@
 		8E0540DD2BFF691700385365 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8E0540DC2BFF691700385365 /* BookBaram.app */,
+				8E0540DC2BFF691700385365 /* BookBaram-Develop.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,6 +101,7 @@
 		8E0540DE2BFF691700385365 /* BookBaram */ = {
 			isa = PBXGroup;
 			children = (
+				8E1A50EF2C7374C700EF02A2 /* Config */,
 				8E59F3962C0AE43C006B9074 /* Network */,
 				8E4F6E072C15A955007F46E5 /* .swiftlint.yml */,
 				8E0540DF2BFF691700385365 /* AppDelegate.swift */,
@@ -110,6 +114,16 @@
 				8E2D1BEC2C52885300005376 /* naver-apikey.json */,
 			);
 			path = BookBaram;
+			sourceTree = "<group>";
+		};
+		8E1A50EF2C7374C700EF02A2 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				8E1A50F02C7374DE00EF02A2 /* BookBaram-Develop.xcconfig */,
+				8E1A50F12C73751D00EF02A2 /* BookBaram-Sandbox.xcconfig */,
+				8E1A50F22C73754900EF02A2 /* BookBaram-Release.xcconfig */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 		8E3DEECD2C29A6F10084EF5B /* Utils */ = {
@@ -207,7 +221,7 @@
 			);
 			name = BookBaram;
 			productName = BookBaram;
-			productReference = 8E0540DC2BFF691700385365 /* BookBaram.app */;
+			productReference = 8E0540DC2BFF691700385365 /* BookBaram-Develop.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -319,6 +333,7 @@
 /* Begin XCBuildConfiguration section */
 		8E0540EE2BFF691900385365 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E1A50F02C7374DE00EF02A2 /* BookBaram-Develop.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -374,6 +389,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "\"-D\" \"DEVELOP\"";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -382,6 +398,7 @@
 		};
 		8E0540EF2BFF691900385365 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E1A50F22C73754900EF02A2 /* BookBaram-Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -430,6 +447,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "\"-D\" \"RELEASE\"";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
@@ -441,8 +459,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Develop";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BookBaram/Info.plist;
@@ -458,7 +477,8 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = lab.song.BookBaram;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(APP_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -473,8 +493,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BookBaram/Info.plist;
@@ -490,7 +511,8 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = lab.song.BookBaram;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(APP_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -502,6 +524,7 @@
 		};
 		8E1A50ED2C736C5100EF02A2 /* Sandbox */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E1A50F12C73751D00EF02A2 /* BookBaram-Sandbox.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -557,6 +580,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "\"-D\" \"SANDBOX\"";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -568,8 +592,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Sandbox";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BookBaram/Info.plist;
@@ -585,7 +610,8 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = lab.song.BookBaram;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "$(APP_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;

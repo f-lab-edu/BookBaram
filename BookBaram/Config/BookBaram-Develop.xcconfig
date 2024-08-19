@@ -1,0 +1,12 @@
+//
+//  BookBaram-Develop.xcconfig
+//  BookBaram
+//
+//  Created by 이송미 on 8/19/24.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+APP_NAME = BookBaram-Develop
+NAVER_API_URL = https:/$()/openapi.naver.com
