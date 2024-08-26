@@ -9,35 +9,76 @@ import UIKit
 
 final class BookSearchView: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    enum BookSearchViewConstants {
+        static let marginConstant = 20.0
     }
-    */
 
-    let bookSearchResultView: UITableView = UITableView()
-    let searchBar: UISearchBar = UISearchBar()
+    private let bookSearchResultView: UITableView = UITableView()
+    private let searchBar: UISearchBar = UISearchBar()
+    private let nextButton: UIButton = UIButton()
+    private let prevButton: UIButton = UIButton()
+    private let pageLabel: UILabel = UILabel()
 
     func layout() {
         backgroundColor = .systemBackground
         self.addSubview(bookSearchResultView)
         self.addSubview(searchBar)
 
-        let marginConstant = 20.0
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-        searchBar.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        searchBar.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+        searchBarLayout()
+        bookSearchResultViewLayout()
+        pagingLayout()
+    }
 
-        bookSearchResultView.translatesAutoresizingMaskIntoConstraints = false
-        bookSearchResultView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: marginConstant).isActive = true
-        bookSearchResultView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
-        bookSearchResultView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor).isActive = true
-        bookSearchResultView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor).isActive = true
+    private func searchBarLayout() {
+        searchBar.makeConstraints { view in
+            view.yAxisConstraints(top: safeAreaLayoutGuide.topAnchor)
+            view.xAxisConstraints(left: safeAreaLayoutGuide.leftAnchor,
+                                  right: safeAreaLayoutGuide.rightAnchor)
+        }
+    }
 
+    private func bookSearchResultViewLayout() {
+        bookSearchResultView.makeConstraints {  view in
+            view.topAnchor.constraint(equalTo: searchBar.bottomAnchor,
+                                      constant: BookSearchViewConstants.marginConstant).isActive = true
+            view.xAxisConstraints(left: safeAreaLayoutGuide.leftAnchor,
+                                  right: safeAreaLayoutGuide.rightAnchor)
+        }
         bookSearchResultView.register(BookSearchResultCell.self, forCellReuseIdentifier: "bookCell")
+    }
+
+    private func pagingLayout() {
+        self.addSubview(nextButton)
+        self.addSubview(prevButton)
+        self.addSubview(pageLabel)
+
+        nextButtonLayout()
+        prevButtonLayout()
+        pageLabelLayout()
+    }
+
+    private func nextButtonLayout() {
+        nextButton.makeConstraints { view in
+            view.yAxisConstraints(top: bookSearchResultView.bottomAnchor, bottom: safeAreaLayoutGuide.bottomAnchor)
+            view.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor,
+                                        constant: BookSearchViewConstants.marginConstant * -1).isActive = true
+        }
+        nextButton.setImage(UIImage(systemName: "arrow.right"), for: .normal)
+    }
+
+    private func prevButtonLayout() {
+        prevButton.makeConstraints { view in
+            view.yAxisConstraints(top: bookSearchResultView.bottomAnchor, bottom: safeAreaLayoutGuide.bottomAnchor)
+            view.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor,
+                                       constant: BookSearchViewConstants.marginConstant).isActive = true
+        }
+        prevButton.setImage(UIImage(systemName: "arrow.left"), for: .normal)
+    }
+
+    private func pageLabelLayout() {
+        pageLabel.translatesAutoresizingMaskIntoConstraints = false
+        pageLabel.yAxisConstraints(top: bookSearchResultView.bottomAnchor, bottom: safeAreaLayoutGuide.bottomAnchor)
+        pageLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 
     func delegate(searchbarDelegate: UISearchBarDelegate,
@@ -48,4 +89,23 @@ final class BookSearchView: UIView {
         bookSearchResultView.dataSource = tableViewDataSource
     }
 
+    func reloadData() {
+        bookSearchResultView.reloadData()
+    }
+
+    func pageLabelInfo(currentPage: Int, totlaPage: Int) {
+        pageLabel.text = "\(currentPage)/\(totlaPage)"
+    }
+
+    func addActionForPrevButton(action: UIAction) {
+        prevButton.addAction(action, for: .touchUpInside)
+    }
+
+    func addActionForNextButton(action: UIAction) {
+        nextButton.addAction(action, for: .touchUpInside)
+    }
+
+    func deselectRow(indexPath: IndexPath, animated: Bool) {
+        bookSearchResultView.deselectRow(at: indexPath, animated: animated)
+    }
 }

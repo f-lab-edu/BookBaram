@@ -9,24 +9,41 @@ import UIKit
 
 class EditViewController: UIViewController {
     let editView = EditView()
+    let editViewModel = EditViewModel()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private lazy var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save",
+                                                           style: .plain,
+                                                           target: self,
+                                                           action: #selector(EditViewController.saveContents))
 
-        // Do any additional setup after loading the view.
-        setLayout()
+    override func loadView() {
+        view = editView
+        view.backgroundColor = .systemBackground
+        navigationItem.rightBarButtonItem = saveBtn
     }
 
-    private func setLayout() {
-        self.view.backgroundColor = .systemBackground
-        view.addSubview(editView)
-
-        editView.translatesAutoresizingMaskIntoConstraints = false
-        editView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        editView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        editView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        editView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
 
         editView.layout()
+    }
+
+    func updateSelectedBookItem(item: Item?) {
+        editViewModel.updateSelectedBookItem(item: item)
+
+        if let item {
+            editView.setImage(url: item.image)
+        }
+    }
+
+    @objc
+    func saveContents() {
+        editViewModel.saveReview(title: editView.titleTextField.text, contents: editView.contentTextView.text)
+
+        moveToHome()
+    }
+
+    private func moveToHome() {
+        navigationController?.popToRootViewController(animated: true)
     }
 }

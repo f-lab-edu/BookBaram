@@ -8,15 +8,14 @@
 import UIKit
 
 class EditView: UIView {
-    let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        return scrollView
-    }()
+    enum EditViewConstants {
+        static let marginConstant = 15.0
+    }
+
+    let scrollView: UIScrollView = UIScrollView()
 
     let contentView: UIStackView = {
         let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fill
@@ -26,50 +25,76 @@ class EditView: UIView {
 
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .black // placeholder
+        imageView.heightAnchor.constraint(equalToConstant: 100.0).isActive = true
         return imageView
     }()
 
-    let titleTextField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
+    let titleTextField: UITextField = UITextField()
 
     let contentTextView: UITextView = {
         let textView = UITextView()
-        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.heightAnchor.constraint(equalToConstant: 250.0).isActive = true
         return textView
     }()
 
     func layout() {
         addSubview(scrollView)
-        addSubview(contentView)
+        scrollView.addSubview(contentView)
+
         contentView.addArrangedSubview(imageView)
         contentView.addArrangedSubview(titleTextField)
         contentView.addArrangedSubview(contentTextView)
 
-        let marginConstant = 15.0
+        scrollViewLayout()
+        contentViewLayout()
 
-        scrollView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
-        scrollView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-        scrollView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
+        textFieldStyle()
+        contentTextViewStyle()
+    }
 
-        contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: marginConstant).isActive = true
-        contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: marginConstant * -1).isActive = true
-        contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: marginConstant * -2).isActive = true
-        contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
+    private func scrollViewLayout() {
+        scrollView.makeConstraints { view in
+            view.xAxisConstraints(left: safeAreaLayoutGuide.leftAnchor,
+                                  leftOffset: EditViewConstants.marginConstant,
+                                  right: safeAreaLayoutGuide.rightAnchor,
+                                  rightOffset: EditViewConstants.marginConstant * -1)
+            view.yAxisConstraints(top: safeAreaLayoutGuide.topAnchor,
+                                  bottom: safeAreaLayoutGuide.bottomAnchor)
+        }
+    }
 
-        imageView.heightAnchor.constraint(equalToConstant: 100.0).isActive = true
+    private func contentViewLayout() {
+        contentView.makeConstraints { view in
+            view.xAxisConstraints(left: scrollView.leftAnchor,
+                                  right: scrollView.rightAnchor)
+            view.yAxisConstraints(top: scrollView.topAnchor,
+                                  bottom: scrollView.bottomAnchor)
+            view.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        }
+    }
 
+    private func textFieldStyle() {
+        titleTextField.font = UIFont.preferredFont(forTextStyle: .body)
+        titleTextField.adjustsFontForContentSizeCategory = true
         titleTextField.borderStyle = .roundedRect
         titleTextField.placeholder = "Write the title"
+    }
 
+    private func contentTextViewStyle() {
+        contentTextView.font = UIFont.preferredFont(forTextStyle: .body)
+        contentTextView.adjustsFontForContentSizeCategory = true
         contentTextView.layer.borderWidth = 1.0
         contentTextView.layer.cornerRadius = 8
         contentTextView.layer.borderColor = UIColor.lightGray.cgColor
-        contentTextView.text = "Content"
     }
 
+    @MainActor
+    func setImage(url: URL) {
+        Task {
+            if let result = try? await URLSession.shared.data(from: url) {
+                imageView.image = UIImage(data: result.0)
+            }
+        }
+    }
 }

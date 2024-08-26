@@ -7,50 +7,75 @@
 
 import UIKit
 
-class BookSearchViewController: UIViewController {
+protocol BookSearchResultsUpdateDelegate: AnyObject {
+    func reloadTable()
+    func updatePagingInfo(currentPage: Int, totalPage: Int)
+}
 
-    let bookSearchView = BookSearchView()
+final class BookSearchViewController: UIViewController {
+    private let bookSearchView = BookSearchView()
+    private let bookSearchViewModel = BookSearchViewModel.shared
+
+    override func loadView() {
+        self.view = bookSearchView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // init viewlayout
-        setLayout()
-
         // set delegate
         bookSearchView.delegate(searchbarDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
+        bookSearchViewModel.bookSearchResultsUpdateDelegate = self
+        bookSearchViewModel.clearBookResult()
+    }
+
+    override func updateViewConstraints() {
+        super.updateViewConstraints()
+        setLayout()
     }
 
     private func setLayout() {
-        self.view.addSubview(bookSearchView)
-
-        bookSearchView.translatesAutoresizingMaskIntoConstraints = false
-        bookSearchView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1).isActive = true
-        bookSearchView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1).isActive = true
         bookSearchView.layout()
+        bookSearchView.addActionForNextButton(action: UIAction(handler: { [weak self] _ in
+            self?.bookSearchViewModel.searchNextPage()
+        }))
+        bookSearchView.addActionForPrevButton(action: UIAction(handler: { [weak self] _ in
+            self?.bookSearchViewModel.searchPrevPage()
+        }))
+    }
+
+    func moveToEditViewController(item: Item?) {
+        let editViewController = EditViewController()
+        editViewController.updateSelectedBookItem(item: item)
+
+        navigationController?.pushViewController(editViewController, animated: true)
     }
 }
 
 // MARK: - UITableViewDelegate
 extension BookSearchViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        bookSearchView.deselectRow(indexPath: indexPath, animated: true)
+
+        let selectedItem = bookSearchViewModel.selectedBookItem(row: indexPath.row)
+        moveToEditViewController(item: selectedItem)
     }
 }
 
 // MARK: - UITableViewDataSource
 extension BookSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // TODO: 나중에 datasource와 연결 필요
-        return 1
+        return bookSearchViewModel.searchBookResult?.items.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "bookCell") as? BookSearchResultCell else {
-            fatalError("This is not BookSearchResultCell")
+            return UITableViewCell()
         }
 
-        // TODO: cell.setItem(...)
+        if let searchBookResult = bookSearchViewModel.searchBookResult {
+            cell.setItem(item: searchBookResult.items[indexPath.row])
+        }
 
         return cell
     }
@@ -59,10 +84,21 @@ extension BookSearchViewController: UITableViewDataSource {
 // MARK: - UISearchBarDelegate
 extension BookSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // TODO: 검색 api 호출
+        bookSearchViewModel.searchBook(query: searchBar.text)
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
+    }
+}
+
+// MARK: - ReloadDelegate {
+extension BookSearchViewController: BookSearchResultsUpdateDelegate {
+    func reloadTable() {
+        bookSearchView.reloadData()
+    }
+
+    func updatePagingInfo(currentPage: Int, totalPage: Int) {
+        bookSearchView.pageLabelInfo(currentPage: currentPage, totlaPage: totalPage)
     }
 }
