@@ -8,8 +8,13 @@
 import Foundation
 import UIKit
 
+protocol ReloadDelegate: AnyObject {
+    func reloadTable()
+}
+
 final class HomeViewController: UIViewController {
-    let homeView = HomeView()
+    private let homeView = HomeView()
+    private let homeViewModel = HomeViewModel()
 
     override func loadView() {
         self.view = homeView
@@ -25,6 +30,7 @@ final class HomeViewController: UIViewController {
         homeView.addButtonAction(action: UIAction(handler: { [weak self] _ in
             self?.moveToSearchViewController()
         }))
+        homeViewModel.updateReloadDelegate(self)
     }
 
     override func updateViewConstraints() {
@@ -40,6 +46,10 @@ final class HomeViewController: UIViewController {
         let bookSearchViewController = BookSearchViewController()
         self.navigationController?.pushViewController(bookSearchViewController, animated: true)
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        homeViewModel.loadReviewContents()
+    }
 }
 
 // MARK: - UICalendarViewDelegate
@@ -54,7 +64,7 @@ extension HomeViewController: UITableViewDelegate {
 // MARK: -
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return homeViewModel.reviewContetList.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,6 +74,14 @@ extension HomeViewController: UITableViewDataSource {
             return UITableViewCell()
         }
 
+        cell.setContent(content: homeViewModel.reviewContetList[indexPath.row])
+
         return cell
+    }
+}
+
+extension HomeViewController: ReloadDelegate {
+    func reloadTable() {
+        homeView.reloadData()
     }
 }

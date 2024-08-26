@@ -9,7 +9,6 @@ import Foundation
 
 class BookSearchViewModel {
     static let shared = BookSearchViewModel()
-    var bookResult: [Item] = []
     var searchBookResult: SearchBookResults?
     var bookSearchResultsUpdateDelegate: BookSearchResultsUpdateDelegate?
     var error: Error?
@@ -70,7 +69,12 @@ class BookSearchViewModel {
     }
 
     func clearBookResult() {
-        bookResult.removeAll()
         searchBookResult = nil
+    }
+
+    func selectedBookItem(row index: Int) -> Item? {
+        guard let items = searchBookResult?.items else { return nil }
+
+        return items[index]
     }
 }
