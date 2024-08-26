@@ -26,7 +26,7 @@ class EditViewModel {
             saveReviewContents(reviewContents: reviewContents)
         }
     }
-    
+
     private func saveReviewContents(reviewContents: ReviewContent) {
         do {
             try database.saveReviewContents(reviewContents: reviewContents)
