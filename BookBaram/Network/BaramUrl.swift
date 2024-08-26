@@ -12,7 +12,7 @@ enum BaramUrl {
         guard let apiUrl = Bundle.main.object(forInfoDictionaryKey: "NaverApiUrl") as? String else {
             fatalError("Base Url is wrong")
         }
-        
+
         return apiUrl
     }()
 }

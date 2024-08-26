@@ -60,6 +60,7 @@
 		8E934A902C52A31B00A7F8B0 /* BookSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookSearchView.swift; sourceTree = "<group>"; };
 		8EADB9842C204A7700809BAF /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		8EADB9862C204A8200809BAF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		8ED796EB2C7CA45D001C953C /* BookBaram-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "BookBaram-Base.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +120,7 @@
 		8E1A50EF2C7374C700EF02A2 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				8ED796EB2C7CA45D001C953C /* BookBaram-Base.xcconfig */,
 				8E1A50F02C7374DE00EF02A2 /* BookBaram-Develop.xcconfig */,
 				8E1A50F12C73751D00EF02A2 /* BookBaram-Sandbox.xcconfig */,
 				8E1A50F22C73754900EF02A2 /* BookBaram-Release.xcconfig */,
