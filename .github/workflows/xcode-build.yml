@@ -1,0 +1,19 @@
+name: Build Test
+
+on:
+  push:
+    branches: [ feature/* ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+    runs-on: mac-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build Xcode
+      run: |
+        xcodebuild clean build -project BookBaram.xcodeproj \
+        -scheme BookBaram \
+        -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=latest'
