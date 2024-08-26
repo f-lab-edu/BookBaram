@@ -68,6 +68,10 @@ class BookSearchViewModel {
                                                           totalPage: searchBookResult!.total)
     }
 
+    func clearBookResult() {
+        searchBookResult = nil
+    }
+
     func selectedBookItem(row index: Int) -> Item? {
         guard let items = searchBookResult?.items else { return nil }
 
