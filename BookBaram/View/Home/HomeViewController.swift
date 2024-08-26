@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 protocol ReloadDelegate: AnyObject {
     func reloadTable()
@@ -47,6 +48,11 @@ final class HomeViewController: UIViewController {
         self.navigationController?.pushViewController(bookSearchViewController, animated: true)
     }
 
+    private func moveToReadView(userBookReview: UserBookReview) {
+        let uiHostingController = UIHostingController(rootView: ReadView(userBookReview: userBookReview))
+        self.navigationController?.pushViewController(uiHostingController, animated: true)
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         homeViewModel.loadReviewContents()
     }
@@ -59,6 +65,9 @@ extension HomeViewController: UICalendarViewDelegate {
 
 // MARK: - UITableViewDelegate
 extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // TODO: self.moveToReadView(...)
+    }
 }
 
 // MARK: -
