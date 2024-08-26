@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-class ReviewContent {
+final class ReviewContent {
     @Attribute(.unique) var id: UUID
     var imgUrl: URL
     var title: String
@@ -19,8 +19,29 @@ class ReviewContent {
     init(imgUrl: URL, title: String, contents: String) {
         self.id = UUID()
         self.imgUrl = imgUrl
+        self.date = Date.now
         self.title = title
         self.contents = contents
-        self.date = Date.now
+
+        validateTitle(title)
+        validateContent(contents)
+    }
+
+    private func validateTitle(_ msg: String) {
+        if msg.isEmpty {
+            title = "Untitled Review"
+            return
+        }
+
+        title = String(msg.prefix(100))
+    }
+
+    private func validateContent(_ msg: String) {
+        if msg.isEmpty {
+            contents = "Content is not provided"
+            return
+        }
+
+        contents = msg
     }
 }

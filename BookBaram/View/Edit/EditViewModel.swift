@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 
+@MainActor
 class EditViewModel {
     private let database = Database.shared
     var selectedBookItem: Item?
@@ -22,7 +23,15 @@ class EditViewModel {
 
         Task { @MainActor in
             let reviewContents = ReviewContent(imgUrl: selectedBookItem.image, title: title, contents: contents)
-            database.saveReviewContents(reviewContents: reviewContents)
+            saveReviewContents(reviewContents: reviewContents)
+        }
+    }
+    
+    private func saveReviewContents(reviewContents: ReviewContent) {
+        do {
+            try database.saveReviewContents(reviewContents: reviewContents)
+        } catch {
+            // TODO: UI Alert
         }
     }
 }

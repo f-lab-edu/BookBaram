@@ -16,5 +16,6 @@ enum BaramError {
     case invalidRequest
     case invalidResponse
     case invalidDataType
+    case saveError
     case unknown
 }

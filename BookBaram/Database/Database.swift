@@ -22,10 +22,15 @@ final class Database {
         }
     }()
 
-    func saveReviewContents(reviewContents: ReviewContent) {
+    func saveReviewContents(reviewContents: ReviewContent) throws {
         let context = ModelContext(container)
         context.insert(reviewContents)
-        try? context.save()
+
+        do {
+            try context.save()
+        } catch {
+            throw BaramErrorInfo(error: .saveError, description: error.localizedDescription)
+        }
     }
 
     func loadReviewContents() -> [ReviewContent] {

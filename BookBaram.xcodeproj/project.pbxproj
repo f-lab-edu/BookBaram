@@ -108,6 +108,7 @@
 		8E0540DE2BFF691700385365 /* BookBaram */ = {
 			isa = PBXGroup;
 			children = (
+				8ED796EC2C7CA9B3001C953C /* Common */,
 				8ED552CA2C63A6E900D88C5A /* Utils */,
 				8E4264102C61125E001CE80A /* Database */,
 				8E59F3962C0AE43C006B9074 /* Network */,
@@ -145,7 +146,6 @@
 			isa = PBXGroup;
 			children = (
 				8E59F3972C0AE4B4006B9074 /* ApiClient.swift */,
-				8E59F3992C0AEE69006B9074 /* BaramError.swift */,
 				8E59F39B2C0AFB0F006B9074 /* BaramUrl.swift */,
 			);
 			path = Network;
@@ -218,6 +218,14 @@
 				8ED552CB2C63A6F900D88C5A /* Date+BookBaram.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		8ED796EC2C7CA9B3001C953C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				8E59F3992C0AEE69006B9074 /* BaramError.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
