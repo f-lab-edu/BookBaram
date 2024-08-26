@@ -13,10 +13,14 @@ final class ImageCache {
 
     private let memoryCache = NSCache<NSString, ImageInfo>()
     private let diskCache = ImageDiskCache()
+    private let countLimit: Int = 100
 
-    private init() { }
+    private init() {
+        memoryCache.countLimit = countLimit
+    }
 
     func loadImage(imageUrl url: URL) async -> UIImage? {
+        print(url.absoluteString)
         guard let splitUrl = url.absoluteString.split(separator: "/").last else { return nil }
         let key = String(splitUrl)
 
@@ -51,13 +55,17 @@ final class ImageCache {
     }
 
     private func loadDiskCache(key: String) async -> UIImage? {
-        guard let diskResult = try? diskCache.loadImage(imageUrl: key) else { return nil }
-        if let expireDate = diskResult.expireTime,
-           !isValidExpireTime(date: expireDate) {
-            return await downloadImage(imageUrl: diskResult.url.absoluteString, key: key)
-        }
+        do {
+            guard let diskResult = try diskCache.loadImage(imageUrl: key) else { return nil }
+            if let expireDate = diskResult.expireTime,
+               !isValidExpireTime(date: expireDate) {
+                return await downloadImage(imageUrl: diskResult.url.absoluteString, key: key)
+            }
 
-        return cacheImage(imageInfo: diskResult, key: key)
+            return cacheImage(imageInfo: diskResult, key: key)
+        } catch {
+            return nil
+        }
     }
 
     private func isValidExpireTime(date: Date) -> Bool {
@@ -70,13 +78,23 @@ final class ImageCache {
     }
 
     private func downloadImage(imageUrl: String, key: String) async -> UIImage? {
-        if let imageInfo = try? await ImageDownloader.shared.downloadImage(imageUrl: imageUrl),
+        if let imageInfo = await downloadImageInfo(imageUrl: imageUrl, key: key),
            let image = UIImage(data: imageInfo.data) {
             memoryCache.setObject(imageInfo, forKey: imageUrl as NSString)
-            try? diskCache.saveImage(key: key, imageInfo: imageInfo)
             return image
         }
 
         return nil
+    }
+
+    private func downloadImageInfo(imageUrl: String, key: String) async -> ImageInfo? {
+        do {
+            guard let imageInfo = try await ImageDownloader.shared.downloadImage(imageUrl: imageUrl) else { return nil }
+            try diskCache.saveImage(key: key, imageInfo: imageInfo)
+
+            return imageInfo
+        } catch {
+            return nil
+        }
     }
 }
