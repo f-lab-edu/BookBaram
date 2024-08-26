@@ -105,4 +105,7 @@ final class BookSearchView: UIView {
         nextButton.addAction(action, for: .touchUpInside)
     }
 
+    func deselectRow(indexPath: IndexPath, animated: Bool) {
+        bookSearchResultView.deselectRow(at: indexPath, animated: animated)
+    }
 }
