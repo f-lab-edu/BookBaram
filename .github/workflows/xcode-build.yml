@@ -10,7 +10,18 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v3
+      
+    - name: Clone key Module
+      uses: actions/checkout@v3
+      with:
+        repository: songmilee/BookBaram-key
+        path: BookBaram-key
+        token: ${{ secrets.PAT }}
+    - name: Copy Api Key      
+      run: |
+        cp BookBaram-key/naver-apikey.json BookBaram/naver-apikey.json
     - name: Build Xcode
       run: |
         xcodebuild clean build -project BookBaram.xcodeproj \
