@@ -8,4 +8,5 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
+MODULE_NAME = BookBaram
 NAVER_API_URL = https:/$()/openapi.naver.com

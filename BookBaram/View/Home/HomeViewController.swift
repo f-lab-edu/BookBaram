@@ -25,8 +25,6 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setLayout()
-
         homeView.delegate(calendarViewDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
         homeView.addButtonAction(action: UIAction(handler: { [weak self] _ in
             self?.moveToSearchViewController()
@@ -66,7 +64,10 @@ extension HomeViewController: UICalendarViewDelegate {
 // MARK: - UITableViewDelegate
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: self.moveToReadView(...)
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        let userBookReview = homeViewModel.reviewContetList[indexPath.row].toUserBookReview()
+        moveToReadView(userBookReview: userBookReview)
     }
 }
 
