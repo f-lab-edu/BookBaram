@@ -25,7 +25,10 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        homeView.delegate(calendarViewDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
+        homeView.delegate(calendarViewDelegate: self,
+                          calendarDateSelection: UICalendarSelectionSingleDate(delegate: self),
+                          tableViewDelegate: self,
+                          tableViewDataSource: self)
         homeView.addButtonAction(action: UIAction(handler: { [weak self] _ in
             self?.moveToSearchViewController()
         }))
@@ -57,8 +60,14 @@ final class HomeViewController: UIViewController {
 }
 
 // MARK: - UICalendarViewDelegate
-extension HomeViewController: UICalendarViewDelegate {
+extension HomeViewController: UICalendarViewDelegate, UICalendarSelectionSingleDateDelegate {
+    func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
+        guard var dateComponents else { return }
+        dateComponents.timeZone = TimeZone(identifier: "Asia/Tokyo")
+        guard let date = dateComponents.date else { return }
 
+        homeViewModel.loadReviewContents(date: date)
+    }
 }
 
 // MARK: - UITableViewDelegate

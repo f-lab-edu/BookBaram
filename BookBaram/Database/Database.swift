@@ -33,13 +33,25 @@ final class Database {
         }
     }
 
-    func loadReviewContents() -> [ReviewContent] {
+    // FetchDescriptor<ReviewContent>()
+    func loadReviewContents(date: Date) -> [ReviewContent] {
+
         do {
             let context = ModelContext(container)
-            let resultData = try context.fetch(FetchDescriptor<ReviewContent>())
+            let resultData = try context.fetch(FetchDescriptor<ReviewContent>(predicate: Database.compareDate(targetDate: date)))
             return resultData
         } catch {
             return []
+        }
+    }
+
+    private static func compareDate(targetDate: Date) -> Predicate<ReviewContent> {
+        let calendar = Calendar.autoupdatingCurrent
+        let start = calendar.startOfDay(for: targetDate)
+        let end = calendar.date(byAdding: .init(day: 1), to: start) ?? start
+
+        return #Predicate<ReviewContent> { review in
+            review.date >= start && end <= review.date
         }
     }
 }

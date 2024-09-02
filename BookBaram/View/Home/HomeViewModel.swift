@@ -12,9 +12,9 @@ class HomeViewModel {
     private(set) var reviewContetList: [ReviewContent] = []
     private var delegate: ReloadDelegate?
 
-    func loadReviewContents() {
+    func loadReviewContents(date: Date = Date.now) {
         Task { @MainActor in
-            updateReviewContents(contents: database.loadReviewContents())
+            updateReviewContents(contents: database.loadReviewContents(date: date))
         }
     }
 

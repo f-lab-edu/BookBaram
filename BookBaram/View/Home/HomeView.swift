@@ -70,9 +70,11 @@ final class HomeView: UIView {
     }
 
     func delegate(calendarViewDelegate: UICalendarViewDelegate,
+                  calendarDateSelection: UICalendarSelection,
                   tableViewDelegate: UITableViewDelegate,
                   tableViewDataSource: UITableViewDataSource) {
         bookCalendarView.delegate = calendarViewDelegate
+        bookCalendarView.selectionBehavior = calendarDateSelection
 
         bookListView.delegate = tableViewDelegate
         bookListView.dataSource = tableViewDataSource
