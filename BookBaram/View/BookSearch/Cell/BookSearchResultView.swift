@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Utils
 
 final class BookSearchResultView: UIView {
     enum BookSearchResultConstants {

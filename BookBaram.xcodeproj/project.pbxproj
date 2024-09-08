@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,17 +12,13 @@
 		8E0540E22BFF691700385365 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0540E12BFF691700385365 /* SceneDelegate.swift */; };
 		8E0540E92BFF691900385365 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E0540E82BFF691900385365 /* Assets.xcassets */; };
 		8E0540EC2BFF691900385365 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8E0540EB2BFF691900385365 /* Base */; };
+		8E19E40F2C8D8D0B003F9B01 /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = 8E19E40E2C8D8D0B003F9B01 /* Utils */; };
 		8E42640D2C610307001CE80A /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E42640C2C610307001CE80A /* EditViewModel.swift */; };
 		8E42640F2C610D01001CE80A /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E42640E2C610D01001CE80A /* Review.swift */; };
 		8E4264122C61126F001CE80A /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4264112C61126F001CE80A /* Database.swift */; };
 		8E59F3982C0AE4B4006B9074 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59F3972C0AE4B4006B9074 /* ApiClient.swift */; };
 		8E59F39A2C0AEE69006B9074 /* BaramError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59F3992C0AEE69006B9074 /* BaramError.swift */; };
 		8E59F39C2C0AFB0F006B9074 /* BaramUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E59F39B2C0AFB0F006B9074 /* BaramUrl.swift */; };
-		8E636F8F2C7CB4D900325380 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E636F892C7CB4D900325380 /* ImageCache.swift */; };
-		8E636F902C7CB4D900325380 /* ImageDiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E636F8A2C7CB4D900325380 /* ImageDiskCache.swift */; };
-		8E636F912C7CB4D900325380 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E636F8B2C7CB4D900325380 /* ImageDownloader.swift */; };
-		8E636F922C7CB4D900325380 /* ImageInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E636F8C2C7CB4D900325380 /* ImageInfo.swift */; };
-		8E636F932C7CB4D900325380 /* String+BookBaram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E636F8E2C7CB4D900325380 /* String+BookBaram.swift */; };
 		8E636F962C7CB88500325380 /* ReadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E636F942C7CB88500325380 /* ReadView.swift */; };
 		8E636F982C7CB89E00325380 /* UserBookReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E636F972C7CB89E00325380 /* UserBookReview.swift */; };
 		8E636F9C2C7CBA2E00325380 /* naver-apikey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E636F9B2C7CBA2E00325380 /* naver-apikey.json */; };
@@ -40,7 +36,6 @@
 		8EADB9852C204A7700809BAF /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EADB9842C204A7700809BAF /* EditView.swift */; };
 		8EADB9872C204A8200809BAF /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EADB9862C204A8200809BAF /* HomeView.swift */; };
 		8ED552C92C639B5600D88C5A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED552C82C639B5600D88C5A /* HomeViewModel.swift */; };
-		8ED552CC2C63A6F900D88C5A /* Date+BookBaram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ED552CB2C63A6F900D88C5A /* Date+BookBaram.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,11 +57,6 @@
 		8E59F3972C0AE4B4006B9074 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		8E59F3992C0AEE69006B9074 /* BaramError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaramError.swift; sourceTree = "<group>"; };
 		8E59F39B2C0AFB0F006B9074 /* BaramUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaramUrl.swift; sourceTree = "<group>"; };
-		8E636F892C7CB4D900325380 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
-		8E636F8A2C7CB4D900325380 /* ImageDiskCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDiskCache.swift; sourceTree = "<group>"; };
-		8E636F8B2C7CB4D900325380 /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
-		8E636F8C2C7CB4D900325380 /* ImageInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageInfo.swift; sourceTree = "<group>"; };
-		8E636F8E2C7CB4D900325380 /* String+BookBaram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+BookBaram.swift"; sourceTree = "<group>"; };
 		8E636F942C7CB88500325380 /* ReadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadView.swift; sourceTree = "<group>"; };
 		8E636F972C7CB89E00325380 /* UserBookReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBookReview.swift; sourceTree = "<group>"; };
 		8E636F9B2C7CBA2E00325380 /* naver-apikey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "naver-apikey.json"; sourceTree = "<group>"; };
@@ -83,7 +73,6 @@
 		8EADB9842C204A7700809BAF /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		8EADB9862C204A8200809BAF /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8ED552C82C639B5600D88C5A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		8ED552CB2C63A6F900D88C5A /* Date+BookBaram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+BookBaram.swift"; sourceTree = "<group>"; };
 		8ED796EB2C7CA45D001C953C /* BookBaram-Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "BookBaram-Base.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -92,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E19E40F2C8D8D0B003F9B01 /* Utils in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,17 +171,6 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		8E636F8D2C7CB4D900325380 /* Image */ = {
-			isa = PBXGroup;
-			children = (
-				8E636F892C7CB4D900325380 /* ImageCache.swift */,
-				8E636F8A2C7CB4D900325380 /* ImageDiskCache.swift */,
-				8E636F8B2C7CB4D900325380 /* ImageDownloader.swift */,
-				8E636F8C2C7CB4D900325380 /* ImageInfo.swift */,
-			);
-			path = Image;
-			sourceTree = "<group>";
-		};
 		8E636F952C7CB88500325380 /* Read */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,9 +245,6 @@
 		8ED552CA2C63A6E900D88C5A /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				8E636F8D2C7CB4D900325380 /* Image */,
-				8E636F8E2C7CB4D900325380 /* String+BookBaram.swift */,
-				8ED552CB2C63A6F900D88C5A /* Date+BookBaram.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -298,6 +274,9 @@
 			dependencies = (
 			);
 			name = BookBaram;
+			packageProductDependencies = (
+				8E19E40E2C8D8D0B003F9B01 /* Utils */,
+			);
 			productName = BookBaram;
 			productReference = 8E0540DC2BFF691700385365 /* BookBaram-Develop.app */;
 			productType = "com.apple.product-type.application";
@@ -326,6 +305,9 @@
 				Base,
 			);
 			mainGroup = 8E0540D32BFF691700385365;
+			packageReferences = (
+				8E19E40D2C8D8D0B003F9B01 /* XCLocalSwiftPackageReference "Utils" */,
+			);
 			productRefGroup = 8E0540DD2BFF691700385365 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -373,27 +355,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8E636F8F2C7CB4D900325380 /* ImageCache.swift in Sources */,
 				8E42640D2C610307001CE80A /* EditViewModel.swift in Sources */,
-				8E636F912C7CB4D900325380 /* ImageDownloader.swift in Sources */,
 				8E6EF6832C1723A600079043 /* EditViewController.swift in Sources */,
 				8E42640F2C610D01001CE80A /* Review.swift in Sources */,
 				8E6EF67F2C17239C00079043 /* HomeBookRecordCell.swift in Sources */,
-				8E636F922C7CB4D900325380 /* ImageInfo.swift in Sources */,
 				8EADB9872C204A8200809BAF /* HomeView.swift in Sources */,
 				8ED552C92C639B5600D88C5A /* HomeViewModel.swift in Sources */,
 				8E636F982C7CB89E00325380 /* UserBookReview.swift in Sources */,
 				8E0540E02BFF691700385365 /* AppDelegate.swift in Sources */,
 				8EADB9852C204A7700809BAF /* EditView.swift in Sources */,
 				8E7664422C04B6C700F67B5A /* Book.swift in Sources */,
-				8E636F932C7CB4D900325380 /* String+BookBaram.swift in Sources */,
 				8E97F8D92C5D0BB400533824 /* BookSearchView.swift in Sources */,
 				8E6EF6802C17239C00079043 /* HomeViewController.swift in Sources */,
 				8E59F39A2C0AEE69006B9074 /* BaramError.swift in Sources */,
 				8E59F39C2C0AFB0F006B9074 /* BaramUrl.swift in Sources */,
 				8E4264122C61126F001CE80A /* Database.swift in Sources */,
-				8E636F902C7CB4D900325380 /* ImageDiskCache.swift in Sources */,
-				8ED552CC2C63A6F900D88C5A /* Date+BookBaram.swift in Sources */,
 				8E0540E22BFF691700385365 /* SceneDelegate.swift in Sources */,
 				8E97F8DA2C5D0BB400533824 /* BookSearchViewController.swift in Sources */,
 				8E636F962C7CB88500325380 /* ReadView.swift in Sources */,
@@ -744,6 +720,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		8E19E40D2C8D8D0B003F9B01 /* XCLocalSwiftPackageReference "Utils" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Utils;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8E19E40E2C8D8D0B003F9B01 /* Utils */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Utils;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8E0540D42BFF691700385365 /* Project object */;
 }
