@@ -1,0 +1,86 @@
+name: Release
+
+on:
+  push:
+    branches: [ release/* ]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    env:
+      XC_PROJ: ${{ 'BookBaram.xcodeproj' }}
+      XC_SCHEME: ${{ 'BookBaram' }}
+      XC_ARCHIVE: ${{ 'BookBaram.xcarchive' }}
+
+      #certificate
+      ENCRYPTED_CERT_FILE_PATH: ${{ 'BookBaram-key/BookBaram.p12.gpg' }}
+      DECRYPTED_CERT_FILE_PATH: ${{ 'BookBaram-key/BookBaram.p12' }}
+      CERT_ENCRYPTION_KEY: ${{ secrets.CERTS_PWD }}
+
+      #provisioning
+      ENCRYPTED_PROVISIONING_FILE_PATH: ${{ 'BookBaram-key/BookBaramDistribution.mobileprovision.gpg' }}
+      DECRYPTED_PROVISIONING_FILE_PATH: ${{ 'BookBaram-key/BookBaramDistribution.mobileprovision' }}
+      PROVISIONING_ENCRYPTION_KEY: ${{ secrets.PROVISIONING_PWD }}
+
+      # certification export key
+      CERT_EXPORT_KEY: ${{ secrets.CERT_EXPORT_PWD }}
+      
+      KEYCHAIN: ${{ 'bookbaram.keychain' }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Echo Variable
+      run: |
+        echo ${{ github.event.inputs.branch }}
+      
+    - name: Clone key Module
+      uses: actions/checkout@v3
+      with:
+        repository: songmilee/BookBaram-key
+        path: BookBaram-key
+        token: ${{ secrets.PAT }}
+
+    - name: Copy Api Key
+      run: |
+        cp BookBaram-key/naver-apikey.json BookBaram/naver-apikey.json
+
+    - name: Configure Keychain
+      run: |
+        security create-keychain -p "" "$KEYCHAIN"
+        security list-keychains -s "$KEYCHAIN"
+        security default-keychain -s "$KEYCHAIN"
+        security unlock-keychain -p "" "$KEYCHAIN"
+        security set-keychain-settings
+
+    - name: Code Signing
+      run: |
+        gpg -d -o "$DECRYPTED_CERT_FILE_PATH" --pinentry-mode=loopback --passphrase "$CERT_ENCRYPTION_KEY" "$ENCRYPTED_CERT_FILE_PATH"
+        gpg -d -o "$DECRYPTED_PROVISIONING_FILE_PATH" --pinentry-mode=loopback --passphrase "$PROVISIONING_ENCRYPTION_KEY" "$ENCRYPTED_PROVISIONING_FILE_PATH"
+        security import "$DECRYPTED_CERT_FILE_PATH" -k "$KEYCHAIN" -P "$CERT_EXPORT_KEY" -A
+        security set-key-partition-list -S apple-tool:,apple: -s -k "" "$KEYCHAIN"
+
+        mkdir -p "$HOME/Library/MobileDevice/Provisioning Profiles"
+        echo `ls BookBaram-key/*.mobileprovision`
+          for PROVISION in `ls BookBaram-key/*.mobileprovision`
+          do
+            UUID=`/usr/libexec/PlistBuddy -c 'Print :UUID' /dev/stdin <<< $(security cms -D -i ./$PROVISION)`
+          cp "./$PROVISION" "$HOME/Library/MobileDevice/Provisioning Profiles/$UUID.mobileprovision"
+        done
+
+    - name: Archive app
+      run: |
+        xcodebuild clean archive -project $XC_PROJ -scheme $XC_SCHEME -configuration release -archivePath $XC_ARCHIVE
+
+    - name: Export app
+      run: |
+        xcodebuild -exportArchive -archivePath $XC_ARCHIVE -exportOptionsPlist BookBaram-key/ExportOptions.plist -exportPath . -allowProvisioningUpdates
+    
+    - name: Upload app to TestFlight
+      uses: apple-actions/upload-testflight-build@v1
+      with:
+        app-path: 'BookBaram.ipa'
+        issuer-id: ${{ secrets.APPSTORE_ISSUER_ID }}
+        api-key-id: ${{ secrets.APPSTORE_API_KEY_ID }}
+        api-private-key: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
