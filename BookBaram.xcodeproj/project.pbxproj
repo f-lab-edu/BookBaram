@@ -12,8 +12,8 @@
 		8E0540E22BFF691700385365 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0540E12BFF691700385365 /* SceneDelegate.swift */; };
 		8E0540E92BFF691900385365 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E0540E82BFF691900385365 /* Assets.xcassets */; };
 		8E0540EC2BFF691900385365 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 8E0540EB2BFF691900385365 /* Base */; };
-		8E19E41B2C8D911F003F9B01 /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = 8E19E41A2C8D911F003F9B01 /* Utils */; };
 		8E19E4202C8D9B43003F9B01 /* BookBaramNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = 8E19E41F2C8D9B43003F9B01 /* BookBaramNetwork */; };
+		8E19E4222C8D9CF1003F9B01 /* BookBaramUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 8E19E4212C8D9CF1003F9B01 /* BookBaramUtils */; };
 		8E42640D2C610307001CE80A /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E42640C2C610307001CE80A /* EditViewModel.swift */; };
 		8E4264122C61126F001CE80A /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E4264112C61126F001CE80A /* Database.swift */; };
 		8E636F962C7CB88500325380 /* ReadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E636F942C7CB88500325380 /* ReadView.swift */; };
@@ -74,7 +74,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E19E4202C8D9B43003F9B01 /* BookBaramNetwork in Frameworks */,
-				8E19E41B2C8D911F003F9B01 /* Utils in Frameworks */,
+				8E19E4222C8D9CF1003F9B01 /* BookBaramUtils in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,7 +116,6 @@
 				8E636F9B2C7CBA2E00325380 /* naver-apikey.json */,
 				8E4264102C61125E001CE80A /* Database */,
 				8E1A50EF2C7374C700EF02A2 /* Config */,
-				8E59F3962C0AE43C006B9074 /* Network */,
 				8E4F6E072C15A955007F46E5 /* .swiftlint.yml */,
 				8E0540DF2BFF691700385365 /* AppDelegate.swift */,
 				8E0540E12BFF691700385365 /* SceneDelegate.swift */,
@@ -161,13 +160,6 @@
 				8E4264112C61126F001CE80A /* Database.swift */,
 			);
 			path = Database;
-			sourceTree = "<group>";
-		};
-		8E59F3962C0AE43C006B9074 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Network;
 			sourceTree = "<group>";
 		};
 		8E636F952C7CB88500325380 /* Read */ = {
@@ -249,8 +241,8 @@
 			);
 			name = BookBaram;
 			packageProductDependencies = (
-				8E19E41A2C8D911F003F9B01 /* Utils */,
 				8E19E41F2C8D9B43003F9B01 /* BookBaramNetwork */,
+				8E19E4212C8D9CF1003F9B01 /* BookBaramUtils */,
 			);
 			productName = BookBaram;
 			productReference = 8E0540DC2BFF691700385365 /* BookBaram-Develop.app */;
@@ -690,13 +682,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8E19E41A2C8D911F003F9B01 /* Utils */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Utils;
-		};
 		8E19E41F2C8D9B43003F9B01 /* BookBaramNetwork */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BookBaramNetwork;
+		};
+		8E19E4212C8D9CF1003F9B01 /* BookBaramUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BookBaramUtils;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

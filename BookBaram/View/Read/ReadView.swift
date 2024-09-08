@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Utils
+import BookBaramUtils
 import BookBaramModel
 
 struct ReadView: View {
