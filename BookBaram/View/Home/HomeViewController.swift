@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SwiftUI
+import BookBaramModel
 
 protocol ReloadDelegate: AnyObject {
     func reloadTable()

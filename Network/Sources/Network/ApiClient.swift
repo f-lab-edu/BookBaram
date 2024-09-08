@@ -6,21 +6,22 @@
 //
 
 import Foundation
+import BookBaramModel
 
-enum HttpMethod: String {
+public enum HttpMethod: String {
     case get, post
 }
 
-struct ApiClient {
+public struct ApiClient {
     public static let shared = ApiClient()
     private let session = URLSession.shared
 
-    var naverApiHeader: [String: String] = [
+    public var naverApiHeader: [String: String] = [
         "X-Naver-Client-Id": Bundle.main.naverClientId,
         "X-Naver-Client-Secret": Bundle.main.naverSecretKey
     ]
 
-    func request(_ urlString: String,
+    public func request(_ urlString: String,
                  method: HttpMethod,
                  parameters: [String: Any]? = nil,
                  headers: [String: String]? = nil) async throws -> Data? {

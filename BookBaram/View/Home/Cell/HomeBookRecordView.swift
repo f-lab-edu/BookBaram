@@ -7,6 +7,7 @@
 
 import UIKit
 import Utils
+import BookBaramModel
 
 final class HomeBookRecordView: UIView {
     enum HomBookRecordConstants {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import BookBaramModel
 
 class EditViewController: UIViewController {
     let editView = EditView()

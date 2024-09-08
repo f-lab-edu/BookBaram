@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Utils
+import BookBaramModel
 
 struct ReadView: View {
     @State var userBookReview: UserBookReview

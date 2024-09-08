@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import BookBaramNetwork
+import BookBaramModel
 
 class BookSearchViewModel {
     static let shared = BookSearchViewModel()

@@ -9,14 +9,14 @@ import Foundation
 import SwiftData
 
 @Model
-final class ReviewContent {
-    @Attribute(.unique) var id: UUID
-    var imgUrl: URL
-    var title: String
-    var contents: String
-    var date: Date
+final public class ReviewContent {
+    @Attribute(.unique) public var id: UUID
+    public var imgUrl: URL
+    public var title: String
+    public var contents: String
+    public var date: Date
 
-    init(imgUrl: URL, title: String, contents: String) {
+    public init(imgUrl: URL, title: String, contents: String) {
         self.id = UUID()
         self.imgUrl = imgUrl
         self.date = Date.now

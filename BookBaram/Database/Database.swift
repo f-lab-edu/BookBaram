@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import BookBaramModel
 
 final class Database {
     static let shared = Database()

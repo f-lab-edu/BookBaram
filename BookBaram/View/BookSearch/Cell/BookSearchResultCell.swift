@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import BookBaramModel
 
 class BookSearchResultCell: UITableViewCell {
     private let bookSearchResultView = BookSearchResultView()

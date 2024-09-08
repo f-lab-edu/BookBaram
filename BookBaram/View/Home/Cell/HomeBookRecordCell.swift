@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import BookBaramModel
 
 final class HomeBookRecordCell: UITableViewCell {
     private let homeBookRecordView = HomeBookRecordView()

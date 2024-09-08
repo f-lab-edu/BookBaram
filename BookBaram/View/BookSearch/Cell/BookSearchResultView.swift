@@ -7,6 +7,7 @@
 
 import UIKit
 import Utils
+import BookBaramModel
 
 final class BookSearchResultView: UIView {
     enum BookSearchResultConstants {
