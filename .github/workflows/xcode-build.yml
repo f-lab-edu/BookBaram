@@ -1,0 +1,25 @@
+name: Build Test
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Clone key Module
+        uses: actions/checkout@v4
+        with:
+          repository: songmilee/BookBaram-key
+          path: BookBaram-key
+          token: ${{ secrets.PAT }}
+      - name: Copy Api Key
+        run: |
+          cp BookBaram-key/naver-apikey.json BookBaram/naver-apikey.json
+      - name: Build Xcode
+        run: |
+          xcodebuild clean build -project BookBaram.xcodeproj \
+          -scheme BookBaram \
+          -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=latest'

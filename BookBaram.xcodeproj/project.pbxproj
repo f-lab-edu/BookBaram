@@ -25,6 +25,7 @@
 		8E636F932C7CB4D900325380 /* String+BookBaram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E636F8E2C7CB4D900325380 /* String+BookBaram.swift */; };
 		8E636F962C7CB88500325380 /* ReadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E636F942C7CB88500325380 /* ReadView.swift */; };
 		8E636F982C7CB89E00325380 /* UserBookReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E636F972C7CB89E00325380 /* UserBookReview.swift */; };
+		8E636F9C2C7CBA2E00325380 /* naver-apikey.json in Resources */ = {isa = PBXBuildFile; fileRef = 8E636F9B2C7CBA2E00325380 /* naver-apikey.json */; };
 		8E6EF67F2C17239C00079043 /* HomeBookRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6EF67D2C17239C00079043 /* HomeBookRecordCell.swift */; };
 		8E6EF6802C17239C00079043 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6EF67E2C17239C00079043 /* HomeViewController.swift */; };
 		8E6EF6832C1723A600079043 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6EF6812C1723A600079043 /* EditViewController.swift */; };
@@ -68,6 +69,7 @@
 		8E636F8E2C7CB4D900325380 /* String+BookBaram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+BookBaram.swift"; sourceTree = "<group>"; };
 		8E636F942C7CB88500325380 /* ReadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadView.swift; sourceTree = "<group>"; };
 		8E636F972C7CB89E00325380 /* UserBookReview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBookReview.swift; sourceTree = "<group>"; };
+		8E636F9B2C7CBA2E00325380 /* naver-apikey.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "naver-apikey.json"; sourceTree = "<group>"; };
 		8E6EF67D2C17239C00079043 /* HomeBookRecordCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBookRecordCell.swift; sourceTree = "<group>"; };
 		8E6EF67E2C17239C00079043 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		8E6EF6812C1723A600079043 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 		8E0540DE2BFF691700385365 /* BookBaram */ = {
 			isa = PBXGroup;
 			children = (
+				8E636F9B2C7CBA2E00325380 /* naver-apikey.json */,
 				8ED796EC2C7CA9B3001C953C /* Common */,
 				8ED552CA2C63A6E900D88C5A /* Utils */,
 				8E4264102C61125E001CE80A /* Database */,
@@ -338,6 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E0540E92BFF691900385365 /* Assets.xcassets in Resources */,
+				8E636F9C2C7CBA2E00325380 /* naver-apikey.json in Resources */,
 				8E0540EC2BFF691900385365 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
