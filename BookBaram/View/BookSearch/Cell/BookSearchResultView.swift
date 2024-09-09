@@ -38,7 +38,7 @@ final class BookSearchResultView: UIView {
         titleLayout()
         authorLayout()
     }
-    
+
     func setItem(item: Item) {
         self.title.text = item.title
         self.author.text = item.author

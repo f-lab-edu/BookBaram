@@ -21,10 +21,11 @@ public struct ApiClient {
         "X-Naver-Client-Secret": Bundle.main.naverSecretKey
     ]
 
-    public func request(_ urlString: String,
-                 method: HttpMethod,
-                 parameters: [String: Any]? = nil,
-                 headers: [String: String]? = nil) async throws -> Data? {
+    public func request(
+        _ urlString: String,
+        method: HttpMethod,
+        parameters: [String: Any]? = nil,
+        headers: [String: String]? = nil) async throws -> Data? {
 
         var urlRequest: URLRequest
         if method == .get {

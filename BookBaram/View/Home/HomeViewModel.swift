@@ -9,7 +9,7 @@ import Foundation
 import BookBaramModel
 import BookBaramAction
 
-class HomeViewModel {
+final class HomeViewModel {
     private var db: DBProtocol
     private(set) var reviewContetList: [ReviewContent] = []
     private var delegate: ReloadDelegate?

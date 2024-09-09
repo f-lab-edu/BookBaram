@@ -11,7 +11,7 @@ import BookBaramModel
 import BookBaramAction
 
 @MainActor
-class EditViewModel {
+final class EditViewModel {
     var selectedBookItem: Item?
     var db: DBProtocol
 
