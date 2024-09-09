@@ -7,10 +7,11 @@
 
 import UIKit
 import BookBaramModel
+import BookBaramAction
 
 class EditViewController: UIViewController {
     let editView = EditView()
-    let editViewModel = EditViewModel()
+    let editViewModel = EditViewModel(db: DBAction.shared)
 
     private lazy var saveBtn: UIBarButtonItem = UIBarButtonItem(title: "Save",
                                                            style: .plain,

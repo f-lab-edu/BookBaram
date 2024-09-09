@@ -8,12 +8,16 @@
 import Foundation
 import SwiftData
 import BookBaramModel
-import BookBaramDB
+import BookBaramAction
 
 @MainActor
 class EditViewModel {
-    private let database = Database.shared
     var selectedBookItem: Item?
+    var db: DBProtocol
+
+    init(db: DBProtocol) {
+        self.db = db
+    }
 
     func updateSelectedBookItem(item: Item?) {
         selectedBookItem = item
@@ -30,10 +34,13 @@ class EditViewModel {
     }
 
     private func saveReviewContents(reviewContents: ReviewContent) {
-        do {
-            try database.saveReviewContents(reviewContents: reviewContents)
-        } catch {
-            // TODO: UI Alert
+        let result = db.save(content: reviewContents)
+        switch result {
+        case .failure(let errorInfo):
+            print("save errorInfo: \(errorInfo)")
+            // TODO: UIAlert
+        default:
+            break
         }
     }
 }

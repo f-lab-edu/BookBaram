@@ -23,9 +23,9 @@ final public class Database {
         }
     }()
 
-    public func saveReviewContents(reviewContents: ReviewContent) throws {
+    public func saveContent<T>(content: T) throws where T: PersistentModel {
         let context = ModelContext(container)
-        context.insert(reviewContents)
+        context.insert(content)
 
         do {
             try context.save()
@@ -34,10 +34,10 @@ final public class Database {
         }
     }
 
-    public func loadReviewContents() -> [ReviewContent] {
+    public func loadContent<T>() -> [T] where T: PersistentModel {
         do {
             let context = ModelContext(container)
-            let resultData = try context.fetch(FetchDescriptor<ReviewContent>())
+            let resultData = try context.fetch(FetchDescriptor<T>())
             return resultData
         } catch {
             return []

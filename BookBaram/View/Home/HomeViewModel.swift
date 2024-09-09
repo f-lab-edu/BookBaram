@@ -7,16 +7,21 @@
 
 import Foundation
 import BookBaramModel
-import BookBaramDB
+import BookBaramAction
 
 class HomeViewModel {
-    private let database = Database.shared
+    private var db: DBProtocol
     private(set) var reviewContetList: [ReviewContent] = []
     private var delegate: ReloadDelegate?
 
+    init(db: DBProtocol, delegate: ReloadDelegate? = nil) {
+        self.db = db
+        self.delegate = delegate
+    }
+
     func loadReviewContents() {
         Task { @MainActor in
-            updateReviewContents(contents: database.loadReviewContents())
+            updateReviewContents(contents: db.load())
         }
     }
 
