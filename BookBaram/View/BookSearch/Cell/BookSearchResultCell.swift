@@ -7,6 +7,7 @@
 
 import UIKit
 import BookBaramModel
+import BookBaramAction
 
 class BookSearchResultCell: UITableViewCell {
     private let bookSearchResultView = BookSearchResultView()
@@ -15,6 +16,7 @@ class BookSearchResultCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         setLayout()
+        bookSearchResultView.setImageLoader(ImageAdapter.shared)
     }
 
     required init?(coder: NSCoder) {
