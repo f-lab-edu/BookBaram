@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 import BookBaramModel
+import BookBaramDB
 
 @MainActor
 class EditViewModel {

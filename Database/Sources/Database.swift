@@ -9,8 +9,8 @@ import Foundation
 import SwiftData
 import BookBaramModel
 
-final class Database {
-    static let shared = Database()
+final public class Database {
+    public static let shared = Database()
 
     private var container: ModelContainer = {
         let schema = Schema([ReviewContent.self])
@@ -23,7 +23,7 @@ final class Database {
         }
     }()
 
-    func saveReviewContents(reviewContents: ReviewContent) throws {
+    public func saveReviewContents(reviewContents: ReviewContent) throws {
         let context = ModelContext(container)
         context.insert(reviewContents)
 
@@ -34,7 +34,7 @@ final class Database {
         }
     }
 
-    func loadReviewContents() -> [ReviewContent] {
+    public func loadReviewContents() -> [ReviewContent] {
         do {
             let context = ModelContext(container)
             let resultData = try context.fetch(FetchDescriptor<ReviewContent>())

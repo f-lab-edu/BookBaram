@@ -7,6 +7,7 @@
 
 import Foundation
 import BookBaramModel
+import BookBaramDB
 
 class HomeViewModel {
     private let database = Database.shared
