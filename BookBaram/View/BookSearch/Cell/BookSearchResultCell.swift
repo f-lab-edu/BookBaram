@@ -16,7 +16,6 @@ class BookSearchResultCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         setLayout()
-        bookSearchResultView.setImageLoader(ImageAdapter.shared)
     }
 
     required init?(coder: NSCoder) {

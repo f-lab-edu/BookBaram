@@ -9,11 +9,7 @@ import Foundation
 import UIKit
 import BookBaramUtils
 
-public protocol ImageProtocol {
-    func loadImage(url: URL) async -> UIImage?
-}
-
-public struct ImageAdapter: ImageProtocol {
+public struct ImageAdapter {
     public static let shared = ImageAdapter()
     private let imageLoader = ImageCache.shared
 

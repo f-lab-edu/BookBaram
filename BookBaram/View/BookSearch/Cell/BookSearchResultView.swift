@@ -29,8 +29,6 @@ final class BookSearchResultView: UIView {
 
     private let author: UILabel = UILabel()
 
-    private var imageLoader: ImageProtocol?
-
     func layout() {
         addSubview(thumbnail)
         addSubview(title)
@@ -40,17 +38,13 @@ final class BookSearchResultView: UIView {
         titleLayout()
         authorLayout()
     }
-
-    func setImageLoader(_ imageLoader: ImageProtocol) {
-        self.imageLoader = imageLoader
-    }
-
+    
     func setItem(item: Item) {
         self.title.text = item.title
         self.author.text = item.author
 
         Task {
-            self.thumbnail.image = await imageLoader?.loadImage(url: item.image)
+            self.thumbnail.image = await ImageAdapter.shared.loadImage(url: item.image)
         }
     }
 
