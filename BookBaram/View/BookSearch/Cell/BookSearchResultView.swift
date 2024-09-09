@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import BookBaramModel
+import BookBaramAction
 
 final class BookSearchResultView: UIView {
     enum BookSearchResultConstants {
@@ -42,7 +44,7 @@ final class BookSearchResultView: UIView {
         self.author.text = item.author
 
         Task {
-            self.thumbnail.image = await ImageCache.shared.loadImage(imageUrl: item.image)
+            self.thumbnail.image = await ImageAdapter.shared.loadImage(url: item.image)
         }
     }
 

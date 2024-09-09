@@ -8,7 +8,7 @@
 import Foundation
 
 extension String {
-    func toDate() -> Date? {
+    public func toDate() -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss Z"
 

@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 import SwiftUI
+import BookBaramModel
+import BookBaramAction
 
 protocol ReloadDelegate: AnyObject {
     func reloadTable()
@@ -15,7 +17,7 @@ protocol ReloadDelegate: AnyObject {
 
 final class HomeViewController: UIViewController {
     private let homeView = HomeView()
-    private let homeViewModel = HomeViewModel()
+    private let homeViewModel = HomeViewModel(repository: BaramRepository())
 
     override func loadView() {
         self.view = homeView

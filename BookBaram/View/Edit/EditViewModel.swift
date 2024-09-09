@@ -7,11 +7,17 @@
 
 import Foundation
 import SwiftData
+import BookBaramModel
+import BookBaramAction
 
 @MainActor
-class EditViewModel {
-    private let database = Database.shared
+final class EditViewModel {
     var selectedBookItem: Item?
+    var repository: Repository
+
+    init(repository: Repository) {
+        self.repository = repository
+    }
 
     func updateSelectedBookItem(item: Item?) {
         selectedBookItem = item
@@ -28,10 +34,13 @@ class EditViewModel {
     }
 
     private func saveReviewContents(reviewContents: ReviewContent) {
-        do {
-            try database.saveReviewContents(reviewContents: reviewContents)
-        } catch {
-            // TODO: UI Alert
+        let result = repository.save(content: reviewContents)
+        switch result {
+        case .failure(let errorInfo):
+            print("save errorInfo: \(errorInfo)")
+            // TODO: UIAlert
+        default:
+            break
         }
     }
 }

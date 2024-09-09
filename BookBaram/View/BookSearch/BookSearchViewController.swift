@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import BookBaramModel
 
 protocol BookSearchResultsUpdateDelegate: AnyObject {
     func reloadTable()

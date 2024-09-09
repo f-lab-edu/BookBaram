@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-final class ImageCache {
+final public class ImageCache {
     public static let shared = ImageCache()
 
     private let memoryCache = NSCache<NSString, ImageInfo>()
@@ -19,7 +19,7 @@ final class ImageCache {
         memoryCache.countLimit = countLimit
     }
 
-    func loadImage(imageUrl url: URL) async -> UIImage? {
+    public func loadImage(imageUrl url: URL) async -> UIImage? {
         print(url.absoluteString)
         guard let splitUrl = url.absoluteString.split(separator: "/").last else { return nil }
         let key = String(splitUrl)
