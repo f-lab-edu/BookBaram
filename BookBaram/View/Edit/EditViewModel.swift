@@ -13,10 +13,10 @@ import BookBaramAction
 @MainActor
 final class EditViewModel {
     var selectedBookItem: Item?
-    var db: DBProtocol
+    var repository: Repository
 
-    init(db: DBProtocol) {
-        self.db = db
+    init(repository: Repository) {
+        self.repository = repository
     }
 
     func updateSelectedBookItem(item: Item?) {
@@ -34,7 +34,7 @@ final class EditViewModel {
     }
 
     private func saveReviewContents(reviewContents: ReviewContent) {
-        let result = db.save(content: reviewContents)
+        let result = repository.save(content: reviewContents)
         switch result {
         case .failure(let errorInfo):
             print("save errorInfo: \(errorInfo)")

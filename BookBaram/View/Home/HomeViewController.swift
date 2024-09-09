@@ -17,7 +17,7 @@ protocol ReloadDelegate: AnyObject {
 
 final class HomeViewController: UIViewController {
     private let homeView = HomeView()
-    private let homeViewModel = HomeViewModel(db: DBAction.shared)
+    private let homeViewModel = HomeViewModel(repository: BaramRepository())
 
     override func loadView() {
         self.view = homeView

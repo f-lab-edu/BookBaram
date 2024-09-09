@@ -1,5 +1,5 @@
 //
-//  DBAction.swift
+//  Repository.swift
 //
 //
 //  Created by 이송미 on 9/9/24.
@@ -10,13 +10,13 @@ import SwiftData
 import BookBaramModel
 import BookBaramDB
 
-public protocol DBProtocol {
+public protocol Repository {
     func save<T>(content: T) -> Result<Void, BaramErrorInfo> where T: PersistentModel
     func load<T>() -> [T] where T: PersistentModel
 }
 
-public struct DBAction: DBProtocol {
-    public static let shared = DBAction()
+public struct BaramRepository: Repository {
+    public init() {}
 
     public func save<T>(content: T) -> Result<Void, BaramErrorInfo> where T: PersistentModel {
         do {

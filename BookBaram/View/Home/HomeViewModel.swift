@@ -10,18 +10,18 @@ import BookBaramModel
 import BookBaramAction
 
 final class HomeViewModel {
-    private var db: DBProtocol
+    private var repository: Repository
     private(set) var reviewContetList: [ReviewContent] = []
     private var delegate: ReloadDelegate?
 
-    init(db: DBProtocol, delegate: ReloadDelegate? = nil) {
-        self.db = db
+    init(repository: Repository, delegate: ReloadDelegate? = nil) {
+        self.repository = repository
         self.delegate = delegate
     }
 
     func loadReviewContents() {
         Task { @MainActor in
-            updateReviewContents(contents: db.load())
+            updateReviewContents(contents: repository.load())
         }
     }
 
