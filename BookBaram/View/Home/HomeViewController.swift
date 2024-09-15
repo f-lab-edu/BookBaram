@@ -32,7 +32,9 @@ final class HomeViewController: UIViewController {
         homeView.addButtonAction(action: UIAction(handler: { [weak self] _ in
             self?.moveToSearchViewController()
         }))
+
         homeViewModel.updateReloadDelegate(self)
+        homeViewModel.loadReviewContents()
     }
 
     override func updateViewConstraints() {
@@ -54,9 +56,6 @@ final class HomeViewController: UIViewController {
         self.navigationController?.pushViewController(uiHostingController, animated: true)
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        homeViewModel.loadReviewContents()
-    }
 }
 
 // MARK: - UICalendarViewDelegate
