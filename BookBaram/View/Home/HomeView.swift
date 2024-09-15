@@ -14,6 +14,7 @@ final class HomeView: UIView {
         let gregorianCalendar = Calendar(identifier: .gregorian)
         calendarView.calendar = gregorianCalendar
         calendarView.locale = Locale(identifier: "ko_KR")
+        calendarView.availableDateRange = .init(start: .distantPast, end: .now)
 
         calendarView.wantsDateDecorations = true
 
