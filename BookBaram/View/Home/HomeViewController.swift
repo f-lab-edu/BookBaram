@@ -53,6 +53,7 @@ final class HomeViewController: UIViewController {
 
     private func moveToReadView(userBookReview: UserBookReview) {
         let uiHostingController = UIHostingController(rootView: ReadView(userBookReview: userBookReview))
+        uiHostingController.view.frame = homeView.frame
         self.navigationController?.pushViewController(uiHostingController, animated: true)
     }
 

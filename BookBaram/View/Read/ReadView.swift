@@ -11,19 +11,24 @@ struct ReadView: View {
     @State var userBookReview: UserBookReview
 
     enum Constants {
-        static let imageHeightPortion = 0.4
+        static let size: CGFloat = 200.0
         static let paddingValue = 15.0
+    }
 
-        static let size = UIScreen.main.bounds
+    private var bookImage: some View {
+        AsyncImage(url: userBookReview.imgUrl) { result in
+            result.image?
+                .resizable()
+                .scaledToFit()
+        }
+        .frame(width: Constants.size, height: Constants.size)
     }
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                AsyncImage(url: userBookReview.imgUrl)
-                    .frame(maxWidth: Constants.size.width,
-                           minHeight: Constants.size.height * Constants.imageHeightPortion,
-                           alignment: .center)
+                bookImage
+                    .frame(maxWidth: .infinity, alignment: .center)
 
                 HStack {
                     Text(userBookReview.title)
@@ -38,7 +43,6 @@ struct ReadView: View {
             }
             .padding(Constants.paddingValue)
         }
-        .frame(width: Constants.size.width, height: Constants.size.height)
     }
 }
 
@@ -53,9 +57,15 @@ extension Text {
 
 #if DEBUG
 #Preview {
-    ReadView(userBookReview: UserBookReview(imgUrl: URL(string: "https://img.freepik.com/premium-vector/job-and-exam-test-vector-illustration_138676-243.jpg")!,
-                                            title: "Test",
-                                            date: Date.now,
-                                            contents: "Test"))
+    ReadView(
+        userBookReview: UserBookReview(
+            imgUrl: URL(
+                string: "https://img.freepik.com/premium-vector/job-and-exam-test-vector-illustration_138676-243.jpg"
+            )!,
+            title: "Test",
+            date: Date.now,
+            contents: "Test"
+        )
+    )
 }
 #endif
