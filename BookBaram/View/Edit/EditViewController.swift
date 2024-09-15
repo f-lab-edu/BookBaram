@@ -21,6 +21,10 @@ class EditViewController: UIViewController {
         view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = saveBtn
     }
+    
+    override func viewDidLoad() {
+        editViewModel.setErrorDelegate(self)
+    }
 
     override func updateViewConstraints() {
         super.updateViewConstraints()
@@ -45,5 +49,11 @@ class EditViewController: UIViewController {
 
     private func moveToHome() {
         navigationController?.popToRootViewController(animated: true)
+    }
+}
+
+extension EditViewController: ErrorDelegate {
+    func handleError(error: (any Error)?) {
+        presentError(error: error)
     }
 }

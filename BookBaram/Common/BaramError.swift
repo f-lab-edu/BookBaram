@@ -19,3 +19,7 @@ enum BaramError {
     case saveError
     case unknown
 }
+
+protocol ErrorDelegate {
+    func handleError(error: Error?)
+}

@@ -7,11 +7,15 @@
 
 import Foundation
 
-class BookSearchViewModel {
+final class BookSearchViewModel {
     static let shared = BookSearchViewModel()
     var searchBookResult: SearchBookResults?
     var bookSearchResultsUpdateDelegate: BookSearchResultsUpdateDelegate?
-    var error: Error?
+    var errorDelegate: ErrorDelegate?
+    
+    func setErrorDelegate(_ errorDelegate: ErrorDelegate) {
+        self.errorDelegate = errorDelegate
+    }
 
     func searchBook(query: String?, start: Int = 1, display: Int = 10) {
         guard let query else { return }
@@ -20,7 +24,7 @@ class BookSearchViewModel {
                 let data = try await requestSearchBook(query, start: start, display: display)
                 try await parseSearchBookResponse(query: query, data: data)
             } catch {
-                self.error = error
+                errorDelegate?.handleError(error: error)
             }
         }
     }

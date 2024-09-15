@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditView: UIView {
+final class EditView: UIView {
     enum EditViewConstants {
         static let marginConstant = 15.0
     }
