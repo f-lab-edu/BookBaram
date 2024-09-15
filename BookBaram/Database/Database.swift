@@ -38,7 +38,10 @@ final class Database {
 
         do {
             let context = ModelContext(container)
-            let resultData = try context.fetch(FetchDescriptor<ReviewContent>(predicate: Database.compareDate(targetDate: date)))
+            let resultData = try context.fetch(
+                FetchDescriptor<ReviewContent>(predicate: Database.compareDate(targetDate: date))
+            )
+
             return resultData
         } catch {
             return []
@@ -51,7 +54,7 @@ final class Database {
         let end = calendar.date(byAdding: .init(day: 1), to: start) ?? start
 
         return #Predicate<ReviewContent> { review in
-            review.date >= start && end <= review.date
+            start <= review.date && review.date <= end
         }
     }
 }
