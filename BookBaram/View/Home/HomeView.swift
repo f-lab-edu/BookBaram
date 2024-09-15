@@ -14,6 +14,7 @@ final class HomeView: UIView {
         let gregorianCalendar = Calendar(identifier: .gregorian)
         calendarView.calendar = gregorianCalendar
         calendarView.locale = Locale(identifier: "ko_KR")
+        calendarView.availableDateRange = .init(start: .distantPast, end: .now)
 
         calendarView.wantsDateDecorations = true
 
@@ -70,9 +71,11 @@ final class HomeView: UIView {
     }
 
     func delegate(calendarViewDelegate: UICalendarViewDelegate,
+                  calendarDateSelection: UICalendarSelection,
                   tableViewDelegate: UITableViewDelegate,
                   tableViewDataSource: UITableViewDataSource) {
         bookCalendarView.delegate = calendarViewDelegate
+        bookCalendarView.selectionBehavior = calendarDateSelection
 
         bookListView.delegate = tableViewDelegate
         bookListView.dataSource = tableViewDataSource

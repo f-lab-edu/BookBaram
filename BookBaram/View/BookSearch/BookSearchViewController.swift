@@ -27,6 +27,7 @@ final class BookSearchViewController: UIViewController {
         bookSearchView.delegate(searchbarDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
         bookSearchViewModel.bookSearchResultsUpdateDelegate = self
         bookSearchViewModel.clearBookResult()
+        bookSearchViewModel.setErrorDelegate(self)
     }
 
     override func updateViewConstraints() {
@@ -100,5 +101,11 @@ extension BookSearchViewController: BookSearchResultsUpdateDelegate {
 
     func updatePagingInfo(currentPage: Int, totalPage: Int) {
         bookSearchView.pageLabelInfo(currentPage: currentPage, totlaPage: totalPage)
+    }
+}
+
+extension BookSearchViewController: ErrorDelegate {
+    func handleError(error: (any Error)?) {
+        presentError(error: error)
     }
 }

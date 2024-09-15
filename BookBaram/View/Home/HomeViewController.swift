@@ -25,13 +25,16 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setLayout()
-
-        homeView.delegate(calendarViewDelegate: self, tableViewDelegate: self, tableViewDataSource: self)
+        homeView.delegate(calendarViewDelegate: self,
+                          calendarDateSelection: UICalendarSelectionSingleDate(delegate: self),
+                          tableViewDelegate: self,
+                          tableViewDataSource: self)
         homeView.addButtonAction(action: UIAction(handler: { [weak self] _ in
             self?.moveToSearchViewController()
         }))
+
         homeViewModel.updateReloadDelegate(self)
+        homeViewModel.loadReviewContents()
     }
 
     override func updateViewConstraints() {
@@ -50,23 +53,30 @@ final class HomeViewController: UIViewController {
 
     private func moveToReadView(userBookReview: UserBookReview) {
         let uiHostingController = UIHostingController(rootView: ReadView(userBookReview: userBookReview))
+        uiHostingController.view.frame = homeView.frame
         self.navigationController?.pushViewController(uiHostingController, animated: true)
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        homeViewModel.loadReviewContents()
-    }
 }
 
 // MARK: - UICalendarViewDelegate
-extension HomeViewController: UICalendarViewDelegate {
+extension HomeViewController: UICalendarViewDelegate, UICalendarSelectionSingleDateDelegate {
+    func dateSelection(_ selection: UICalendarSelectionSingleDate, didSelectDate dateComponents: DateComponents?) {
+        guard var dateComponents else { return }
+        dateComponents.timeZone = TimeZone(identifier: "Asia/Tokyo")
+        guard let date = dateComponents.date else { return }
 
+        homeViewModel.loadReviewContents(date: date)
+    }
 }
 
 // MARK: - UITableViewDelegate
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: self.moveToReadView(...)
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        let userBookReview = homeViewModel.reviewContetList[indexPath.row].toUserBookReview()
+        moveToReadView(userBookReview: userBookReview)
     }
 }
 

@@ -45,3 +45,9 @@ final class ReviewContent {
         contents = msg
     }
 }
+
+extension ReviewContent {
+    func toUserBookReview() -> UserBookReview {
+        UserBookReview(imgUrl: self.imgUrl, title: self.title, date: self.date, contents: self.contents)
+    }
+}

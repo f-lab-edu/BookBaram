@@ -12,5 +12,5 @@ struct UserBookReview: Identifiable {
     var imgUrl: URL?
     var title: String
     var date: Date
-    var content: String
+    var contents: String
 }

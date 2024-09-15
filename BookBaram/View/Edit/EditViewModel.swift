@@ -11,10 +11,16 @@ import SwiftData
 @MainActor
 class EditViewModel {
     private let database = Database.shared
+    
     var selectedBookItem: Item?
+    var errorDelegate: ErrorDelegate?
 
     func updateSelectedBookItem(item: Item?) {
         selectedBookItem = item
+    }
+    
+    func setErrorDelegate(_ delegate: ErrorDelegate) {
+        errorDelegate = delegate
     }
 
     func saveReview(title: String?, contents: String) {
@@ -31,7 +37,7 @@ class EditViewModel {
         do {
             try database.saveReviewContents(reviewContents: reviewContents)
         } catch {
-            // TODO: UI Alert
+            errorDelegate?.handleError(error: error)
         }
     }
 }
