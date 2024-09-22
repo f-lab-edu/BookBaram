@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ImageInfo: Codable {
+final class ImageInfo: Codable, Sendable {
     let url: URL
     let data: Data
     let expireTime: Date?

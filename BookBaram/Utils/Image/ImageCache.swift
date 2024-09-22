@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-final class ImageCache {
+actor ImageCache {
     public static let shared = ImageCache()
 
     private let memoryCache = NSCache<NSString, ImageInfo>()
