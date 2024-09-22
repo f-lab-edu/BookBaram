@@ -90,7 +90,9 @@ extension HomeViewController: UITableViewDataSource {
 }
 
 extension HomeViewController: ReloadDelegate {
-    func reloadTable() {
-        homeView.reloadData()
+    nonisolated func reloadTable() {
+        MainActor.assumeIsolated {
+            homeView.reloadData()
+        }
     }
 }

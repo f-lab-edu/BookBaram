@@ -7,15 +7,14 @@
 
 import Foundation
 
-class HomeViewModel {
+final class HomeViewModel {
     private let database = Database.shared
     private(set) var reviewContetList: [ReviewContent] = []
     private var delegate: ReloadDelegate?
 
+    @MainActor
     func loadReviewContents() {
-        Task { @MainActor in
-            updateReviewContents(contents: database.loadReviewContents())
-        }
+        updateReviewContents(contents: database.loadReviewContents())
     }
 
     func updateReloadDelegate(_ delegate: ReloadDelegate) {

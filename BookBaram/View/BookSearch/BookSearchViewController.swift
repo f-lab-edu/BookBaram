@@ -14,7 +14,7 @@ protocol BookSearchResultsUpdateDelegate: AnyObject {
 
 final class BookSearchViewController: UIViewController {
     private let bookSearchView = BookSearchView()
-    private let bookSearchViewModel = BookSearchViewModel.shared
+    private let bookSearchViewModel = BookSearchViewModel()
 
     override func loadView() {
         self.view = bookSearchView
@@ -94,11 +94,15 @@ extension BookSearchViewController: UISearchBarDelegate {
 
 // MARK: - ReloadDelegate {
 extension BookSearchViewController: BookSearchResultsUpdateDelegate {
-    func reloadTable() {
-        bookSearchView.reloadData()
+    nonisolated func reloadTable() {
+        MainActor.assumeIsolated {
+            bookSearchView.reloadData()
+        }
     }
 
-    func updatePagingInfo(currentPage: Int, totalPage: Int) {
-        bookSearchView.pageLabelInfo(currentPage: currentPage, totlaPage: totalPage)
+    nonisolated func updatePagingInfo(currentPage: Int, totalPage: Int) {
+        MainActor.assumeIsolated {
+            bookSearchView.pageLabelInfo(currentPage: currentPage, totlaPage: totalPage)
+        }
     }
 }
