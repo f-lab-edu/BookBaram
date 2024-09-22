@@ -7,14 +7,15 @@
 
 import Foundation
 
-class BookSearchViewModel {
-    static let shared = BookSearchViewModel()
+@MainActor
+final class BookSearchViewModel {
     var searchBookResult: SearchBookResults?
     var bookSearchResultsUpdateDelegate: BookSearchResultsUpdateDelegate?
     var error: Error?
 
     func searchBook(query: String?, start: Int = 1, display: Int = 10) {
         guard let query else { return }
+
         Task {
             do {
                 let data = try await requestSearchBook(query, start: start, display: display)
@@ -52,6 +53,7 @@ class BookSearchViewModel {
                                                   headers: ApiClient.shared.naverApiHeader)
     }
 
+    @MainActor
     private func parseSearchBookResponse(query: String, data: Data?) async throws {
         guard let data = data else {
             throw BaramErrorInfo(error: .invalidDataType)
@@ -60,7 +62,6 @@ class BookSearchViewModel {
         await updateBookResult(query: query, response: bookResponse)
     }
 
-    @MainActor
     private func updateBookResult(query: String, response: SearchBookResponse) {
         searchBookResult = SearchBookResults(queryKeyword: query, searchBookResponse: response)
         bookSearchResultsUpdateDelegate?.reloadTable()
