@@ -8,7 +8,7 @@
 import Foundation
 
 enum BaramUrl {
-    static var naverApi: String = {
+    static let naverApi: String = {
         guard let apiUrl = Bundle.main.object(forInfoDictionaryKey: "NaverApiUrl") as? String else {
             fatalError("Base Url is wrong")
         }

@@ -8,10 +8,10 @@
 import Foundation
 import SwiftData
 
-final class Database {
+final class Database: Sendable {
     static let shared = Database()
 
-    private var container: ModelContainer = {
+    private let container: ModelContainer = {
         let schema = Schema([ReviewContent.self])
         let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
