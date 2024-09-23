@@ -18,6 +18,9 @@ jobs:
       - name: Copy Api Key
         run: |
           cp BookBaram-key/naver-apikey.json BookBaram/naver-apikey.json
+      - name: Select Xcode
+        run: |
+          sudo xcode-select -s '/Applications/Xcode_16.app/Contents/Developer'
       - name: Build Xcode
         run: |
           xcodebuild clean build -project BookBaram.xcodeproj \
